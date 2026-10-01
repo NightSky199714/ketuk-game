@@ -22,6 +22,7 @@ var location_buttons: Dictionary = {}
 
 func _ready() -> void:
 	AuctionState.start_chapter3()
+	AuctionState.network_known_contacts["pak_wira"] = true
 	owns_box = _owns_lot02()
 	_load_data()
 	_build_ui()
