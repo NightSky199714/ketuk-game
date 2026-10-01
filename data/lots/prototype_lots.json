@@ -1,0 +1,23 @@
+[
+  {
+    "id": "lot01",
+    "title": "Lot 01 — Rice Cooker Bekas",
+    "description": "Terpakai, masih panas, tutup agak miring.",
+    "opening_bid": 40000,
+    "mc_bid_steps": [50000, 90000, 110000, 125000, 140000, 160000]
+  },
+  {
+    "id": "lot02",
+    "title": "Lot 02 — Kotak Campuran",
+    "description": "Isi belum diperiksa sepenuhnya. Ada logam dan kabel terlihat dari sisi kotak.",
+    "opening_bid": 50000,
+    "mc_bid_steps": [60000, 85000, 95000, 110000]
+  },
+  {
+    "id": "lot03",
+    "title": "Lot 03 — Kamera Analog",
+    "description": "Body lecet, shutter tidak normal, lensa dan tas ikut.",
+    "opening_bid": 80000,
+    "mc_bid_steps": [150000, 200000, 260000, 300000]
+  }
+]
