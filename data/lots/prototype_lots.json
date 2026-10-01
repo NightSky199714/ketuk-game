@@ -9,17 +9,17 @@
       {
         "id": "luar",
         "label": "LUAR",
-        "text": "Bodi banyak goresan, tapi tidak terlihat retak. Model rumah tangga biasa."
+        "text": "Bodi penuh goresan ringan. Panci bagian dalam justru terlihat lebih bersih daripada casing luar. Bisa karena sering dibersihkan, bisa juga pernah diganti."
       },
       {
-        "id": "tutup",
-        "label": "TUTUP",
-        "text": "Engsel sedikit longgar. Karet penutup masih ada, tetapi mulai aus."
+        "id": "bawah",
+        "label": "BAWAH",
+        "text": "Label model masih terbaca. Salah satu kaki karetnya berbeda warna. Ada bekas stiker servis lama, tapi tanggalnya sudah pudar."
       },
       {
-        "id": "panel",
-        "label": "PANEL",
-        "text": "Tombol tidak macet. Label daya masih terbaca. Tidak ada tanda gosong di sekitar panel."
+        "id": "kabel",
+        "label": "KABEL",
+        "text": "Steker terlihat lebih baru daripada kabelnya. Tidak ada tembaga terbuka. Pernah diperbaiki, tapi belum jelas apakah itu masalah atau justru perawatan."
       }
     ]
   },
@@ -33,17 +33,17 @@
       {
         "id": "atas",
         "label": "ATAS",
-        "text": "Terlihat dua tatakan logam, sendok kecil, kabel, dan kotak tembakau retak."
+        "text": "Dua tatakan berwarna kuning, sendok kecil, kabel, dan kotak tembakau retak terlihat dari atas. Warna logamnya mirip, tapi tingkat kusamnya berbeda."
       },
       {
-        "id": "samping",
-        "label": "SAMPING",
-        "text": "Di sela barang terlihat korek meja lama dan sebuah adaptor. Bagian bawah masih tertutup."
+        "id": "tepi",
+        "label": "TEPI",
+        "text": "Di salah satu tatakan ada bagian tepi yang warnanya sedikit lebih pucat. Bisa karena kotoran terkelupas, aus, atau bahan di bawah permukaannya berbeda."
       },
       {
         "id": "angkat",
         "label": "ANGKAT",
-        "text": "Bobotnya sedang. Ada benda kecil bergeser di dasar, tapi kotak tidak boleh dibongkar sebelum menang."
+        "text": "Kotaknya terasa lebih berat daripada isi yang terlihat. Saat digeser, ada benda kecil bergerak di dasar. Kotak tidak boleh dibongkar sebelum lot dimenangkan."
       }
     ]
   },
@@ -57,17 +57,17 @@
       {
         "id": "body",
         "label": "BODY",
-        "text": "Goresan banyak. Nomor di body memakai format yang berbeda dari nomor di lensa."
+        "text": "Model body terlihat umum. Shutter terasa tidak konsisten. Dua sekrup di sekitar mount punya bekas alat, jadi kamera ini pernah dibuka atau diservis."
       },
       {
         "id": "lens",
         "label": "LENSA",
-        "text": "Nomornya formatnya beda dari body. Ada ukiran kecil yang hanya muncul di lensa."
+        "text": "Mount-nya cocok, tapi sistem nomor di lensa tidak sama dengan body — hal yang bisa saja normal karena keduanya komponen terpisah. Ada ukiran kecil di cincin aperture yang tidak disebut penjual."
       },
       {
         "id": "bag",
         "label": "TAS",
-        "text": "Kulit tas tampak lebih tua dari kameranya. Ada inisial kecil di bagian dalam flap."
+        "text": "Tas kulit tampak lebih tua daripada body. Ada inisial kecil di flap dan tali yang lebih baru. Bisa jadi satu set lama, bisa juga aksesori campuran."
       }
     ]
   }
