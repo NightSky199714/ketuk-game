@@ -35,7 +35,7 @@
     "pak_wira": {
       "name": "Pak Wira",
       "book_note": "Pak Wira — tahu jaringan Pasar Tua; jangan paksa dia jadi ahli barang.",
-      "first_meet": "Seorang pria tua melipat koran di samping tumpukan barang campur. Saat namanya disebut, ia mengangkat tangan. \"Saya Wira.\"",
+      "first_meet": "Seorang pria tua melipat koran di samping tumpukan barang campur. Ia mengangkat kepala ketika kamu mendekat. \"Wira.\"",
       "without_box": "Kamu menjelaskan bahwa beberapa keputusan lelang kemarin masih terasa seperti tebakan. Pak Wira mengangguk. \"Kalau belum punya barangnya, bangun dulu orang yang kamu kenal. Damar biasanya ngopi di ujung pasar.\"",
       "responses": {
         "coaster": {
@@ -61,12 +61,27 @@
         }
       },
       "next_person": "pak_damar",
-      "next_location": "kedai_pojok"
+      "next_location": "kedai_pojok",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 900,
+            "end": 1110
+          },
+          {
+            "day": "Senin",
+            "start": 540,
+            "end": 960
+          }
+        ],
+        "absent_text": "Kios campur itu buka, tetapi orang tua yang biasanya duduk dekat tumpukan koran tidak terlihat."
+      }
     },
     "pak_damar": {
       "name": "Pak Damar",
       "book_note": "Pak Damar — tahu siapa yang biasa menangani kategori tertentu; bukan penilai universal.",
-      "first_meet": "Pria sekitar enam puluhan menggeser gelas kopinya. \"Damar. Wira nyuruh ke sini?\"",
+      "first_meet": "Pria sekitar enam puluhan menggeser gelas kopinya sedikit agar meja lebih lega. \"Damar.\"",
       "without_box": "Pak Damar mendengarkan ceritamu. \"Pasar begini bukan soal satu orang pintar. Untuk logam, dengar bengkel di timur. Untuk mekanisme kecil, cari meja servis di belakang.\"",
       "responses": {
         "coaster": {
@@ -92,7 +107,22 @@
         }
       },
       "next_person": "bu_sari",
-      "next_location": "gang_timur"
+      "next_location": "gang_timur",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 990,
+            "end": 1155
+          },
+          {
+            "day": "Senin",
+            "start": 600,
+            "end": 840
+          }
+        ],
+        "absent_text": "Kedai tetap ramai. Kursi pojok dekat dinding kosong."
+      }
     },
     "bu_sari": {
       "name": "Bu Sari",
@@ -125,12 +155,27 @@
         }
       },
       "next_person": "yanto",
-      "next_location": "lorong_belakang"
+      "next_location": "lorong_belakang",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 840,
+            "end": 1050
+          },
+          {
+            "day": "Senin",
+            "start": 510,
+            "end": 960
+          }
+        ],
+        "absent_text": "Bengkel-bengkel Gang Timur masih berbunyi, tetapi perempuan yang biasa memilah potongan logam tidak ada di depan."
+      }
     },
     "yanto": {
       "name": "Yanto",
       "book_note": "Yanto — mekanisme kecil; jam keberadaan tidak selalu tetap.",
-      "first_meet": "Di ujung lorong, seorang pria sedang membongkar korek di atas kain tua. \"Kalau cari Yanto, ya saya. Sebentar lagi saya beres-beres.\"",
+      "first_meet": "Di ujung lorong, seorang pria sedang membongkar korek di atas kain tua. Ia tidak langsung melihat ke arahmu.",
       "without_box": "Yanto menunjuk meja kerjanya. \"Kalau soal mekanisme kecil, bawa bendanya. Nama tanpa barang cuma bikin kita sok tahu.\"",
       "responses": {
         "coaster": {
@@ -158,7 +203,22 @@
         }
       },
       "next_person": "",
-      "next_location": ""
+      "next_location": "",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 1020,
+            "end": 1170
+          },
+          {
+            "day": "Senin",
+            "start": 660,
+            "end": 1080
+          }
+        ],
+        "absent_text": "Meja servis di ujung lorong kosong. Ada kain kerja dan beberapa komponen kecil, tetapi pemiliknya tidak terlihat."
+      }
     }
   },
   "poster": {
