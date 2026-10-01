@@ -178,8 +178,8 @@ func _build_ui() -> void:
 
 func _show_opening() -> void:
 	title_label.text = "MINGGU SORE"
-	response_label.text = "Tunggakan kios masih berjalan. Barang hasil lelang ada di inventory; selebihnya tergantung apa yang kamu coba."
-	clue_label.text = "Tidak ada tujuan aktif."
+	response_label.text = "Minggu sore. Nota tunggakan masih terselip di meja."
+	clue_label.text = ""
 	_refresh_actions()
 
 func _travel_to(location_id: String) -> void:
@@ -586,7 +586,7 @@ func _refresh_inventory() -> void:
 
 	var selected := AuctionState.selected_inventory_item
 	if selected.is_empty() or not AuctionState.has_inventory_item(selected):
-		inventory_detail.text = "Pilih barang. Barang yang dipilih bisa dicoba di tempat berbeda."
+		inventory_detail.text = "Tidak ada barang yang sedang dipilih."
 		return
 
 	var item := AuctionState.get_inventory_item(selected)
