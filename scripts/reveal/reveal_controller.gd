@@ -11,6 +11,7 @@ var choice_panel: HBoxContainer
 var followup_button: Button
 var leave_button: Button
 var end_panel: VBoxContainer
+var discovery_button: Button
 
 var winner: String = "none"
 
@@ -119,6 +120,13 @@ func _build_ui() -> void:
 	end_copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	end_copy.add_theme_font_size_override("font_size", 18)
 	end_panel.add_child(end_copy)
+
+	discovery_button = Button.new()
+	discovery_button.text = "LANJUT KE TEMUAN"
+	discovery_button.custom_minimum_size = Vector2(270, 68)
+	discovery_button.visible = _owns_lot02()
+	discovery_button.pressed.connect(_go_to_discovery)
+	end_panel.add_child(discovery_button)
 
 	var restart := Button.new()
 	restart.text = "MAIN LAGI"
@@ -247,6 +255,13 @@ func _run_reveal() -> void:
 	main_label.text = ""
 	detail_label.text = ""
 	end_panel.visible = true
+
+func _owns_lot02() -> bool:
+	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
+	return str(result.get("winner", "")) == "mc"
+
+func _go_to_discovery() -> void:
+	get_tree().change_scene_to_file("res://scenes/discovery/discovery_loop.tscn")
 
 func _restart() -> void:
 	AuctionState.reset_prototype()
