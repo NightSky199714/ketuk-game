@@ -1,11 +1,11 @@
 ; Engine configuration file.
-; KETUK. — Prototype 0.1 Auction Feel
+; KETUK. — Prototype 0.3 Human Network
 
 config_version=5
 
 [application]
 
-config/name="KETUK. P0.1"
+config/name="KETUK. P0.3"
 run/main_scene="res://scenes/auction/auction_room.tscn"
 
 [autoload]
