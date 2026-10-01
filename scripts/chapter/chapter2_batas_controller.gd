@@ -333,7 +333,11 @@ func _show_item_to_photo_shop(item_id: String) -> void:
 			"Katanya ada orang bernama Adi yang kadang membeli lensa lama.",
 			"Penjaga Kedai Foto"
 		)
-		response_label.text = "Penjaga melihat kameramu lebih lama pada bagian lensa.\n\n\"Ada orang namanya Adi yang kadang cari lensa lama. Nggak tentu datang. Kalau muncul, biasanya pagi.\""
+		if AuctionState.chapter2_day_name() == "Minggu":
+			AuctionState.chapter2_leads["adi_waiting"] = true
+			response_label.text = "Penjaga melihat kameramu lebih lama pada bagian lensa.\n\n\"Ada orang namanya Adi yang kadang cari lensa lama. Hari ini nggak kelihatan. Kalau datang lagi, biasanya pagi—mungkin besok.\""
+		else:
+			response_label.text = "Penjaga melihat kameramu lebih lama pada bagian lensa.\n\n\"Ada orang namanya Adi yang kadang cari lensa lama. Kalau dia datang, biasanya pagi.\""
 		clue_label.text = ""
 	elif item_id == "sentana_photo":
 		response_label.text = "Penjaga melihat foto poster itu. \"Nama Sentana pernah saya dengar, tapi bukan dari pelanggan tetap sini.\""
@@ -505,9 +509,6 @@ func _wait_until_monday() -> void:
 	_check_deadline_event()
 
 func _meet_adi() -> void:
-	if not AuctionState.chapter2_extension_granted:
-		response_label.text = "Adi ada di sana, tetapi deadline kiosmu sudah tidak cocok dengan waktunya."
-		return
 	if not AuctionState.has_inventory_item("camera"):
 		return
 
