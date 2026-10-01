@@ -11,10 +11,14 @@
 
 ### Entry
 - Scene menampilkan pertanyaan/target yang dipilih.
-- Kontak tersedia:
-  - PAK WIRA
-  - BU SARI
-  - YANTO
+- Scene berupa peta Pasar Tua, bukan daftar tiga specialist.
+- Lokasi tersedia:
+  - PINTU PASAR
+  - KIOS TENGAH
+  - GANG TIMUR
+  - LORONG BELAKANG
+- Pak Wira dapat dicari di Kios Tengah berdasarkan petunjuk Pak Slamet.
+- Bu Sari dan Yanto berada di lokasi berbeda dan tidak harus diketahui sejak awal.
 
 ### Wrong Specialist
 - Salah memilih orang tidak menyebabkan failure.
@@ -55,3 +59,12 @@ Perbaiki sebelum sistem map jika:
 - Jika MC tidak memiliki Lot 02: tombol `UJI DISCOVERY P0.2`.
 - Fallback prototype tidak mengubah pemenang Lot 02; hanya menyediakan sampel agar P0.2/P0.3 dapat diuji.
 - Setelah memilih target di Discovery, tombol `CARI ORANG YANG TAHU` harus membawa pemain ke P0.3.
+
+
+### Referral + Travel
+- Referral tidak boleh memindahkan pemain otomatis.
+- Pak Wira → Bu Sari harus memberi petunjuk Gang Timur.
+- Pak Wira → Yanto harus memberi petunjuk Lorong Belakang.
+- Pemain kembali memilih lokasi sendiri di peta.
+- Hitungan langkah perjalanan bertambah saat berpindah lokasi.
+- Pemain boleh menjelajah Gang Timur/Lorong Belakang dan menemukan kontak tanpa referral.
