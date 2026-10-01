@@ -470,14 +470,9 @@ func _wait_one_hour() -> void:
 	_check_deadline_event()
 
 func _check_deadline_event() -> void:
-	if AuctionState.world_flags.has("kiosk_resolved"):
-		return
-	if not AuctionState.chapter2_past_deadline():
+	if not AuctionState.resolve_kiosk_deadline_if_needed():
 		return
 
-	AuctionState.kiosk_saved = false
-	AuctionState.world_flags["kiosk_resolved"] = true
-	AuctionState.world_flags["kiosk_lost"] = true
 	response_label.text += "\n\nSaat batas lewat tanpa pembayaran penuh, Pak Arman menutup kios dan mengembalikan papan namanya."
 	clue_label.text = "Kios sudah ditutup. Dunia tetap berjalan."
 	_refresh_actions()
