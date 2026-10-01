@@ -4,20 +4,71 @@
     "title": "Lot 01 — Rice Cooker Bekas",
     "description": "Terpakai, masih panas, tutup agak miring.",
     "opening_bid": 40000,
-    "mc_bid_steps": [50000, 90000, 110000, 125000, 140000, 160000]
+    "mc_bid_steps": [50000, 90000, 110000, 125000, 140000, 160000],
+    "investigation": [
+      {
+        "id": "luar",
+        "label": "LUAR",
+        "text": "Bodi banyak goresan, tapi tidak terlihat retak. Model rumah tangga biasa."
+      },
+      {
+        "id": "tutup",
+        "label": "TUTUP",
+        "text": "Engsel sedikit longgar. Karet penutup masih ada, tetapi mulai aus."
+      },
+      {
+        "id": "panel",
+        "label": "PANEL",
+        "text": "Tombol tidak macet. Label daya masih terbaca. Tidak ada tanda gosong di sekitar panel."
+      }
+    ]
   },
   {
     "id": "lot02",
     "title": "Lot 02 — Kotak Campuran",
     "description": "Isi belum diperiksa sepenuhnya. Ada logam dan kabel terlihat dari sisi kotak.",
     "opening_bid": 50000,
-    "mc_bid_steps": [60000, 85000, 95000, 110000]
+    "mc_bid_steps": [60000, 85000, 95000, 110000],
+    "investigation": [
+      {
+        "id": "atas",
+        "label": "ATAS",
+        "text": "Terlihat dua tatakan logam, sendok kecil, kabel, dan kotak tembakau retak."
+      },
+      {
+        "id": "samping",
+        "label": "SAMPING",
+        "text": "Di sela barang terlihat korek meja lama dan sebuah adaptor. Bagian bawah masih tertutup."
+      },
+      {
+        "id": "angkat",
+        "label": "ANGKAT",
+        "text": "Bobotnya sedang. Ada benda kecil bergeser di dasar, tapi kotak tidak boleh dibongkar sebelum menang."
+      }
+    ]
   },
   {
     "id": "lot03",
     "title": "Lot 03 — Kamera Analog",
     "description": "Body lecet, shutter tidak normal, lensa dan tas ikut.",
     "opening_bid": 80000,
-    "mc_bid_steps": [150000, 200000, 260000, 300000]
+    "mc_bid_steps": [150000, 200000, 260000, 300000],
+    "investigation": [
+      {
+        "id": "body",
+        "label": "BODY",
+        "text": "Goresan banyak. Nomor di body memakai format yang berbeda dari nomor di lensa."
+      },
+      {
+        "id": "lens",
+        "label": "LENSA",
+        "text": "Nomornya formatnya beda dari body. Ada ukiran kecil yang hanya muncul di lensa."
+      },
+      {
+        "id": "bag",
+        "label": "TAS",
+        "text": "Kulit tas tampak lebih tua dari kameranya. Ada inisial kecil di bagian dalam flap."
+      }
+    ]
   }
 ]
