@@ -223,6 +223,10 @@ func _build_camera_shop_actions() -> void:
 		return
 
 	if AuctionState.camera_sale_status.is_empty():
+		if AuctionState.chapter2_time_minutes >= 18 * 60 and AuctionState.chapter2_pending_offer > 1500000:
+			AuctionState.chapter2_pending_offer = 1500000
+			response_label.text = "Pak Harun melihat jam. Penawaran yang tadi ia sebut tidak lagi sama menjelang toko tutup."
+
 		_add_action("BICARA DENGAN PAK HARUN", _talk_harun)
 		if AuctionState.chapter2_pending_offer > 0:
 			_add_action(
@@ -242,11 +246,23 @@ func _build_adi_actions() -> void:
 		response_label.text = "Kedai kecil itu tidak berarti banyak bagimu. Belum ada alasan khusus untuk mencari seseorang di sini."
 		return
 
+	if AuctionState.camera_sale_status.begins_with("sold_full"):
+		response_label.text = "Kamu sudah menjual kamera beserta lensanya. Lead tentang Adi tidak lagi bisa dipakai untuk transaksi itu."
+		return
+
+	if AuctionState.camera_sale_status == "lens_only_2100_body_returned":
+		response_label.text = "Transaksi dengan Adi sudah selesai. Body kamera masih ada di tanganmu."
+		return
+
+	if not _owns_camera():
+		response_label.text = "Kamu tidak membawa kamera yang dibutuhkan untuk menindaklanjuti lead ini."
+		return
+
 	if AuctionState.chapter2_day_name() == "Minggu":
 		_add_action("CEK KEDAI FOTO", _check_adi_sunday)
 		return
 
-	if _owns_camera() and AuctionState.camera_sale_status.is_empty():
+	if AuctionState.camera_sale_status.is_empty():
 		_add_action("TEMUI ADI", _meet_adi)
 
 func _build_terminal_actions() -> void:
