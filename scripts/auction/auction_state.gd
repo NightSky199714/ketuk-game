@@ -54,6 +54,12 @@ var chapter3_poster_photographed: bool = false
 
 func reset_prototype() -> void:
 	money = 430000
+	add_inventory_item("book", {
+		"name": "BUKU LAMA",
+		"state": "reference",
+		"description": "Buku keluarga lama dengan catatan formal dan beberapa margin tulisan tangan.",
+		"source": "Keluarga"
+	})
 	current_lot_id = ""
 	current_bid = 0
 	current_bidder = ""
