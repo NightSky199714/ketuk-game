@@ -268,5 +268,8 @@ func _continue_after_auction() -> void:
 	get_tree().change_scene_to_file("res://scenes/discovery/discovery_loop.tscn")
 
 func _restart() -> void:
+	if AuctionState.chapter_mode:
+		get_tree().change_scene_to_file("res://scenes/chapter/chapter1_intro.tscn")
+		return
 	AuctionState.reset_prototype()
 	get_tree().change_scene_to_file("res://scenes/auction/auction_room.tscn")
