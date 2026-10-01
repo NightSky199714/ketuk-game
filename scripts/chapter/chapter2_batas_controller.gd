@@ -132,6 +132,7 @@ func _route_adi_start() -> void:
 	_add_choice("BATAL — AMBIL PENAWARAN TOKO YANG TERLAMBAT", _route_late_shop_from_adi)
 
 func _route_adi_extension() -> void:
+	AuctionState.advance_chapter2_time(20)
 	phase = "adi_extension"
 	_clear_choices()
 	_refresh_status()
