@@ -221,7 +221,7 @@ func _show_end() -> void:
 	main_label.text = "Hari ini kamu belum membuktikan bahwa kamu pandai menilai barang."
 	detail_label.text = "Kamu hanya belajar bahwa melihat lebih teliti bisa mengubah keputusan."
 	book_label.text = "Setiap tawaran punya harga."
-	next_button.text = "MAIN DARI AWAL"
+	next_button.text = "LANJUT BAB 2"
 	AuctionState.finish_chapter1()
 
 func _next() -> void:
@@ -239,7 +239,7 @@ func _next() -> void:
 		return
 
 	if phase == "end":
-		get_tree().change_scene_to_file("res://scenes/chapter/chapter1_intro.tscn")
+		get_tree().change_scene_to_file("res://scenes/chapter/chapter2_batas.tscn")
 
 func _get_object_data(object_id: String) -> Dictionary:
 	var lot_data: Dictionary = discovery_data.get("lot02", {})
