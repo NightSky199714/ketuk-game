@@ -69,7 +69,7 @@ func _build_ui() -> void:
 	margin.add_child(root)
 
 	var brand := Label.new()
-	brand.text = "KETUK.  —  P0.1 AUCTION FEEL"
+	brand.text = "KETUK.  —  PROTOTYPE P0.3"
 	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	brand.add_theme_font_size_override("font_size", 26)
 	root.add_child(brand)
@@ -609,7 +609,7 @@ func _rupiah(value: int) -> String:
 	return "Rp" + raw + formatted
 
 func _show_end_without_reveal() -> void:
-	lot_label.text = "P0.1 selesai"
-	description_label.text = "Tidak ada Lot 03 yang direveal."
+	lot_label.text = "Sesi lelang selesai"
+	description_label.text = "Tidak ada tindak lanjut untuk sesi ini."
 	instruction_label.text = "Restart project untuk mencoba lagi."
 	action_row.visible = false
