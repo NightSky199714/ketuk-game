@@ -192,6 +192,7 @@ func _on_leave() -> void:
 	end_panel.visible = true
 
 func _run_reveal() -> void:
+	AuctionState.camera_appraisal_seen = true
 	title_label.text = "PEMERIKSAAN — PAK HARUN"
 	ownership_label.visible = false
 
