@@ -220,6 +220,8 @@ func finish_chapter2(route_id: String) -> void:
 
 
 func start_chapter3() -> void:
+	if chapter3_started:
+		return
 	chapter_mode = true
 	chapter_id = "chapter3"
 	chapter3_started = true
