@@ -26,6 +26,14 @@ var kiosk_deadline: String = "Minggu 20:00"
 var book_margin_line_seen: bool = false
 var camera_appraisal_seen: bool = false
 
+var chapter2_started: bool = false
+var chapter2_complete: bool = false
+var chapter2_route: String = ""
+var chapter2_time_minutes: int = 16 * 60
+var kiosk_saved: bool = false
+var kiosk_paid: int = 0
+var camera_sale_status: String = ""
+
 func reset_prototype() -> void:
 	money = 430000
 	current_lot_id = ""
@@ -49,6 +57,13 @@ func reset_prototype() -> void:
 	chapter1_complete = false
 	book_margin_line_seen = false
 	camera_appraisal_seen = false
+	chapter2_started = false
+	chapter2_complete = false
+	chapter2_route = ""
+	chapter2_time_minutes = 16 * 60
+	kiosk_saved = false
+	kiosk_paid = 0
+	camera_sale_status = ""
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
@@ -97,3 +112,33 @@ func start_chapter1() -> void:
 
 func finish_chapter1() -> void:
 	chapter1_complete = true
+
+
+func start_chapter2() -> void:
+	chapter_mode = true
+	chapter_id = "chapter2"
+	chapter2_started = true
+	chapter2_complete = false
+	chapter2_route = ""
+	chapter2_time_minutes = 16 * 60
+	kiosk_saved = false
+	kiosk_paid = 0
+	camera_sale_status = ""
+
+func advance_chapter2_time(minutes: int) -> void:
+	chapter2_time_minutes += minutes
+
+func chapter2_clock() -> String:
+	var hour := chapter2_time_minutes / 60
+	var minute := chapter2_time_minutes % 60
+	return "%02d:%02d" % [hour, minute]
+
+func pay_kiosk(amount: int) -> void:
+	kiosk_paid += amount
+	money -= amount
+	if kiosk_paid >= kiosk_arrears:
+		kiosk_saved = true
+
+func finish_chapter2(route_id: String) -> void:
+	chapter2_route = route_id
+	chapter2_complete = true
