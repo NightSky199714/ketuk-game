@@ -16,33 +16,33 @@ var awaiting_player: bool = false
 var pak_slamet_prompted: bool = false
 var wait_count: int = 0
 
-var money_label: Label
-var lot_label: Label
-var description_label: Label
-var bid_label: Label
-var bidder_label: Label
-var instruction_label: Label
-var log_label: RichTextLabel
+@onready var money_label: Label = $Margin/Root/MoneyLabel
+@onready var lot_label: Label = $Margin/Root/LotLabel
+@onready var description_label: Label = $Margin/Root/DescriptionLabel
+@onready var bid_label: Label = $Margin/Root/BidPanel/BidLabel
+@onready var bidder_label: Label = $Margin/Root/BidPanel/BidderLabel
+@onready var instruction_label: Label = $Margin/Root/InstructionLabel
+@onready var log_label: RichTextLabel = $Margin/Root/LogLabel
 
-var jaka_label: Label
-var ratna_label: Label
-var slamet_label: Label
+@onready var jaka_label: Label = $Margin/Root/NpcRow/JakaLabel
+@onready var ratna_label: Label = $Margin/Root/NpcRow/RatnaLabel
+@onready var slamet_label: Label = $Margin/Root/NpcRow/SlametLabel
 
-var action_row: HBoxContainer
-var bid_button: Button
-var wait_button: Button
-var stop_button: Button
+@onready var action_row: HBoxContainer = $Margin/Root/ActionRow
+@onready var bid_button: Button = $Margin/Root/ActionRow/BidButton
+@onready var wait_button: Button = $Margin/Root/ActionRow/WaitButton
+@onready var stop_button: Button = $Margin/Root/ActionRow/StopButton
 
-var investigate_panel: VBoxContainer
-var investigation_text: Label
-var continue_bid_button: Button
-var inspect_button_1: Button
-var inspect_button_2: Button
-var inspect_button_3: Button
+@onready var investigate_panel: VBoxContainer = $Margin/Root/InvestigatePanel
+@onready var investigation_text: Label = $Margin/Root/InvestigatePanel/InvestigationText
+@onready var continue_bid_button: Button = $Margin/Root/InvestigatePanel/ContinueBidButton
+@onready var inspect_button_1: Button = $Margin/Root/InvestigatePanel/HotspotRow/InspectButton1
+@onready var inspect_button_2: Button = $Margin/Root/InvestigatePanel/HotspotRow/InspectButton2
+@onready var inspect_button_3: Button = $Margin/Root/InvestigatePanel/HotspotRow/InspectButton3
 var inspected: Dictionary = {}
 
 func _ready() -> void:
-	_build_ui()
+	_wire_ui()
 	_load_lots()
 	if not AuctionState.chapter_mode:
 		AuctionState.reset_prototype()
@@ -51,168 +51,14 @@ func _ready() -> void:
 		return
 	_start_next_lot()
 
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#211a17")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_top", 28)
-	margin.add_theme_constant_override("margin_bottom", 28)
-	add_child(margin)
-
-	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 14)
-	margin.add_child(root)
-
-	var brand := Label.new()
-	brand.text = "KETUK. — DI BALIK HARGA"
-	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	brand.add_theme_font_size_override("font_size", 26)
-	root.add_child(brand)
-
-	money_label = Label.new()
-	money_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	money_label.add_theme_font_size_override("font_size", 20)
-	root.add_child(money_label)
-
-	var divider := HSeparator.new()
-	root.add_child(divider)
-
-	lot_label = Label.new()
-	lot_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lot_label.add_theme_font_size_override("font_size", 28)
-	lot_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	root.add_child(lot_label)
-
-	description_label = Label.new()
-	description_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	description_label.add_theme_font_size_override("font_size", 18)
-	root.add_child(description_label)
-
-	var npc_row := HBoxContainer.new()
-	npc_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	npc_row.add_theme_constant_override("separation", 18)
-	root.add_child(npc_row)
-
-	ratna_label = _make_npc_label("Bu Ratna", "NEUTRAL")
-	npc_row.add_child(ratna_label)
-
-	jaka_label = _make_npc_label("Jaka", "NEUTRAL")
-	npc_row.add_child(jaka_label)
-
-	slamet_label = _make_npc_label("Pak Slamet", "NEUTRAL")
-	npc_row.add_child(slamet_label)
-
-	var bid_panel := VBoxContainer.new()
-	bid_panel.add_theme_constant_override("separation", 4)
-	root.add_child(bid_panel)
-
-	var current_caption := Label.new()
-	current_caption.text = "TAWARAN SAAT INI"
-	current_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	current_caption.add_theme_font_size_override("font_size", 16)
-	bid_panel.add_child(current_caption)
-
-	bid_label = Label.new()
-	bid_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	bid_label.add_theme_font_size_override("font_size", 42)
-	bid_panel.add_child(bid_label)
-
-	bidder_label = Label.new()
-	bidder_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	bidder_label.add_theme_font_size_override("font_size", 17)
-	bid_panel.add_child(bidder_label)
-
-	instruction_label = Label.new()
-	instruction_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	instruction_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	instruction_label.add_theme_font_size_override("font_size", 19)
-	root.add_child(instruction_label)
-
-	investigate_panel = VBoxContainer.new()
-	investigate_panel.visible = false
-	investigate_panel.add_theme_constant_override("separation", 10)
-	root.add_child(investigate_panel)
-
-	var investigation_title := Label.new()
-	investigation_title.text = "INVESTIGATE — periksa sebelum menawar"
-	investigation_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	investigation_title.add_theme_font_size_override("font_size", 19)
-	investigate_panel.add_child(investigation_title)
-
-	var hotspot_row := HBoxContainer.new()
-	hotspot_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	hotspot_row.add_theme_constant_override("separation", 8)
-	investigate_panel.add_child(hotspot_row)
-
-	inspect_button_1 = Button.new()
+func _wire_ui() -> void:
 	inspect_button_1.pressed.connect(func(): _inspect(0))
-	hotspot_row.add_child(inspect_button_1)
-
-	inspect_button_2 = Button.new()
 	inspect_button_2.pressed.connect(func(): _inspect(1))
-	hotspot_row.add_child(inspect_button_2)
-
-	inspect_button_3 = Button.new()
 	inspect_button_3.pressed.connect(func(): _inspect(2))
-	hotspot_row.add_child(inspect_button_3)
-
-	investigation_text = Label.new()
-	investigation_text.text = "Pilih bagian yang ingin diperiksa, atau langsung mulai bidding."
-	investigation_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	investigation_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	investigation_text.add_theme_font_size_override("font_size", 18)
-	investigate_panel.add_child(investigation_text)
-
-	continue_bid_button = Button.new()
-	continue_bid_button.text = "MULAI BIDDING"
-	continue_bid_button.disabled = false
 	continue_bid_button.pressed.connect(_finish_investigation)
-	investigate_panel.add_child(continue_bid_button)
-
-	action_row = HBoxContainer.new()
-	action_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	action_row.add_theme_constant_override("separation", 10)
-	root.add_child(action_row)
-
-	bid_button = Button.new()
-	bid_button.custom_minimum_size = Vector2(190, 72)
 	bid_button.pressed.connect(_on_bid)
-	action_row.add_child(bid_button)
-
-	wait_button = Button.new()
-	wait_button.text = "WAIT"
-	wait_button.custom_minimum_size = Vector2(150, 72)
 	wait_button.pressed.connect(_on_wait)
-	action_row.add_child(wait_button)
-
-	stop_button = Button.new()
-	stop_button.text = "STOP"
-	stop_button.custom_minimum_size = Vector2(150, 72)
 	stop_button.pressed.connect(_on_stop)
-	action_row.add_child(stop_button)
-
-	log_label = RichTextLabel.new()
-	log_label.bbcode_enabled = false
-	log_label.fit_content = false
-	log_label.custom_minimum_size = Vector2(0, 280)
-	log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	log_label.add_theme_font_size_override("normal_font_size", 17)
-	root.add_child(log_label)
-
-func _make_npc_label(display_name: String, expression: String) -> Label:
-	var label := Label.new()
-	label.text = "%s\n[%s]" % [display_name, expression]
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.custom_minimum_size = Vector2(180, 70)
-	label.add_theme_font_size_override("font_size", 16)
-	return label
 
 func _load_lots() -> void:
 	if not FileAccess.file_exists(LOT_DATA_PATH):
