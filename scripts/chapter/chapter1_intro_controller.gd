@@ -23,9 +23,9 @@ var beats := [
 		"detail": "Lelang barang rumah tangga dan barang campuran dimulai siang ini. Kamu tidak punya cukup uang untuk banyak salah langkah."
 	},
 	{
-		"title": "BAB 1 — BARANG YANG TIDAK DILIHAT ORANG",
+		"title": "BALAI LELANG KAMPUNG SUKA JAYA",
 		"main": "Kamu menutup buku, memasukkan uang ke dompet, lalu berangkat.",
-		"detail": "Bukan untuk mencari harta karun. Untuk mencari sesuatu yang orang lain mungkin lewatkan."
+		"detail": "Kamu menutup buku, mengambil dompet, lalu menuju balai."
 	}
 ]
 
