@@ -58,12 +58,22 @@ Then:
 - Lot 03: Jaka menang → ia sempat mengejek lalu mulai melihat kameranya; MC menang → Jaka mengejek risiko lalu Pak Slamet hanya `Hm.`.
 - Drama tidak boleh membuat reveal bocor lebih awal.
 
-### Reveal
-- Scene changes automatically after Lot 03 drama.
-- Reveal sequence lasts roughly half a minute.
-- Body value appears before lens value.
-- Lens estimate ends at Rp2.800.000–Rp3.600.000.
-- MAIN LAGI returns to Lot 01.
+### Sesudah Lot 03
+- Setelah drama Lot 03, scene berpindah ke fase SESUDAH LELANG, bukan langsung appraisal.
+- Tidak boleh ada palu kedua.
+- Jika MC menang:
+  - Pak Slamet menyebut Pak Harun sebagai jalur pemeriksaan.
+  - Pemain memilih MINTA PAK HARUN PERIKSA atau NANTI SAJA.
+- Jika Jaka menang:
+  - Jaka punya alasan sosial untuk meminta Pak Harun melihat kamera.
+  - Pemain memilih TETAP DI SINI atau TINGGALKAN BALAI.
+- Jika pemain meninggalkan/menunda, nilai lensa tetap tidak diketahui.
+
+### Pemeriksaan Pak Harun
+- Hanya berjalan setelah follow-up dipilih.
+- Body value muncul sebelum lens value.
+- Lens estimate berakhir di Rp2.800.000–Rp3.600.000.
+- MAIN LAGI kembali ke Lot 01.
 
 ## Fail Fast Conditions
 
