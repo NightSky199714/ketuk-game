@@ -466,8 +466,11 @@ func _check_world_deadline() -> void:
 
 func _wait_market() -> void:
 	AuctionState.advance_chapter2_time(30)
-	response_label.text = "Kamu menghabiskan sekitar setengah jam tanpa melakukan banyak hal."
 	_show_location(current_location_id, false)
+	if response_label.text.is_empty():
+		response_label.text = "Sekitar setengah jam berlalu."
+	else:
+		response_label.text = "Sekitar setengah jam berlalu.\n\n" + response_label.text
 	_check_world_deadline()
 
 func _is_contact_present(person_id: String) -> bool:
