@@ -107,7 +107,7 @@ func _refresh_inventory() -> void:
 		inventory_grid.add_child(button)
 
 	if AuctionState.selected_inventory_item.is_empty():
-		item_detail_label.text = "Pilih barang untuk melihat apa yang MC ketahui saat ini."
+		item_detail_label.text = "Belum ada barang yang dipilih."
 	else:
 		_show_selected_item()
 
