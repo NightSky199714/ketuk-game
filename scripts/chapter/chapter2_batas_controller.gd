@@ -398,7 +398,7 @@ func _show_item_to_harun(item_id: String) -> void:
 			"Pak Harun"
 		)
 		response_label.text = "Pak Harun memeriksa kamera.\n\n\"Kalau saya ambil sekarang, %s.\"\n\nIa menyebut seseorang bernama Adi yang kadang membeli lensa tanpa bodynya." % _rupiah(offer)
-		clue_label.text = "Nama Adi terdengar. Pak Harun menyebut kedai foto lama."
+		clue_label.text = ""
 		_add_action("TERIMA %s" % _rupiah(offer), _accept_harun_offer)
 	elif item_id == "mixed_box":
 		response_label.text = "Pak Harun menekan tutup kotak sebentar lalu mengembalikannya. \"Bukan alat saya. Saya nggak mau paksa dan merusak isinya.\""
@@ -424,7 +424,7 @@ func _accept_harun_offer() -> void:
 	AuctionState.chapter2_pending_offer = 0
 	AuctionState.remove_inventory_item("camera")
 	response_label.text = "Kamera berpindah tangan. %s masuk ke dompetmu." % _rupiah(offer)
-	clue_label.text = "Kamera sudah tidak ada di inventory."
+	clue_label.text = ""
 	_refresh_status()
 	_refresh_inventory()
 	_refresh_actions()
@@ -474,7 +474,7 @@ func _show_item_to_craftsman(item_id: String) -> void:
 			response_label.text = "Ia menjepit bagian luar kotak dengan kain, lalu bekerja pada penguncinya beberapa menit.\n\n\"Bukan terkunci. Cuma mekanismenya macet.\"\n\nTutup akhirnya terbuka."
 			AuctionState.open_mixed_box()
 			AuctionState.selected_inventory_item = ""
-			clue_label.text = "Isi kotak sekarang masuk ke inventory."
+			clue_label.text = ""
 		else:
 			response_label.text = "Kotaknya sudah terbuka."
 	elif item_id == "camera":
@@ -487,7 +487,7 @@ func _talk_arman() -> void:
 	if AuctionState.chapter2_leads.has("adi_waiting") and not AuctionState.chapter2_extension_granted:
 		AuctionState.chapter2_extension_granted = true
 		response_label.text = "Kamu menjelaskan bahwa ada pembeli yang baru bisa ditemui Senin.\n\nPak Arman memberi waktu sampai Senin 10:00."
-		clue_label.text = "Batas pembayaran berubah: Senin 10:00."
+		clue_label.text = ""
 	else:
 		response_label.text = "\"Kalau ada uangnya, bayar. Kalau belum, batasnya tetap,\" kata Pak Arman."
 	_refresh_status()
@@ -501,7 +501,7 @@ func _pay_arman() -> void:
 	AuctionState.kiosk_saved = true
 	AuctionState.world_flags["kiosk_resolved"] = true
 	response_label.text = "Pak Arman menghitung uangnya. Tunggakan lunas."
-	clue_label.text = "Kios tetap bisa dipakai."
+	clue_label.text = ""
 	_refresh_status()
 	_refresh_actions()
 
@@ -523,7 +523,7 @@ func _check_adi_sunday() -> void:
 
 	AuctionState.chapter2_leads["adi_waiting"] = true
 	response_label.text = "Adi tidak ada. Pemilik kedai menunjukkan pesan singkat: lensa saja, Rp2.100.000, Senin pagi."
-	clue_label.text = "Adi baru bisa ditemui Senin pagi."
+	clue_label.text = ""
 	_refresh_status()
 	_refresh_actions()
 	_check_deadline_event()
@@ -551,7 +551,7 @@ func _meet_adi() -> void:
 		"description": "Body kamera tanpa lensa. Lensanya sudah dijual kepada Adi."
 	})
 	response_label.text = "Adi membeli lensanya seharga Rp2.100.000. Body dikembalikan."
-	clue_label.text = "Body kamera tetap di inventory."
+	clue_label.text = ""
 	_refresh_status()
 	_refresh_inventory()
 	_refresh_actions()
@@ -619,7 +619,7 @@ func _check_deadline_event() -> void:
 		return
 
 	response_label.text += "\n\nSaat batas lewat tanpa pembayaran penuh, Pak Arman menutup kios dan mengembalikan papan namanya."
-	clue_label.text = "Kios sudah ditutup. Dunia tetap berjalan."
+	clue_label.text = ""
 	_refresh_actions()
 
 func _select_inventory_item(item_id: String) -> void:
