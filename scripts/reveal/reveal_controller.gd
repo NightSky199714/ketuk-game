@@ -109,7 +109,7 @@ func _build_ui() -> void:
 	root.add_child(end_panel)
 
 	var end_title := Label.new()
-	end_title.text = "P0.1 — AUCTION FEEL SELESAI"
+	end_title.text = "BAB 1 — SESUDAH LELANG" if AuctionState.chapter_mode else "P0.1 — AUCTION FEEL SELESAI"
 	end_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	end_title.add_theme_font_size_override("font_size", 28)
 	end_panel.add_child(end_title)
@@ -122,10 +122,10 @@ func _build_ui() -> void:
 	end_panel.add_child(end_copy)
 
 	discovery_button = Button.new()
-	discovery_button.text = "LANJUT KE TEMUAN"
+	discovery_button.text = "PULANG" if AuctionState.chapter_mode else "LANJUT KE TEMUAN"
 	discovery_button.custom_minimum_size = Vector2(270, 68)
-	discovery_button.visible = _owns_lot02()
-	discovery_button.pressed.connect(_go_to_discovery)
+	discovery_button.visible = true if AuctionState.chapter_mode else _owns_lot02()
+	discovery_button.pressed.connect(_continue_after_auction)
 	end_panel.add_child(discovery_button)
 
 	var restart := Button.new()
@@ -260,7 +260,10 @@ func _owns_lot02() -> bool:
 	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
 	return str(result.get("winner", "")) == "mc"
 
-func _go_to_discovery() -> void:
+func _continue_after_auction() -> void:
+	if AuctionState.chapter_mode:
+		get_tree().change_scene_to_file("res://scenes/chapter/chapter1_home.tscn")
+		return
 	get_tree().change_scene_to_file("res://scenes/discovery/discovery_loop.tscn")
 
 func _restart() -> void:
