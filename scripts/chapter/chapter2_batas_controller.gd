@@ -23,8 +23,13 @@ func _ready() -> void:
 		AuctionState.start_chapter2()
 	_load_map()
 	_build_ui()
-	_show_location("rumah", false)
-	_show_opening()
+	current_location_id = str(AuctionState.world_flags.get("world_location", "rumah"))
+	if not AuctionState.chapter2_known_places.has(current_location_id):
+		current_location_id = "rumah"
+	_show_location(current_location_id, false)
+	if not bool(AuctionState.world_flags.get("world_opening_seen", false)):
+		_show_opening()
+		AuctionState.world_flags["world_opening_seen"] = true
 
 func _load_map() -> void:
 	if not FileAccess.file_exists(MAP_DATA_PATH):
@@ -186,6 +191,7 @@ func _travel_to(location_id: String) -> void:
 
 	AuctionState.advance_chapter2_time(_travel_minutes(location_id))
 	current_location_id = location_id
+	AuctionState.world_flags["world_location"] = location_id
 	AuctionState.chapter2_visited[location_id] = true
 	_show_location(location_id, true)
 	_check_deadline_event()
@@ -537,6 +543,7 @@ func _search_sentana_address() -> void:
 	_check_deadline_event()
 
 func _enter_old_market() -> void:
+	AuctionState.world_flags["world_location"] = "pasar_tua"
 	get_tree().change_scene_to_file("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
 
 func _wait_one_hour() -> void:
