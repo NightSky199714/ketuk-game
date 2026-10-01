@@ -181,6 +181,7 @@ func _build_ui() -> void:
 	root.add_child(menu_button)
 
 	_refresh_status()
+	_autosave()
 	_refresh_inventory()
 	_refresh_map()
 
@@ -229,6 +230,7 @@ func _show_location(location_id: String, moved: bool) -> void:
 			response_label.text += "\n\n" + closed_text
 
 	_refresh_status()
+	_autosave()
 	_refresh_inventory()
 	_refresh_map()
 	_refresh_actions()
@@ -334,11 +336,13 @@ func _show_item_to_arman(item_id: String) -> void:
 	else:
 		response_label.text = "Pak Arman tidak punya komentar yang berguna soal barang itu."
 	_refresh_status()
+	_autosave()
 
 func _talk_photo_shop() -> void:
 	AuctionState.advance_chapter2_time(5)
 	response_label.text = "Penjaga kedai sedang merapikan amplop foto dan baterai lama di belakang etalase."
 	_refresh_status()
+	_autosave()
 
 func _show_item_to_photo_shop(item_id: String) -> void:
 	var memory_id := "shown_%s" % item_id
@@ -367,6 +371,7 @@ func _show_item_to_photo_shop(item_id: String) -> void:
 		response_label.text = "Penjaga kedai mengembalikan barangmu. \"Kalau bukan urusan kamera atau foto, saya nggak berani komentar.\""
 
 	_refresh_status()
+	_autosave()
 
 func _show_item_to_terminal(item_id: String) -> void:
 	var memory_id := "shown_%s" % item_id
@@ -391,6 +396,7 @@ func _show_item_to_terminal(item_id: String) -> void:
 		response_label.text = "Barang itu tidak memicu percakapan yang berarti di terminal."
 
 	_refresh_status()
+	_autosave()
 
 func _show_item_to_harun(item_id: String) -> void:
 	AuctionState.advance_chapter2_time(10)
@@ -421,6 +427,7 @@ func _talk_harun() -> void:
 	if AuctionState.chapter2_time_minutes >= 18 * 60 and AuctionState.chapter2_pending_offer > 1500000:
 		AuctionState.chapter2_pending_offer = 1500000
 	_refresh_status()
+	_autosave()
 
 func _accept_harun_offer() -> void:
 	if AuctionState.chapter2_pending_offer <= 0:
@@ -436,6 +443,7 @@ func _accept_harun_offer() -> void:
 	response_label.text = "Kamera berpindah tangan. %s masuk ke dompetmu." % _rupiah(offer)
 	clue_label.text = ""
 	_refresh_status()
+	_autosave()
 	_refresh_inventory()
 	_refresh_actions()
 
@@ -443,6 +451,7 @@ func _talk_ratna() -> void:
 	AuctionState.advance_chapter2_time(10)
 	response_label.text = "Bu Ratna sedang melayani dua orang. Obrolan di warung berpindah-pindah dari harga beras sampai orang kota."
 	_refresh_status()
+	_autosave()
 
 func _show_item_to_ratna(item_id: String) -> void:
 	var memory_id := "shown_%s" % item_id
@@ -470,6 +479,7 @@ func _talk_craftsman() -> void:
 	AuctionState.advance_chapter2_time(10)
 	response_label.text = "Pengrajin itu sedang memperbaiki engsel lemari. Meja kerjanya penuh ragum, tang, dan alat kecil."
 	_refresh_status()
+	_autosave()
 
 func _show_item_to_craftsman(item_id: String) -> void:
 	var memory_id := "shown_%s" % item_id
@@ -501,6 +511,7 @@ func _talk_arman() -> void:
 	else:
 		response_label.text = "\"Kalau ada uangnya, bayar. Kalau belum, batasnya tetap,\" kata Pak Arman."
 	_refresh_status()
+	_autosave()
 
 func _pay_arman() -> void:
 	var remaining := maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0)
@@ -513,6 +524,7 @@ func _pay_arman() -> void:
 	response_label.text = "Pak Arman menghitung uangnya. Tunggakan lunas."
 	clue_label.text = ""
 	_refresh_status()
+	_autosave()
 	_refresh_actions()
 
 func _build_adi_actions() -> void:
@@ -535,6 +547,7 @@ func _check_adi_sunday() -> void:
 	response_label.text = "Adi tidak ada. Pemilik kedai menunjukkan pesan singkat: lensa saja, Rp2.100.000, Senin pagi."
 	clue_label.text = ""
 	_refresh_status()
+	_autosave()
 	_refresh_actions()
 	_check_deadline_event()
 
@@ -542,6 +555,7 @@ func _wait_until_monday() -> void:
 	AuctionState.chapter2_time_minutes = 24 * 60 + 8 * 60 + 40
 	response_label.text = "Pagi datang."
 	_refresh_status()
+	_autosave()
 	_refresh_actions()
 	_check_deadline_event()
 
@@ -563,6 +577,7 @@ func _meet_adi() -> void:
 	response_label.text = "Adi membeli lensanya seharga Rp2.100.000. Body dikembalikan."
 	clue_label.text = ""
 	_refresh_status()
+	_autosave()
 	_refresh_inventory()
 	_refresh_actions()
 
@@ -575,6 +590,7 @@ func _ask_terminal() -> void:
 	if not AuctionState.chapter2_leads.has("sentana"):
 		response_label.text = "Kamu duduk cukup lama. Obrolannya berpindah dari trayek, harga bensin, sampai penumpang yang tertinggal barang. Tidak ada sesuatu yang jelas berguna."
 		_refresh_status()
+	_autosave()
 		_check_deadline_event()
 		return
 
@@ -592,6 +608,7 @@ func _ask_terminal() -> void:
 		response_label.text = "Kamu tidak mendapat tambahan yang lebih pasti dari alamat yang sudah dicatat."
 
 	_refresh_status()
+	_autosave()
 	_refresh_map()
 	_refresh_actions()
 	_check_deadline_event()
@@ -611,16 +628,19 @@ func _search_sentana_address() -> void:
 	response_label.text = "Alamatnya nyata. Sentana tidak ada di sana."
 	clue_label.text = ""
 	_refresh_status()
+	_autosave()
 	_check_deadline_event()
 
 func _enter_old_market() -> void:
 	AuctionState.world_flags["world_location"] = "pasar_tua"
+	_autosave()
 	get_tree().change_scene_to_file("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
 
 func _wait_one_hour() -> void:
 	AuctionState.advance_chapter2_time(60)
 	response_label.text = "Satu jam lewat."
 	_refresh_status()
+	_autosave()
 	_refresh_actions()
 	_check_deadline_event()
 
@@ -631,6 +651,7 @@ func _check_deadline_event() -> void:
 	response_label.text += "\n\nSaat batas lewat tanpa pembayaran penuh, Pak Arman menutup kios dan mengembalikan papan namanya."
 	clue_label.text = ""
 	_refresh_actions()
+	_autosave()
 
 func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
