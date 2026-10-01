@@ -414,7 +414,9 @@ func _on_stop() -> void:
 	if AuctionState.current_bidder == "auctioneer":
 		_add_log("Kamu melewatkan lot ini.")
 		AuctionState.record_result(AuctionState.current_lot_id, "none", 0)
-		await get_tree().create_timer(0.8).timeout
+		await get_tree().create_timer(0.6).timeout
+		await _run_post_lot_drama("none")
+		await get_tree().create_timer(0.7).timeout
 		_start_next_lot()
 		return
 
@@ -438,20 +440,48 @@ func _finalize_lot() -> void:
 	AuctionState.record_result(AuctionState.current_lot_id, winner, amount)
 	_refresh_state()
 
-	if AuctionState.current_lot_id == "lot01":
-		if winner == "bu_ratna":
-			_add_log("Bu Ratna: \"Saya memang butuh buat di rumah. Bukan buat dijual.\"")
-		elif winner == "mc":
-			_add_log("Bu Ratna berhenti. Baginya, harga itu sudah terlalu tinggi untuk barang yang hanya ingin dipakai.")
-	elif AuctionState.current_lot_id == "lot02" and winner == "mc":
-		_add_log("Kotak campuran jadi milikmu. Tidak ada reveal di ruangan.")
-	elif AuctionState.current_lot_id == "lot03":
+	await get_tree().create_timer(0.55).timeout
+	await _run_post_lot_drama(winner)
+
+	if AuctionState.current_lot_id == "lot03":
 		await get_tree().create_timer(0.9).timeout
 		get_tree().change_scene_to_file("res://scenes/reveal/reveal_camera.tscn")
 		return
 
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(0.9).timeout
 	_start_next_lot()
+
+func _run_post_lot_drama(winner: String) -> void:
+	var drama_map: Dictionary = current_lot.get("post_lot_drama", {})
+	var beats: Array = drama_map.get(winner, [])
+
+	if beats.is_empty():
+		return
+
+	instruction_label.text = "Suasana setelah lot..."
+	for beat_value in beats:
+		if typeof(beat_value) != TYPE_DICTIONARY:
+			continue
+
+		var beat: Dictionary = beat_value
+		var actor := str(beat.get("actor", "room"))
+		var expression := str(beat.get("expression", ""))
+		var line := str(beat.get("text", ""))
+		var pause := float(beat.get("pause", 0.8))
+
+		if not expression.is_empty():
+			match actor:
+				"jaka":
+					_set_expression("jaka", expression)
+				"bu_ratna":
+					_set_expression("bu_ratna", expression)
+				"pak_slamet":
+					_set_expression("pak_slamet", expression)
+
+		if not line.is_empty():
+			_add_log(line)
+
+		await get_tree().create_timer(maxf(pause, 0.1)).timeout
 
 func _next_mc_bid() -> int:
 	var steps: Array = current_lot.get("mc_bid_steps", [])
