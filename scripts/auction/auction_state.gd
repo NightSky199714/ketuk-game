@@ -14,6 +14,8 @@ var discovery_target: String = ""
 var inventory: Dictionary = {}
 var selected_inventory_item: String = ""
 var world_flags: Dictionary = {}
+var rumors: Dictionary = {}
+var npc_memory: Dictionary = {}
 var network_history: Array[Dictionary] = []
 var network_finding: String = ""
 var network_known_contacts: Dictionary = {}
@@ -65,6 +67,8 @@ func reset_prototype() -> void:
 	inventory.clear()
 	selected_inventory_item = ""
 	world_flags.clear()
+	rumors.clear()
+	npc_memory.clear()
 	network_history.clear()
 	network_finding = ""
 	network_known_contacts.clear()
@@ -315,3 +319,45 @@ func resolve_kiosk_deadline_if_needed() -> bool:
 	world_flags["kiosk_resolved"] = true
 	world_flags["kiosk_lost"] = true
 	return true
+
+
+func hear_rumor(rumor_id: String, text: String, source: String) -> void:
+	if rumors.has(rumor_id):
+		return
+	rumors[rumor_id] = {
+		"text": text,
+		"source": source,
+		"status": "heard"
+	}
+
+func verify_rumor(rumor_id: String, verified_text: String = "") -> void:
+	if not rumors.has(rumor_id):
+		rumors[rumor_id] = {
+			"text": verified_text,
+			"source": "",
+			"status": "verified"
+		}
+		return
+
+	var rumor: Dictionary = rumors[rumor_id]
+	rumor["status"] = "verified"
+	if not verified_text.is_empty():
+		rumor["text"] = verified_text
+	rumors[rumor_id] = rumor
+
+func rumor_status(rumor_id: String) -> String:
+	var rumor: Dictionary = rumors.get(rumor_id, {})
+	return str(rumor.get("status", ""))
+
+func remember_npc_event(npc_id: String, event_id: String, value = true) -> void:
+	if not npc_memory.has(npc_id):
+		npc_memory[npc_id] = {}
+	var memory: Dictionary = npc_memory[npc_id]
+	memory[event_id] = value
+	npc_memory[npc_id] = memory
+
+func npc_remembers(npc_id: String, event_id: String) -> bool:
+	if not npc_memory.has(npc_id):
+		return false
+	var memory: Dictionary = npc_memory[npc_id]
+	return bool(memory.get(event_id, false))
