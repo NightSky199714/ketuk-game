@@ -122,9 +122,9 @@ func _build_ui() -> void:
 	end_panel.add_child(end_copy)
 
 	discovery_button = Button.new()
-	discovery_button.text = "LANJUT KE TEMUAN"
+	discovery_button.text = "LANJUT KE TEMUAN" if _owns_lot02() else "UJI DISCOVERY P0.2"
 	discovery_button.custom_minimum_size = Vector2(270, 68)
-	discovery_button.visible = _owns_lot02()
+	discovery_button.visible = true
 	discovery_button.pressed.connect(_go_to_discovery)
 	end_panel.add_child(discovery_button)
 
@@ -261,6 +261,7 @@ func _owns_lot02() -> bool:
 	return str(result.get("winner", "")) == "mc"
 
 func _go_to_discovery() -> void:
+	AuctionState.prototype_discovery_override = not _owns_lot02()
 	get_tree().change_scene_to_file("res://scenes/discovery/discovery_loop.tscn")
 
 func _restart() -> void:
