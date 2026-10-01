@@ -11,6 +11,9 @@ var investigation: Dictionary = {}
 var session_memory: Dictionary = {}
 var discovery_notes: Dictionary = {}
 var discovery_target: String = ""
+var inventory: Dictionary = {}
+var selected_inventory_item: String = ""
+var world_flags: Dictionary = {}
 var network_history: Array[Dictionary] = []
 var network_finding: String = ""
 var network_known_contacts: Dictionary = {}
@@ -59,6 +62,9 @@ func reset_prototype() -> void:
 	session_memory.clear()
 	discovery_notes.clear()
 	discovery_target = ""
+	inventory.clear()
+	selected_inventory_item = ""
+	world_flags.clear()
 	network_history.clear()
 	network_finding = ""
 	network_known_contacts.clear()
@@ -115,6 +121,20 @@ func record_result(lot_id: String, winner: String, amount: int) -> void:
 	}
 	if winner == "mc":
 		money -= amount
+		if lot_id == "lot02":
+			add_inventory_item("mixed_box", {
+				"name": "KOTAK CAMPURAN",
+				"state": "closed",
+				"description": "Kotak dari lot campuran. Ada beberapa benda di dalamnya. Penutupnya keras dan tidak terbuka dengan tangan.",
+				"source": "Lot 02"
+			})
+		elif lot_id == "lot03":
+			add_inventory_item("camera", {
+				"name": "KAMERA ANALOG",
+				"state": "owned",
+				"description": "Kamera analog bekas. Body dan lensanya tampak seperti pasangan yang perlu diperiksa lebih jauh.",
+				"source": "Lot 03"
+			})
 
 	if lot_id == "lot02":
 		session_memory["lot02_winner"] = winner
@@ -217,3 +237,61 @@ func record_chapter3_person(person_id: String, note: String) -> void:
 
 func finish_chapter3() -> void:
 	chapter3_complete = true
+
+
+func add_inventory_item(item_id: String, item_data: Dictionary) -> void:
+	inventory[item_id] = item_data.duplicate(true)
+
+func remove_inventory_item(item_id: String) -> void:
+	inventory.erase(item_id)
+	if selected_inventory_item == item_id:
+		selected_inventory_item = ""
+
+func has_inventory_item(item_id: String) -> bool:
+	return inventory.has(item_id)
+
+func get_inventory_item(item_id: String) -> Dictionary:
+	return inventory.get(item_id, {})
+
+func update_inventory_item(item_id: String, changes: Dictionary) -> void:
+	if not inventory.has(item_id):
+		return
+	var item: Dictionary = inventory[item_id]
+	for key in changes.keys():
+		item[key] = changes[key]
+	inventory[item_id] = item
+
+func inventory_item_name(item_id: String) -> String:
+	var item: Dictionary = inventory.get(item_id, {})
+	return str(item.get("name", item_id.to_upper()))
+
+func open_mixed_box() -> void:
+	if not inventory.has("mixed_box"):
+		return
+	var box: Dictionary = inventory["mixed_box"]
+	if str(box.get("state", "")) == "opened":
+		return
+
+	box["state"] = "opened"
+	box["description"] = "Kotaknya sudah dibuka. Isi yang berguna dipisahkan."
+	inventory["mixed_box"] = box
+
+	add_inventory_item("coaster", {
+		"name": "TATAKAN LOGAM",
+		"state": "unknown",
+		"description": "Permukaan kuning kusam. Tepi menunjukkan warna berbeda.",
+		"source": "Kotak Campuran"
+	})
+	add_inventory_item("lighter", {
+		"name": "KOREK MEJA",
+		"state": "unknown",
+		"description": "Korek meja lama. Mekanismenya seret dan ada cap kecil yang aus.",
+		"source": "Kotak Campuran"
+	})
+	add_inventory_item("adapter", {
+		"name": "ADAPTOR LAMA",
+		"state": "unknown",
+		"description": "Adaptor dengan konektor model lama. Kabel tampak pernah diganti.",
+		"source": "Kotak Campuran"
+	})
+	world_flags["mixed_box_opened"] = true
