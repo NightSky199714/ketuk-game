@@ -122,6 +122,10 @@ func _show_selected_item() -> void:
 		item_detail_label.text = ""
 		return
 
+	if item_id == "book":
+		item_detail_label.text = "BUKU LAMA\n\n%s" % AuctionState.book_text()
+		return
+
 	var text := "%s\n%s" % [
 		str(item.get("name", item_id.to_upper())),
 		str(item.get("description", "Belum ada catatan."))
