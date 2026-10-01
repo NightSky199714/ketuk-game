@@ -30,11 +30,10 @@ var stop_button: Button
 var investigate_panel: VBoxContainer
 var investigation_text: Label
 var continue_bid_button: Button
-var inspected: Dictionary = {
-	"body": false,
-	"lens": false,
-	"bag": false
-}
+var inspect_button_1: Button
+var inspect_button_2: Button
+var inspect_button_3: Button
+var inspected: Dictionary = {}
 
 func _ready() -> void:
 	_build_ui()
@@ -135,7 +134,7 @@ func _build_ui() -> void:
 	root.add_child(investigate_panel)
 
 	var investigation_title := Label.new()
-	investigation_title.text = "INVESTIGATE — pilih bagian yang ingin diperiksa"
+	investigation_title.text = "INVESTIGATE — periksa sebelum menawar"
 	investigation_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	investigation_title.add_theme_font_size_override("font_size", 19)
 	investigate_panel.add_child(investigation_title)
@@ -145,31 +144,28 @@ func _build_ui() -> void:
 	hotspot_row.add_theme_constant_override("separation", 8)
 	investigate_panel.add_child(hotspot_row)
 
-	var body_button := Button.new()
-	body_button.text = "BODY"
-	body_button.pressed.connect(func(): _inspect("body"))
-	hotspot_row.add_child(body_button)
+	inspect_button_1 = Button.new()
+	inspect_button_1.pressed.connect(func(): _inspect(0))
+	hotspot_row.add_child(inspect_button_1)
 
-	var lens_button := Button.new()
-	lens_button.text = "LENSA"
-	lens_button.pressed.connect(func(): _inspect("lens"))
-	hotspot_row.add_child(lens_button)
+	inspect_button_2 = Button.new()
+	inspect_button_2.pressed.connect(func(): _inspect(1))
+	hotspot_row.add_child(inspect_button_2)
 
-	var bag_button := Button.new()
-	bag_button.text = "TAS"
-	bag_button.pressed.connect(func(): _inspect("bag"))
-	hotspot_row.add_child(bag_button)
+	inspect_button_3 = Button.new()
+	inspect_button_3.pressed.connect(func(): _inspect(2))
+	hotspot_row.add_child(inspect_button_3)
 
 	investigation_text = Label.new()
-	investigation_text.text = "Belum ada bagian yang diperiksa."
+	investigation_text.text = "Pilih bagian yang ingin diperiksa, atau langsung mulai bidding."
 	investigation_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	investigation_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	investigation_text.add_theme_font_size_override("font_size", 18)
 	investigate_panel.add_child(investigation_text)
 
 	continue_bid_button = Button.new()
-	continue_bid_button.text = "LANJUT KE BIDDING"
-	continue_bid_button.disabled = true
+	continue_bid_button.text = "MULAI BIDDING"
+	continue_bid_button.disabled = false
 	continue_bid_button.pressed.connect(_finish_investigation)
 	investigate_panel.add_child(continue_bid_button)
 
@@ -233,7 +229,7 @@ func _start_next_lot() -> void:
 	current_lot = lots[lot_index]
 	pak_slamet_prompted = false
 	wait_count = 0
-	inspected = {"body": false, "lens": false, "bag": false}
+	inspected.clear()
 
 	var lot_id := str(current_lot.get("id", ""))
 	var opening_bid := int(current_lot.get("opening_bid", 0))
@@ -246,50 +242,67 @@ func _start_next_lot() -> void:
 	_set_expression("pak_slamet", "NEUTRAL")
 	_refresh_state()
 	_clear_log()
-	_add_log("Pak Lurah membuka lot di %s." % _rupiah(opening_bid))
+	_add_log("Barang diperlihatkan. Harga pembuka: %s." % _rupiah(opening_bid))
 
-	if lot_id == "lot03":
-		_show_investigation()
-	else:
-		_set_player_turn()
+	_show_investigation()
 
 func _show_investigation() -> void:
 	awaiting_player = false
 	action_row.visible = false
 	investigate_panel.visible = true
-	instruction_label.text = "Sebelum menawar, kamu boleh memeriksa kamera."
-	investigation_text.text = "Belum ada bagian yang diperiksa."
-	continue_bid_button.disabled = true
-
-func _inspect(part: String) -> void:
-	inspected[part] = true
-	AuctionState.investigation[part] = true
-	match part:
-		"body":
-			investigation_text.text = "BODY — Goresan banyak. Nomor di body memakai format yang berbeda dari nomor di lensa."
-		"lens":
-			investigation_text.text = "LENSA — Nomornya formatnya beda dari body. Ada ukiran kecil yang hanya muncul di lensa."
-		"bag":
-			investigation_text.text = "TAS — Kulitnya lebih tua dari kamera. Ada inisial kecil di bagian dalam flap."
+	instruction_label.text = "Sebelum menawar, kamu boleh memeriksa barang ini."
+	investigation_text.text = "Pilih bagian yang ingin diperiksa, atau langsung mulai bidding."
 	continue_bid_button.disabled = false
+	_configure_investigation_buttons()
+
+func _configure_investigation_buttons() -> void:
+	var options: Array = current_lot.get("investigation", [])
+	var buttons: Array[Button] = [inspect_button_1, inspect_button_2, inspect_button_3]
+
+	for i in range(buttons.size()):
+		var button := buttons[i]
+		if i < options.size():
+			var option: Dictionary = options[i]
+			button.text = str(option.get("label", "PERIKSA"))
+			button.visible = true
+			button.disabled = false
+		else:
+			button.visible = false
+
+func _inspect(index: int) -> void:
+	var options: Array = current_lot.get("investigation", [])
+	if index < 0 or index >= options.size():
+		return
+
+	var option: Dictionary = options[index]
+	var option_id := str(option.get("id", "part_%d" % index))
+	inspected[option_id] = true
+	AuctionState.investigation[option_id] = true
+	investigation_text.text = "%s — %s" % [
+		str(option.get("label", "PERIKSA")),
+		str(option.get("text", "Tidak ada catatan."))
+	]
 
 func _finish_investigation() -> void:
 	investigate_panel.visible = false
 	instruction_label.text = "Lelang dimulai."
-	_add_log("Pak Lurah: Delapan puluh ribu.")
-	await get_tree().create_timer(0.7).timeout
 
-	AuctionState.record_bid("bu_ratna", 100000)
-	_set_expression("bu_ratna", "INTERESTED")
-	_add_log("Bu Ratna: %s." % _rupiah(100000))
-	_refresh_state()
-	await get_tree().create_timer(0.9).timeout
+	var opening_bid := int(current_lot.get("opening_bid", 0))
+	_add_log("Pak Lurah: %s." % _rupiah(opening_bid))
+	await get_tree().create_timer(0.65).timeout
 
-	AuctionState.record_bid("jaka", 120000)
-	_set_expression("jaka", "NEUTRAL")
-	_add_log("Jaka: %s." % _rupiah(120000))
-	_refresh_state()
-	await get_tree().create_timer(0.5).timeout
+	if AuctionState.current_lot_id == "lot03":
+		AuctionState.record_bid("bu_ratna", 100000)
+		_set_expression("bu_ratna", "INTERESTED")
+		_add_log("Bu Ratna: %s." % _rupiah(100000))
+		_refresh_state()
+		await get_tree().create_timer(0.9).timeout
+
+		AuctionState.record_bid("jaka", 120000)
+		_set_expression("jaka", "NEUTRAL")
+		_add_log("Jaka: %s." % _rupiah(120000))
+		_refresh_state()
+		await get_tree().create_timer(0.5).timeout
 
 	_set_player_turn()
 
