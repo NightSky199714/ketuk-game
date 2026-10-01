@@ -33,6 +33,12 @@ var chapter2_time_minutes: int = 16 * 60
 var kiosk_saved: bool = false
 var kiosk_paid: int = 0
 var camera_sale_status: String = ""
+var chapter2_known_places: Dictionary = {}
+var chapter2_leads: Dictionary = {}
+var chapter2_visited: Dictionary = {}
+var chapter2_extension_granted: bool = false
+var chapter2_deadline_minutes: int = 20 * 60
+var chapter2_pending_offer: int = 0
 
 var chapter3_started: bool = false
 var chapter3_complete: bool = false
@@ -71,6 +77,12 @@ func reset_prototype() -> void:
 	kiosk_saved = false
 	kiosk_paid = 0
 	camera_sale_status = ""
+	chapter2_known_places.clear()
+	chapter2_leads.clear()
+	chapter2_visited.clear()
+	chapter2_extension_granted = false
+	chapter2_deadline_minutes = 20 * 60
+	chapter2_pending_offer = 0
 	chapter3_started = false
 	chapter3_complete = false
 	chapter3_people_book.clear()
@@ -137,6 +149,17 @@ func start_chapter2() -> void:
 	kiosk_saved = false
 	kiosk_paid = 0
 	camera_sale_status = ""
+	chapter2_known_places = {
+		"rumah": true,
+		"toko_kamera": true,
+		"warung_ratna": true,
+		"pak_arman": true
+	}
+	chapter2_leads.clear()
+	chapter2_visited.clear()
+	chapter2_extension_granted = false
+	chapter2_deadline_minutes = 20 * 60
+	chapter2_pending_offer = 0
 
 func advance_chapter2_time(minutes: int) -> void:
 	chapter2_time_minutes += minutes
@@ -149,6 +172,19 @@ func chapter2_clock() -> String:
 
 func chapter2_day_name() -> String:
 	return "Senin" if chapter2_time_minutes >= 24 * 60 else "Minggu"
+
+func chapter2_deadline_label() -> String:
+	if chapter2_extension_granted:
+		return "Senin 10:00"
+	return "Minggu 20:00"
+
+func chapter2_deadline_absolute_minutes() -> int:
+	if chapter2_extension_granted:
+		return 24 * 60 + 10 * 60
+	return 20 * 60
+
+func chapter2_past_deadline() -> bool:
+	return chapter2_time_minutes > chapter2_deadline_absolute_minutes()
 
 func pay_kiosk(amount: int) -> void:
 	kiosk_paid += amount
