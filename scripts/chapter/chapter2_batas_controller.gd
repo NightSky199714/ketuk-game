@@ -10,7 +10,7 @@ var title_label: Label
 var clock_label: Label
 var money_label: Label
 var clue_label: Label
-var map_row: HBoxContainer
+var map_row: GridContainer
 var location_label: Label
 var location_description: Label
 var response_label: Label
@@ -52,26 +52,31 @@ func _build_ui() -> void:
 	add_child(margin)
 
 	var root := VBoxContainer.new()
+	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	root.add_theme_constant_override("separation", 10)
 	margin.add_child(root)
 
 	title_label = Label.new()
+	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title_label.text = "BAB 2 — BATAS"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_font_size_override("font_size", 29)
 	root.add_child(title_label)
 
 	clock_label = Label.new()
+	clock_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	clock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clock_label.add_theme_font_size_override("font_size", 18)
 	root.add_child(clock_label)
 
 	money_label = Label.new()
+	money_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	money_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	money_label.add_theme_font_size_override("font_size", 17)
 	root.add_child(money_label)
 
 	clue_label = Label.new()
+	clue_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	clue_label.custom_minimum_size = Vector2(0, 90)
@@ -79,14 +84,17 @@ func _build_ui() -> void:
 	root.add_child(clue_label)
 
 	var map_title := Label.new()
+	map_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	map_title.text = "PETA"
 	map_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	map_title.add_theme_font_size_override("font_size", 17)
 	root.add_child(map_title)
 
-	map_row = HBoxContainer.new()
-	map_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	map_row.add_theme_constant_override("separation", 5)
+	map_row = GridContainer.new()
+	map_row.columns = 2
+	map_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	map_row.add_theme_constant_override("h_separation", 8)
+	map_row.add_theme_constant_override("v_separation", 8)
 	root.add_child(map_row)
 
 	var order := [
@@ -101,18 +109,21 @@ func _build_ui() -> void:
 
 	for location_id in order:
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(112, 58)
+		button.custom_minimum_size = Vector2(0, 58)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var captured_id: String = location_id
 		button.pressed.connect(func(): _travel_to(captured_id))
 		map_row.add_child(button)
 		location_buttons[location_id] = button
 
 	location_label = Label.new()
+	location_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	location_label.add_theme_font_size_override("font_size", 23)
 	root.add_child(location_label)
 
 	location_description = Label.new()
+	location_description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	location_description.custom_minimum_size = Vector2(0, 110)
@@ -120,6 +131,7 @@ func _build_ui() -> void:
 	root.add_child(location_description)
 
 	response_label = Label.new()
+	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	response_label.custom_minimum_size = Vector2(0, 190)
