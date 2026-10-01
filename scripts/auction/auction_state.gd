@@ -299,3 +299,17 @@ func open_mixed_box() -> void:
 		"source": "Kotak Campuran"
 	})
 	world_flags["mixed_box_opened"] = true
+
+
+func resolve_kiosk_deadline_if_needed() -> bool:
+	if world_flags.has("kiosk_resolved"):
+		return false
+	if not chapter2_started:
+		return false
+	if not chapter2_past_deadline():
+		return false
+
+	kiosk_saved = false
+	world_flags["kiosk_resolved"] = true
+	world_flags["kiosk_lost"] = true
+	return true
