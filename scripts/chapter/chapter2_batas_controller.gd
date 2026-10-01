@@ -311,6 +311,11 @@ func _show_selected_item_here() -> void:
 	_refresh_actions()
 
 func _show_item_to_arman(item_id: String) -> void:
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers("pak_arman", memory_id):
+		response_label.text = "Barang itu sudah pernah dilihat di sini. Tidak ada tambahan baru."
+		return
+	AuctionState.remember_npc_event("pak_arman", memory_id)
 	AuctionState.advance_chapter2_time(5)
 	if item_id == "camera":
 		response_label.text = "Pak Arman melihat kamera itu sekilas. \"Saya bukan pedagang kamera. Kalau ada uang untuk kios, saya terima uangnya.\""
@@ -326,6 +331,11 @@ func _talk_photo_shop() -> void:
 	_refresh_status()
 
 func _show_item_to_photo_shop(item_id: String) -> void:
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers("penjaga_foto", memory_id):
+		response_label.text = "Barang itu sudah pernah dilihat di sini. Tidak ada tambahan baru."
+		return
+	AuctionState.remember_npc_event("penjaga_foto", memory_id)
 	AuctionState.advance_chapter2_time(10)
 
 	if item_id == "camera" and AuctionState.has_inventory_item("camera"):
@@ -349,6 +359,11 @@ func _show_item_to_photo_shop(item_id: String) -> void:
 	_refresh_status()
 
 func _show_item_to_terminal(item_id: String) -> void:
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers("terminal", memory_id):
+		response_label.text = "Barang itu sudah pernah dilihat di sini. Tidak ada tambahan baru."
+		return
+	AuctionState.remember_npc_event("terminal", memory_id)
 	AuctionState.advance_chapter2_time(10)
 
 	if item_id == "sentana_photo":
@@ -420,6 +435,11 @@ func _talk_ratna() -> void:
 	_refresh_status()
 
 func _show_item_to_ratna(item_id: String) -> void:
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers("bu_ratna", memory_id):
+		response_label.text = "Barang itu sudah pernah dilihat di sini. Tidak ada tambahan baru."
+		return
+	AuctionState.remember_npc_event("bu_ratna", memory_id)
 	AuctionState.advance_chapter2_time(10)
 	if item_id == "camera":
 		AuctionState.chapter2_leads["sentana"] = true
@@ -442,6 +462,11 @@ func _talk_craftsman() -> void:
 	_refresh_status()
 
 func _show_item_to_craftsman(item_id: String) -> void:
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers("pengrajin", memory_id):
+		response_label.text = "Barang itu sudah pernah dilihat di sini. Tidak ada tambahan baru."
+		return
+	AuctionState.remember_npc_event("pengrajin", memory_id)
 	AuctionState.advance_chapter2_time(20)
 	if item_id == "mixed_box":
 		var box := AuctionState.get_inventory_item("mixed_box")
