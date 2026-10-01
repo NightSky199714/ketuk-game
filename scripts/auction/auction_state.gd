@@ -361,3 +361,38 @@ func npc_remembers(npc_id: String, event_id: String) -> bool:
 		return false
 	var memory: Dictionary = npc_memory[npc_id]
 	return bool(memory.get(event_id, false))
+
+
+func book_text() -> String:
+	var lines: Array[String] = []
+
+	for person_id in chapter3_people_book.keys():
+		var person_note := str(chapter3_people_book[person_id])
+		if not person_note.is_empty():
+			lines.append("• %s" % person_note)
+
+	for item_id in discovery_notes.keys():
+		var note: Dictionary = discovery_notes[item_id]
+		var note_text := str(note.get("note", ""))
+		if not note_text.is_empty():
+			lines.append("• %s — %s" % [
+				inventory_item_name(str(item_id)),
+				note_text
+			])
+
+	for rumor_id in rumors.keys():
+		var rumor: Dictionary = rumors[rumor_id]
+		var rumor_text := str(rumor.get("text", ""))
+		if rumor_text.is_empty():
+			continue
+		var status := str(rumor.get("status", "heard"))
+		var prefix := "TERVERIFIKASI" if status == "verified" else "DENGAR"
+		lines.append("• %s — %s" % [prefix, rumor_text])
+
+	if chapter3_poster_photographed:
+		lines.append("• Poster Sentana sudah difoto.")
+
+	if lines.is_empty():
+		return "Belum ada catatan baru."
+
+	return "\n".join(lines)
