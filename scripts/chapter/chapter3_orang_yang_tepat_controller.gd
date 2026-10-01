@@ -21,6 +21,7 @@ var show_item_button: Button
 var poster_button: Button
 var wait_button: Button
 var exit_button: Button
+var menu_button: Button
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
@@ -182,6 +183,13 @@ func _build_ui() -> void:
 	exit_button.pressed.connect(_exit_market)
 	root.add_child(exit_button)
 
+	menu_button = Button.new()
+	menu_button.text = "MENU UTAMA"
+	menu_button.custom_minimum_size = Vector2(0, 48)
+	menu_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	menu_button.pressed.connect(_return_to_menu)
+	root.add_child(menu_button)
+
 	response_label = Label.new()
 	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -267,6 +275,7 @@ func _show_location(location_id: String, moved: bool) -> void:
 	_refresh_travel()
 	_refresh_inventory()
 	_refresh_book()
+	_autosave()
 
 func _talk_here() -> void:
 	if current_contact_id.is_empty():
@@ -293,6 +302,7 @@ func _talk_here() -> void:
 	_refresh_inventory()
 	_refresh_location_controls()
 	_check_world_deadline()
+	_autosave()
 
 func _show_item_here() -> void:
 	if current_contact_id.is_empty():
@@ -351,6 +361,7 @@ func _show_item_here() -> void:
 	_refresh_book()
 	_refresh_location_controls()
 	_check_world_deadline()
+	_autosave()
 
 func _refresh_location_controls() -> void:
 	show_item_button.visible = (
@@ -406,6 +417,7 @@ func _inspect_notice_board() -> void:
 	]
 	_refresh_inventory()
 	_refresh_book()
+	_autosave()
 
 func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
@@ -466,6 +478,7 @@ func _check_world_deadline() -> void:
 		return
 	response_label.text += "\n\nDi luar pasar, batas pembayaran kios lewat. Pak Arman menutup kios."
 	subtitle_label.text = "Kios sudah ditutup. Kamu tetap bisa melanjutkan aktivitas."
+	_autosave()
 
 func _wait_market() -> void:
 	AuctionState.advance_chapter2_time(30)
@@ -475,6 +488,7 @@ func _wait_market() -> void:
 	else:
 		response_label.text = "Sekitar setengah jam berlalu.\n\n" + response_label.text
 	_check_world_deadline()
+	_autosave()
 
 func _is_contact_present(person_id: String) -> bool:
 	if person_id.is_empty():
@@ -517,4 +531,12 @@ func _contact_absent_text(person_id: String) -> String:
 	return str(schedule.get("absent_text", ""))
 
 func _exit_market() -> void:
+	_autosave()
 	get_tree().change_scene_to_file("res://scenes/chapter/chapter2_batas.tscn")
+
+func _autosave() -> void:
+	SaveManager.save_game("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
+
+func _return_to_menu() -> void:
+	_autosave()
+	get_tree().change_scene_to_file("res://scenes/system/main_menu.tscn")
