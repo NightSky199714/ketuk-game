@@ -70,7 +70,7 @@ func _build_ui() -> void:
 	margin.add_child(root)
 
 	var brand := Label.new()
-	brand.text = "KETUK. — DI BALIK HARGA\nBAB 1"
+	brand.text = "KETUK. — DI BALIK HARGA"
 	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	brand.add_theme_font_size_override("font_size", 26)
 	root.add_child(brand)
