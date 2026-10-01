@@ -82,7 +82,7 @@ func _build_ui() -> void:
 	map_row.add_theme_constant_override("separation", 5)
 	root.add_child(map_row)
 
-	var order := ["pintu_pasar", "kios_tengah", "kedai_pojok", "gang_timur", "lorong_belakang"]
+	var order := ["pintu_pasar", "kios_tengah", "kedai_pojok", "gang_timur", "lorong_belakang", "papan_pengumuman"]
 	for location_id in order:
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(118, 62)
@@ -174,6 +174,11 @@ func _show_location(location_id: String, moved: bool) -> void:
 	else:
 		response_label.text = ""
 
+	if current_location_id == "papan_pengumuman" and not _network_complete():
+		location_description.text = "Papan tua dekat pintu keluar. Ada iklan servis, kehilangan barang, dan pengumuman lama. Belum ada sesuatu yang cukup membuatmu berhenti."
+	elif current_location_id == "papan_pengumuman" and _network_complete():
+		location_description.text = "Papan tua dekat pintu keluar tampak sedikit berbeda dari saat kamu datang. Ada satu poster baru menutup sebagian kertas lama."
+
 	if current_contact_id.is_empty():
 		contact_button.visible = false
 	else:
@@ -183,12 +188,9 @@ func _show_location(location_id: String, moved: bool) -> void:
 		else:
 			contact_button.text = "TANYA ORANG DI SINI"
 
-	if _network_complete():
+	if current_location_id == "papan_pengumuman" and _network_complete():
 		poster_button.visible = true
-		if current_location_id == "papan_pengumuman":
-			poster_button.text = "PERIKSA POSTER"
-		else:
-			poster_button.text = "PERGI KE PAPAN PENGUMUMAN"
+		poster_button.text = "PERIKSA PAPAN"
 	else:
 		poster_button.visible = false
 
@@ -245,18 +247,12 @@ func _talk_here() -> void:
 
 	response_label.text = "\n\n".join(lines)
 
-	if not next_person.is_empty():
-		response_label.text += "\n\nPetunjuk: %s — %s." % [
-			_person_name(next_person),
-			_location_name(next_location)
-		]
-
 	_refresh_book()
 	_refresh_map_buttons()
 
-	if _network_complete():
+	if current_location_id == "papan_pengumuman" and _network_complete():
 		poster_button.visible = true
-		poster_button.text = "PERGI KE PAPAN PENGUMUMAN" if current_location_id != "papan_pengumuman" else "PERIKSA POSTER"
+		poster_button.text = "PERIKSA PAPAN"
 	else:
 		poster_button.visible = false
 
@@ -282,8 +278,6 @@ func _required_people() -> Array[String]:
 
 func _poster_action() -> void:
 	if current_location_id != "papan_pengumuman":
-		AuctionState.network_travel_steps += 1
-		_show_location("papan_pengumuman", true)
 		return
 	_show_poster()
 
@@ -336,11 +330,6 @@ func _refresh_map_buttons() -> void:
 		var location: Dictionary = locations.get(location_id, {})
 		var label := str(location.get("label", location_id)).to_upper()
 		var contact_id := str(location.get("contact", ""))
-
-		if not contact_id.is_empty() and AuctionState.chapter3_people_book.has(contact_id):
-			label += "\n%s" % _person_name(contact_id)
-		elif not contact_id.is_empty() and AuctionState.network_known_contacts.has(contact_id):
-			label += "\n%s?" % _person_name(contact_id)
 
 		if location_id == current_location_id:
 			label = "• " + label
