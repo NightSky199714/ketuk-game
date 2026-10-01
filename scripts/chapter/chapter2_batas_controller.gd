@@ -19,7 +19,8 @@ var action_row: VBoxContainer
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
-	AuctionState.start_chapter2()
+	if not AuctionState.chapter2_started:
+		AuctionState.start_chapter2()
 	_load_map()
 	_build_ui()
 	_show_location("rumah", false)
