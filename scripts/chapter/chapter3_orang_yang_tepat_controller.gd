@@ -191,6 +191,7 @@ func _build_ui() -> void:
 	root.add_child(response_label)
 
 	book_label = Label.new()
+	book_label.visible = false
 	book_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	book_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	book_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
