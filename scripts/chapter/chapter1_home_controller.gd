@@ -70,12 +70,16 @@ func _show_stage() -> void:
 	if stage == 0:
 		title_label.text = "MALAM — KEMBALI KE RUMAH"
 		main_label.text = "Kamu mengeluarkan semua yang benar-benar kamu bawa pulang."
-		var owned: Array[String] = []
-		if owns_box:
-			owned.append("Kotak Campuran")
-		if owns_camera:
-			owned.append("Kamera Analog")
-		detail_label.text = "Barang milikmu: %s." % (", ".join(owned) if not owned.is_empty() else "tidak ada dari dua lot utama")
+		var owned_text := "tidak ada dari dua lot utama"
+		if owns_box and owns_camera:
+			owned_text = "Kotak Campuran, Kamera Analog"
+		elif owns_box:
+			owned_text = "Kotak Campuran"
+		elif owns_camera:
+			owned_text = "Kamera Analog"
+		detail_label.text = "Barang milikmu: %s." % owned_text
+		if AuctionState.camera_appraisal_seen:
+			detail_label.text += "\nKamu juga membawa pulang satu informasi baru tentang kamera: body biasa, lensa belum biasa."
 		book_label.text = "Uang tersisa: %s" % _rupiah(AuctionState.money)
 		next_button.text = "BUKA BUKU"
 		return
@@ -84,8 +88,13 @@ func _show_stage() -> void:
 		title_label.text = "BUKU"
 		main_label.text = "Halaman kosong terasa berbeda setelah lelang pertama."
 		if owns_box:
-			detail_label.text = "Kamu belum tahu isi sebenarnya. Tapi keputusan Rp95.000 tadi tidak terasa sepenuhnya buta."
-			book_label.text = "Rp95.000. Sepertinya tidak salah."
+			var lot02_amount := int(lot02.get("amount", 95000))
+			if lot02_amount == 95000:
+				detail_label.text = "Kamu belum tahu isi sebenarnya. Tapi keputusan Rp95.000 tadi tidak terasa sepenuhnya buta."
+				book_label.text = "Rp95.000. Sepertinya tidak salah."
+			else:
+				detail_label.text = "Kotak Campuran ada di rumahmu. Harganya berbeda dari jalur canon, jadi buku mencatat angka yang benar-benar kamu bayar."
+				book_label.text = "%s. Belum tahu apakah salah." % _rupiah(lot02_amount)
 		else:
 			detail_label.text = "Kotak Campuran bukan milikmu. Tidak ada alasan menulis seolah-olah kamu memilikinya."
 			book_label.text = "Belum ada catatan untuk Lot 02."
