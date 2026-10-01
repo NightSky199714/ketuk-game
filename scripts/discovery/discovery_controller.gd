@@ -14,6 +14,7 @@ var object_row: HBoxContainer
 var target_panel: VBoxContainer
 var end_panel: VBoxContainer
 var open_button: Button
+var network_button: Button
 
 func _ready() -> void:
 	_load_data()
@@ -128,6 +129,13 @@ func _build_ui() -> void:
 	end_title.add_theme_font_size_override("font_size", 25)
 	end_panel.add_child(end_title)
 
+	network_button = Button.new()
+	network_button.text = "CARI ORANG YANG TAHU"
+	network_button.custom_minimum_size = Vector2(280, 66)
+	network_button.visible = false
+	network_button.pressed.connect(_go_to_network)
+	end_panel.add_child(network_button)
+
 	var restart := Button.new()
 	restart.text = "MAIN DARI AWAL"
 	restart.custom_minimum_size = Vector2(240, 66)
@@ -201,9 +209,9 @@ func _choose_target(target_id: String) -> void:
 	object_row.visible = false
 
 	if target_id == "unsure":
-		AuctionState.discovery_target = ""
+		AuctionState.discovery_target = "unsure"
 		observation_label.text = "Kamu belum cukup yakin untuk menentukan arah pencarian."
-		note_label.text = "Tidak memilih juga sebuah keputusan. Pertanyaan ini tetap terbuka."
+		note_label.text = "Tidak memilih kategori juga sebuah keputusan. Kamu tetap bisa bertanya, tetapi pertanyaanmu masih luas."
 	else:
 		var object_data := _get_object(target_id)
 		AuctionState.discovery_target = target_id
@@ -215,6 +223,7 @@ func _choose_target(target_id: String) -> void:
 
 	intro_label.text = "Kamu sudah punya pertanyaan. Belum punya jawabannya."
 	end_panel.visible = true
+	network_button.visible = true
 
 func _get_object(object_id: String) -> Dictionary:
 	var lot_data: Dictionary = data.get("lot02", {})
@@ -226,6 +235,9 @@ func _get_object(object_id: String) -> Dictionary:
 		if str(object_data.get("id", "")) == object_id:
 			return object_data
 	return {}
+
+func _go_to_network() -> void:
+	get_tree().change_scene_to_file("res://scenes/network/human_network.tscn")
 
 func _restart() -> void:
 	AuctionState.reset_prototype()
