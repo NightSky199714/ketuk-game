@@ -34,7 +34,7 @@
   "people": {
     "pak_wira": {
       "name": "Pak Wira",
-      "book_note": "Pak Wira — tahu jaringan Pasar Tua; jangan paksa dia jadi ahli barang.",
+      "book_note": "Pak Wira — pedagang tua di Kios Tengah.",
       "first_meet": "Seorang pria tua melipat koran di samping tumpukan barang campur. Ia mengangkat kepala ketika kamu mendekat. \"Wira.\"",
       "without_box": "Kamu menjelaskan bahwa beberapa keputusan lelang kemarin masih terasa seperti tebakan. Pak Wira mengangguk. \"Kalau belum punya barangnya, bangun dulu orang yang kamu kenal. Damar biasanya ngopi di ujung pasar.\"",
       "responses": {
@@ -80,7 +80,7 @@
     },
     "pak_damar": {
       "name": "Pak Damar",
-      "book_note": "Pak Damar — tahu siapa yang biasa menangani kategori tertentu; bukan penilai universal.",
+      "book_note": "Pak Damar — sering duduk di Kedai Pojok.",
       "first_meet": "Pria sekitar enam puluhan menggeser gelas kopinya sedikit agar meja lebih lega. \"Damar.\"",
       "without_box": "Pak Damar mendengarkan ceritamu. \"Pasar begini bukan soal satu orang pintar. Untuk logam, dengar bengkel di timur. Untuk mekanisme kecil, cari meja servis di belakang.\"",
       "responses": {
@@ -126,7 +126,7 @@
     },
     "bu_sari": {
       "name": "Bu Sari",
-      "book_note": "Bu Sari — logam, lapisan, aus, sambungan; tidak mengaku tahu semua kategori.",
+      "book_note": "Bu Sari — bekerja di sekitar bengkel Gang Timur.",
       "first_meet": "Seorang perempuan menyeka tangannya setelah memilah potongan logam. \"Sari. Mau lihat apa?\"",
       "without_box": "Tanpa barang di tangan, Bu Sari hanya menjelaskan batasnya. \"Kalau nanti punya benda logam, bawa fisiknya. Foto kadang cukup buat curiga, tidak cukup buat yakin.\"",
       "responses": {
@@ -174,7 +174,7 @@
     },
     "yanto": {
       "name": "Yanto",
-      "book_note": "Yanto — mekanisme kecil; jam keberadaan tidak selalu tetap.",
+      "book_note": "Yanto — memakai meja servis di Lorong Belakang.",
       "first_meet": "Di ujung lorong, seorang pria sedang membongkar korek di atas kain tua. Ia tidak langsung melihat ke arahmu.",
       "without_box": "Yanto menunjuk meja kerjanya. \"Kalau soal mekanisme kecil, bawa bendanya. Nama tanpa barang cuma bikin kita sok tahu.\"",
       "responses": {
