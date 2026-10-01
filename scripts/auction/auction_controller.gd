@@ -458,16 +458,23 @@ func _run_post_lot_drama(winner: String) -> void:
 	if beats.is_empty():
 		return
 
-	instruction_label.text = "Suasana setelah lot..."
+	_add_log("—")
+	instruction_label.text = "Lot selesai. Ruangan belum benar-benar diam."
+
 	for beat_value in beats:
 		if typeof(beat_value) != TYPE_DICTIONARY:
 			continue
 
 		var beat: Dictionary = beat_value
 		var actor := str(beat.get("actor", "room"))
+		var kind := str(beat.get("kind", "dialogue"))
 		var expression := str(beat.get("expression", ""))
 		var line := str(beat.get("text", ""))
+		var delay_before := float(beat.get("delay_before", 0.0))
 		var pause := float(beat.get("pause", 0.8))
+
+		if delay_before > 0.0:
+			await get_tree().create_timer(delay_before).timeout
 
 		if not expression.is_empty():
 			match actor:
@@ -478,10 +485,30 @@ func _run_post_lot_drama(winner: String) -> void:
 				"pak_slamet":
 					_set_expression("pak_slamet", expression)
 
+		if kind == "silence":
+			if not line.is_empty():
+				instruction_label.text = line
+			await get_tree().create_timer(maxf(pause, 0.1)).timeout
+			continue
+
 		if not line.is_empty():
-			_add_log(line)
+			instruction_label.text = line
+			_add_log(_format_drama_line(kind, line))
 
 		await get_tree().create_timer(maxf(pause, 0.1)).timeout
+
+	instruction_label.text = "Pak Lurah bersiap ke lot berikutnya."
+
+func _format_drama_line(kind: String, line: String) -> String:
+	match kind:
+		"action":
+			return "• " + line
+		"crowd":
+			return "RUANGAN — " + line
+		"interrupt":
+			return "↳ " + line
+		_:
+			return line
 
 func _next_mc_bid() -> int:
 	var steps: Array = current_lot.get("mc_bid_steps", [])
