@@ -129,9 +129,13 @@ func advance_chapter2_time(minutes: int) -> void:
 	chapter2_time_minutes += minutes
 
 func chapter2_clock() -> String:
-	var hour := chapter2_time_minutes / 60
-	var minute := chapter2_time_minutes % 60
+	var day_minutes := chapter2_time_minutes % (24 * 60)
+	var hour := day_minutes / 60
+	var minute := day_minutes % 60
 	return "%02d:%02d" % [hour, minute]
+
+func chapter2_day_name() -> String:
+	return "Senin" if chapter2_time_minutes >= 24 * 60 else "Minggu"
 
 func pay_kiosk(amount: int) -> void:
 	kiosk_paid += amount
