@@ -54,12 +54,6 @@ var chapter3_poster_photographed: bool = false
 
 func reset_prototype() -> void:
 	money = 430000
-	add_inventory_item("book", {
-		"name": "BUKU LAMA",
-		"state": "reference",
-		"description": "Buku keluarga lama dengan catatan formal dan beberapa margin tulisan tangan.",
-		"source": "Keluarga"
-	})
 	current_lot_id = ""
 	current_bid = 0
 	current_bidder = ""
@@ -164,6 +158,12 @@ func start_chapter1() -> void:
 	kiosk_arrears = 1200000
 	kiosk_deadline = "Minggu 20:00"
 	money = 430000
+	add_inventory_item("book", {
+		"name": "BUKU LAMA",
+		"state": "reference",
+		"description": "Buku keluarga lama dengan catatan formal dan beberapa margin tulisan tangan.",
+		"source": "Keluarga"
+	})
 
 func finish_chapter1() -> void:
 	chapter1_complete = true
