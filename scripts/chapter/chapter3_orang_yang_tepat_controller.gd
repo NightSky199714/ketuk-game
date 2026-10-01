@@ -10,7 +10,7 @@ var target_id: String = ""
 
 var title_label: Label
 var subtitle_label: Label
-var map_row: HBoxContainer
+var map_row: GridContainer
 var location_label: Label
 var location_description: Label
 var response_label: Label
@@ -57,46 +57,55 @@ func _build_ui() -> void:
 	add_child(margin)
 
 	var root := VBoxContainer.new()
+	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	root.add_theme_constant_override("separation", 11)
 	margin.add_child(root)
 
 	title_label = Label.new()
+	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title_label.text = "BAB 3 — ORANG YANG TEPAT"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_font_size_override("font_size", 28)
 	root.add_child(title_label)
 
 	subtitle_label = Label.new()
+	subtitle_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	subtitle_label.add_theme_font_size_override("font_size", 17)
 	root.add_child(subtitle_label)
 
 	travel_label = Label.new()
+	travel_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	travel_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	travel_label.add_theme_font_size_override("font_size", 16)
 	root.add_child(travel_label)
 
-	map_row = HBoxContainer.new()
-	map_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	map_row.add_theme_constant_override("separation", 5)
+	map_row = GridContainer.new()
+	map_row.columns = 2
+	map_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	map_row.add_theme_constant_override("h_separation", 8)
+	map_row.add_theme_constant_override("v_separation", 8)
 	root.add_child(map_row)
 
 	var order := ["pintu_pasar", "kios_tengah", "kedai_pojok", "gang_timur", "lorong_belakang", "papan_pengumuman"]
 	for location_id in order:
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(118, 62)
+		button.custom_minimum_size = Vector2(0, 62)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var captured_id: String = location_id
 		button.pressed.connect(func(): _travel_to(captured_id))
 		map_row.add_child(button)
 		location_buttons[location_id] = button
 
 	location_label = Label.new()
+	location_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	location_label.add_theme_font_size_override("font_size", 23)
 	root.add_child(location_label)
 
 	location_description = Label.new()
+	location_description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	location_description.custom_minimum_size = Vector2(0, 105)
@@ -110,6 +119,7 @@ func _build_ui() -> void:
 	root.add_child(contact_button)
 
 	response_label = Label.new()
+	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	response_label.custom_minimum_size = Vector2(0, 190)
@@ -117,6 +127,7 @@ func _build_ui() -> void:
 	root.add_child(response_label)
 
 	book_label = Label.new()
+	book_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	book_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	book_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	book_label.custom_minimum_size = Vector2(0, 125)
