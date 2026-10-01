@@ -14,6 +14,9 @@ var discovery_target: String = ""
 var network_history: Array[Dictionary] = []
 var network_finding: String = ""
 var prototype_discovery_override: bool = false
+var network_known_contacts: Dictionary = {}
+var network_visited_locations: Dictionary = {}
+var network_travel_steps: int = 0
 
 func reset_prototype() -> void:
 	money = 430000
@@ -30,6 +33,9 @@ func reset_prototype() -> void:
 	network_history.clear()
 	network_finding = ""
 	prototype_discovery_override = false
+	network_known_contacts.clear()
+	network_visited_locations.clear()
+	network_travel_steps = 0
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
