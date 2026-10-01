@@ -2,39 +2,174 @@
   "locations": {
     "rumah": {
       "label": "RUMAH / KIOS",
-      "description": "Ruangan kecil di belakang kios. Buku lama, nota, dan barang hasil lelang ada di sini."
+      "description": "Ruangan kecil di belakang kios. Buku lama, nota, dan barang hasil lelang ada di sini.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 0,
+            "end": 1440
+          },
+          {
+            "day": "Senin",
+            "start": 0,
+            "end": 1440
+          }
+        ],
+        "closed_text": ""
+      }
     },
     "toko_kamera": {
       "label": "TOKO KAMERA",
-      "description": "Toko sempit dengan kamera bekas, lensa, tas kulit, dan meja servis di bagian belakang."
+      "description": "Toko sempit dengan kamera bekas, lensa, tas kulit, dan meja servis di bagian belakang.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 600,
+            "end": 1140
+          },
+          {
+            "day": "Senin",
+            "start": 540,
+            "end": 1080
+          }
+        ],
+        "closed_text": "Rolling door toko sudah turun. Etalase gelap."
+      }
     },
     "warung_ratna": {
       "label": "WARUNG BU RATNA",
-      "description": "Warung ramai dekat jalan. Beberapa pelanggan duduk lama sambil minum dan mengobrol."
+      "description": "Warung ramai dekat jalan. Beberapa pelanggan duduk lama sambil minum dan mengobrol.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 420,
+            "end": 1320
+          },
+          {
+            "day": "Senin",
+            "start": 420,
+            "end": 1320
+          }
+        ],
+        "closed_text": "Warung sudah tutup. Bangku depan dinaikkan ke atas meja."
+      }
     },
     "pak_arman": {
       "label": "RUMAH PAK ARMAN",
-      "description": "Rumah sederhana tidak jauh dari kios. Pagar depannya setengah terbuka."
+      "description": "Rumah sederhana tidak jauh dari kios. Pagar depannya setengah terbuka.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 960,
+            "end": 1260
+          },
+          {
+            "day": "Senin",
+            "start": 420,
+            "end": 630
+          }
+        ],
+        "closed_text": "Rumah terlihat sepi. Pak Arman tidak tampak di depan maupun di teras."
+      }
     },
     "kedai_foto": {
       "label": "KEDAI FOTO LAMA",
-      "description": "Kedai foto tua dengan etalase kusam dan beberapa kamera pajangan."
+      "description": "Kedai foto tua dengan etalase kusam dan beberapa kamera pajangan.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 600,
+            "end": 1110
+          },
+          {
+            "day": "Senin",
+            "start": 480,
+            "end": 1080
+          }
+        ],
+        "closed_text": "Etalase kedai foto gelap. Pintu terkunci."
+      }
     },
     "terminal_kota": {
       "label": "TERMINAL KOTA",
-      "description": "Terminal sibuk. Sopir, pedagang, dan penumpang datang dan pergi."
+      "description": "Terminal sibuk. Sopir, pedagang, dan penumpang datang dan pergi.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 300,
+            "end": 1380
+          },
+          {
+            "day": "Senin",
+            "start": 300,
+            "end": 1380
+          }
+        ],
+        "closed_text": "Terminal hampir kosong. Loket-loket sudah tutup."
+      }
     },
     "alamat_sentana": {
       "label": "ALAMAT DI KOTA",
-      "description": "Sebuah alamat di kawasan kota yang belum pernah kamu datangi sebelumnya."
+      "description": "Sebuah alamat di kawasan kota yang belum pernah kamu datangi sebelumnya.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 360,
+            "end": 1320
+          },
+          {
+            "day": "Senin",
+            "start": 360,
+            "end": 1320
+          }
+        ],
+        "closed_text": "Jalan di sekitar alamat itu sepi dan gelap."
+      }
     },
     "bengkel_umum": {
       "label": "BENGKEL UMUM",
-      "description": "Bengkel kecil dengan meja kerja, ragum, tang, obeng, dan berbagai barang servis."
+      "description": "Bengkel kecil dengan meja kerja, ragum, tang, obeng, dan berbagai barang servis.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 600,
+            "end": 1080
+          },
+          {
+            "day": "Senin",
+            "start": 480,
+            "end": 1020
+          }
+        ],
+        "closed_text": "Pintu bengkel setengah tertutup. Tidak ada suara alat dari dalam."
+      }
     },
     "pasar_tua": {
       "label": "PASAR TUA",
-      "description": "Pasar lama dengan kios campur, lorong sempit, bengkel kecil, dan barang bekas."
+      "description": "Pasar lama dengan kios campur, lorong sempit, bengkel kecil, dan barang bekas.",
+      "schedule": {
+        "windows": [
+          {
+            "day": "Minggu",
+            "start": 840,
+            "end": 1200
+          },
+          {
+            "day": "Senin",
+            "start": 480,
+            "end": 1140
+          }
+        ],
+        "closed_text": "Sebagian besar kios Pasar Tua sudah menutup pintunya."
+      }
     }
   }
 }
