@@ -6,6 +6,7 @@ var data: Dictionary = {}
 var current_location_id: String = "pintu_pasar"
 var current_contact_id: String = ""
 var owns_box: bool = false
+var target_id: String = ""
 
 var title_label: Label
 var subtitle_label: Label
@@ -24,6 +25,7 @@ func _ready() -> void:
 	AuctionState.start_chapter3()
 	AuctionState.network_known_contacts["pak_wira"] = true
 	owns_box = _owns_lot02()
+	target_id = AuctionState.discovery_target
 	_load_data()
 	_build_ui()
 	_show_intro()
@@ -139,7 +141,7 @@ func _build_ui() -> void:
 
 func _show_intro() -> void:
 	if owns_box:
-		subtitle_label.text = "Tatakan dari Kotak Campuran masih menyisakan pertanyaan. Buku hanya punya fragmen; kamu butuh orang yang tepat."
+		subtitle_label.text = "%s dari Kotak Campuran masih menyisakan pertanyaan. Buku hanya punya fragmen; kamu butuh orang yang tepat." % _target_label(target_id)
 	else:
 		subtitle_label.text = "Kamu tidak membawa Kotak Campuran pulang. Yang bisa dibangun sekarang bukan appraisal palsu, tetapi jaringan orang yang mungkin berguna nanti."
 
@@ -213,19 +215,31 @@ func _talk_here() -> void:
 			str(person.get("book_note", ""))
 		)
 
+	var next_person := ""
+	var next_location := ""
 	if owns_box:
-		lines.append(str(person.get("with_box", "")))
+		var responses: Dictionary = person.get("responses", {})
+		var response: Dictionary = responses.get(target_id, {})
+		if response.is_empty():
+			lines.append("Orang ini belum punya konteks yang cocok untuk benda yang kamu pilih.")
+		else:
+			lines.append(str(response.get("text", "")))
+			var extra := str(response.get("next_text", ""))
+			if not extra.is_empty():
+				lines.append(extra)
+
+			var finding := str(response.get("finding", ""))
+			if not finding.is_empty():
+				AuctionState.network_finding = finding
+				AuctionState.chapter3_context_found = true
+
+			next_person = str(response.get("next_person", ""))
+			next_location = str(response.get("next_location", ""))
 	else:
 		lines.append(str(person.get("without_box", "")))
+		next_person = str(person.get("next_person", ""))
+		next_location = str(person.get("next_location", ""))
 
-	var finding := str(person.get("finding", ""))
-	if owns_box and not finding.is_empty():
-		AuctionState.network_finding = finding
-		if current_contact_id == "bu_sari":
-			AuctionState.chapter3_context_found = true
-
-	var next_person := str(person.get("next_person", ""))
-	var next_location := str(person.get("next_location", ""))
 	if not next_person.is_empty():
 		AuctionState.network_known_contacts[next_person] = true
 
@@ -291,7 +305,10 @@ func _finish_chapter() -> void:
 	response_label.text = "Pengetahuan tidak tinggal di satu orang. Kamu pulang dengan empat nama, beberapa batas pengetahuan, dan satu foto undangan yang belum bisa kamu masuki."
 
 	if owns_box and AuctionState.chapter3_context_found:
-		book_label.text = "BUKU — Tatakan: berlapis, bukan kuningan padat.\nPoster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
+		book_label.text = "BUKU — %s: %s\nPoster: SENTANA PRIVATE AUCTION — INVITE REQUIRED." % [
+			_target_label(target_id),
+			AuctionState.network_finding
+		]
 	else:
 		book_label.text = "BUKU — jaringan bertambah. Poster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
 
@@ -339,6 +356,17 @@ func _location_name(location_id: String) -> String:
 	var locations: Dictionary = data.get("locations", {})
 	var location: Dictionary = locations.get(location_id, {})
 	return str(location.get("label", location_id))
+
+func _target_label(id: String) -> String:
+	match id:
+		"coaster":
+			return "Tatakan"
+		"lighter":
+			return "Korek meja"
+		"adapter":
+			return "Adaptor"
+		_:
+			return "Barang pilihanmu"
 
 func _owns_lot02() -> bool:
 	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
