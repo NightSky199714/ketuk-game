@@ -24,6 +24,7 @@ var chapter1_complete: bool = false
 var kiosk_arrears: int = 1200000
 var kiosk_deadline: String = "Minggu 20:00"
 var book_margin_line_seen: bool = false
+var camera_appraisal_seen: bool = false
 
 func reset_prototype() -> void:
 	money = 430000
@@ -47,6 +48,7 @@ func reset_prototype() -> void:
 	chapter1_started = false
 	chapter1_complete = false
 	book_margin_line_seen = false
+	camera_appraisal_seen = false
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
