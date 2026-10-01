@@ -8,6 +8,9 @@ func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
 
 func save_game(scene_path: String = "") -> bool:
+	if _release_check_mode():
+		return true
+
 	var resume_scene := scene_path
 	if resume_scene.is_empty():
 		var current := get_tree().current_scene
@@ -82,3 +85,7 @@ func _is_safe_resume_scene(scene_path: String) -> bool:
 		"res://scenes/chapter/chapter2_batas.tscn",
 		"res://scenes/chapter/chapter3_orang_yang_tepat.tscn"
 	]
+
+
+func _release_check_mode() -> bool:
+	return "release-check" in OS.get_cmdline_user_args()
