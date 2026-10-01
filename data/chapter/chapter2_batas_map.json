@@ -1,0 +1,32 @@
+{
+  "locations": {
+    "rumah": {
+      "label": "RUMAH / KIOS",
+      "description": "Kios masih milikmu untuk sekarang. Nota tunggakan terselip di bawah buku lama. Kalau mau berpikir tanpa membuang banyak waktu, ini tempatnya."
+    },
+    "toko_kamera": {
+      "label": "TOKO KAMERA",
+      "description": "Toko kecil dekat jalan utama. Pak Harun sering menangani kamera lama, tapi toko tetap bisnis: ia membeli untuk dijual lagi."
+    },
+    "warung_ratna": {
+      "label": "WARUNG BU RATNA",
+      "description": "Tempat orang berhenti, makan, dan bicara. Barang bukan keahlian utama Bu Ratna, tapi kabar sering lewat lebih dulu di sini."
+    },
+    "pak_arman": {
+      "label": "RUMAH PAK ARMAN",
+      "description": "Pemilik kios. Tidak jauh, tetapi datang ke sini tanpa uang atau alasan yang jelas belum tentu mengubah apa pun."
+    },
+    "kedai_foto": {
+      "label": "KEDAI FOTO LAMA",
+      "description": "Tempat kecil yang disebut Pak Harun ketika membicarakan orang bernama Adi. Minggu sore biasanya tidak ramai."
+    },
+    "terminal_kota": {
+      "label": "TERMINAL KOTA",
+      "description": "Orang datang dan pergi. Nama kolektor lebih mudah beredar di tempat seperti ini daripada alamat yang pasti."
+    },
+    "alamat_sentana": {
+      "label": "ALAMAT DI KOTA",
+      "description": "Alamat yang berhasil dicocokkan dari beberapa potongan informasi. Tidak ada jaminan orang yang dicari benar-benar ada di sana."
+    }
+  }
+}
