@@ -1,0 +1,27 @@
+# Godot 4+
+.godot/
+
+# Imported/generated resources
+.import/
+
+# Exported builds
+build/
+dist/
+exports/
+
+# Mono / C# (not currently used, kept safe)
+.mono/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+
+# Local environment / debug artifacts
+.env
+*.log
