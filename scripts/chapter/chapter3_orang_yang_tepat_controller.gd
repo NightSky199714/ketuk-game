@@ -255,6 +255,7 @@ func _show_location(location_id: String, moved: bool) -> void:
 	show_item_button.visible = (
 		not current_contact_id.is_empty()
 		and not AuctionState.selected_inventory_item.is_empty()
+		and AuctionState.selected_inventory_item != "book"
 		and AuctionState.has_inventory_item(AuctionState.selected_inventory_item)
 	)
 
@@ -354,6 +355,7 @@ func _refresh_location_controls() -> void:
 	show_item_button.visible = (
 		not current_contact_id.is_empty()
 		and not AuctionState.selected_inventory_item.is_empty()
+		and AuctionState.selected_inventory_item != "book"
 		and AuctionState.has_inventory_item(AuctionState.selected_inventory_item)
 	)
 	poster_button.visible = current_location_id == "papan_pengumuman" and _poster_available()
@@ -428,6 +430,10 @@ func _refresh_inventory() -> void:
 		inventory_detail.text = "Tidak ada barang yang sedang dipilih."
 		return
 
+	if selected == "book":
+		inventory_detail.text = "BUKU LAMA\n\n%s" % AuctionState.book_text()
+		return
+
 	var item := AuctionState.get_inventory_item(selected)
 	inventory_detail.text = "%s\n%s" % [
 		str(item.get("name", selected.to_upper())),
@@ -435,39 +441,7 @@ func _refresh_inventory() -> void:
 	]
 
 func _refresh_book() -> void:
-	if (
-		AuctionState.chapter3_people_book.is_empty()
-		and AuctionState.discovery_notes.is_empty()
-		and AuctionState.rumors.is_empty()
-	):
-		book_label.text = "BUKU — belum ada catatan baru."
-		return
-
-	var lines: Array[String] = ["BUKU"]
-	for person_id in AuctionState.chapter3_people_book.keys():
-		lines.append("• %s" % str(AuctionState.chapter3_people_book[person_id]))
-
-	for item_id in AuctionState.discovery_notes.keys():
-		var note: Dictionary = AuctionState.discovery_notes[item_id]
-		var text := str(note.get("note", ""))
-		if not text.is_empty():
-			lines.append("• %s — %s" % [
-				AuctionState.inventory_item_name(str(item_id)),
-				text
-			])
-
-	for rumor_id in AuctionState.rumors.keys():
-		var rumor: Dictionary = AuctionState.rumors[rumor_id]
-		var status := str(rumor.get("status", "heard"))
-		var prefix := "DENGAR" if status != "verified" else "TERVERIFIKASI"
-		var rumor_text := str(rumor.get("text", ""))
-		if not rumor_text.is_empty():
-			lines.append("• %s — %s" % [prefix, rumor_text])
-
-	if AuctionState.chapter3_poster_photographed:
-		lines.append("• Poster Sentana difoto.")
-
-	book_label.text = "\n".join(lines)
+	book_label.text = "BUKU\n%s" % AuctionState.book_text()
 
 func _refresh_map_buttons() -> void:
 	var locations: Dictionary = data.get("locations", {})
