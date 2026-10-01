@@ -144,7 +144,9 @@ func _build_ui() -> void:
 
 func _show_entry() -> void:
 	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
-	if str(result.get("winner", "")) != "mc":
+	var owns_lot02 := str(result.get("winner", "")) == "mc"
+
+	if not owns_lot02 and not AuctionState.prototype_discovery_override:
 		intro_label.text = "Kamu tidak memiliki Kotak Campuran. Tidak ada barang itu di mejamu untuk diperiksa."
 		open_button.visible = false
 		observation_label.text = "Discovery hanya boleh memakai barang yang benar-benar kamu miliki."
@@ -153,9 +155,14 @@ func _show_entry() -> void:
 		return
 
 	var lot_data: Dictionary = data.get("lot02", {})
-	intro_label.text = str(lot_data.get("intro", "Kotak Campuran ada di depanmu."))
-	observation_label.text = "Di ruang lelang kamu hanya melihat permukaannya."
-	note_label.text = "Belum ada catatan baru."
+	if AuctionState.prototype_discovery_override and not owns_lot02:
+		intro_label.text = "MODE PROTOTYPE — Kotak Campuran dipakai sebagai sampel uji agar alur P0.2/P0.3 tetap bisa dimainkan."
+		observation_label.text = "Ini bukan perubahan hasil lelang. Kepemilikan asli tetap tercatat."
+		note_label.text = "Tekan BUKA KOTAK untuk menguji Discovery Loop."
+	else:
+		intro_label.text = str(lot_data.get("intro", "Kotak Campuran ada di depanmu."))
+		observation_label.text = "Di ruang lelang kamu hanya melihat permukaannya."
+		note_label.text = "Belum ada catatan baru."
 
 func _open_box() -> void:
 	open_button.visible = false
