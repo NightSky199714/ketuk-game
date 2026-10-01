@@ -199,7 +199,9 @@ func _travel_to(location_id: String) -> void:
 		return
 
 	AuctionState.network_travel_steps += 1
+	AuctionState.advance_chapter2_time(10)
 	_show_location(location_id, true)
+	_check_world_deadline()
 
 func _show_location(location_id: String, moved: bool) -> void:
 	var locations: Dictionary = data.get("locations", {})
@@ -249,6 +251,8 @@ func _talk_here() -> void:
 	if current_contact_id.is_empty():
 		return
 
+	AuctionState.advance_chapter2_time(10)
+
 	var people: Dictionary = data.get("people", {})
 	var person: Dictionary = people.get(current_contact_id, {})
 	if person.is_empty():
@@ -267,10 +271,13 @@ func _talk_here() -> void:
 	_refresh_book()
 	_refresh_inventory()
 	_refresh_location_controls()
+	_check_world_deadline()
 
 func _show_item_here() -> void:
 	if current_contact_id.is_empty():
 		return
+
+	AuctionState.advance_chapter2_time(10)
 
 	var item_id := AuctionState.selected_inventory_item
 	if item_id.is_empty() or not AuctionState.has_inventory_item(item_id):
@@ -314,6 +321,7 @@ func _show_item_here() -> void:
 	_refresh_inventory()
 	_refresh_book()
 	_refresh_location_controls()
+	_check_world_deadline()
 
 func _refresh_location_controls() -> void:
 	show_item_button.visible = (
@@ -419,7 +427,17 @@ func _refresh_map_buttons() -> void:
 		button.text = label
 
 func _refresh_travel() -> void:
-	travel_label.text = "Perpindahan lokasi: %d" % AuctionState.network_travel_steps
+	travel_label.text = "%s %s  |  Perpindahan: %d" % [
+		AuctionState.chapter2_day_name(),
+		AuctionState.chapter2_clock(),
+		AuctionState.network_travel_steps
+	]
+
+func _check_world_deadline() -> void:
+	if not AuctionState.resolve_kiosk_deadline_if_needed():
+		return
+	response_label.text += "\n\nDi luar pasar, batas pembayaran kios lewat. Pak Arman menutup kios."
+	subtitle_label.text = "Kios sudah ditutup. Kamu tetap bisa melanjutkan aktivitas."
 
 func _exit_market() -> void:
 	get_tree().change_scene_to_file("res://scenes/chapter/chapter2_batas.tscn")
