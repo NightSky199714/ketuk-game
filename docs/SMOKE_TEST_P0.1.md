@@ -13,7 +13,7 @@
 
 ### Investigation — semua lot
 Setiap lot harus masuk layar investigasi sebelum bidding.
-- Lot 01: LUAR / TUTUP / PANEL
+- Lot 01: LUAR / BAWAH / KABEL
 - Lot 02: ATAS / SAMPING / ANGKAT
 - Lot 03: BODY / LENSA / TAS
 - Pemain boleh memeriksa satu, beberapa, semua, atau langsung menekan MULAI BIDDING.
@@ -50,8 +50,16 @@ Then:
 - STOP → Jaka wins and should switch to SURPRISED.
 - BID → MC bids Rp260.000; Jaka refuses to cross bluff threshold and MC wins.
 
+### Post-Lot Drama
+- Setelah lot selesai, harus ada 1–4 beat sosial pendek sebelum pindah lot/reveal.
+- Reaksi harus mengikuti pemenang, bukan selalu dialog yang sama.
+- Lot 01: Bu Ratna menang → komentar soal nilai guna; MC menang → Jaka/Bu Ratna mempertanyakan hitungannya.
+- Lot 02: MC menang → Jaka mengejek harga, Pak Slamet menahan kesimpulan; Jaka menang → Bu Ratna membalas sindiran.
+- Lot 03: Jaka menang → ia sempat mengejek lalu mulai melihat kameranya; MC menang → Jaka mengejek risiko lalu Pak Slamet hanya `Hm.`.
+- Drama tidak boleh membuat reveal bocor lebih awal.
+
 ### Reveal
-- Scene changes automatically.
+- Scene changes automatically after Lot 03 drama.
 - Reveal sequence lasts roughly half a minute.
 - Body value appears before lens value.
 - Lens estimate ends at Rp2.800.000–Rp3.600.000.
