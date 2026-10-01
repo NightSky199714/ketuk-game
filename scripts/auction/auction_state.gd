@@ -9,6 +9,8 @@ var bid_history: Array[Dictionary] = []
 var lot_results: Dictionary = {}
 var investigation: Dictionary = {}
 var session_memory: Dictionary = {}
+var discovery_notes: Dictionary = {}
+var discovery_target: String = ""
 
 func reset_prototype() -> void:
 	money = 430000
@@ -20,6 +22,8 @@ func reset_prototype() -> void:
 	lot_results.clear()
 	investigation.clear()
 	session_memory.clear()
+	discovery_notes.clear()
+	discovery_target = ""
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
