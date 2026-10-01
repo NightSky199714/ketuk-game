@@ -328,8 +328,13 @@ func _show_item_to_photo_shop(item_id: String) -> void:
 
 	if item_id == "camera" and AuctionState.has_inventory_item("camera"):
 		AuctionState.chapter2_leads["adi"] = true
+		AuctionState.hear_rumor(
+			"adi_lens_buyer",
+			"Katanya ada orang bernama Adi yang kadang membeli lensa lama.",
+			"Penjaga Kedai Foto"
+		)
 		response_label.text = "Penjaga melihat kameramu lebih lama pada bagian lensa.\n\n\"Ada orang namanya Adi yang kadang cari lensa lama. Nggak tentu datang. Kalau muncul, biasanya pagi.\""
-		clue_label.text = "Nama Adi terdengar di Kedai Foto."
+		clue_label.text = ""
 	elif item_id == "sentana_photo":
 		response_label.text = "Penjaga melihat foto poster itu. \"Nama Sentana pernah saya dengar, tapi bukan dari pelanggan tetap sini.\""
 	else:
@@ -342,8 +347,13 @@ func _show_item_to_terminal(item_id: String) -> void:
 
 	if item_id == "sentana_photo":
 		AuctionState.chapter2_leads["sentana"] = true
+		AuctionState.hear_rumor(
+			"sentana_drivers",
+			"Beberapa orang terminal merasa pernah mendengar nama Sentana.",
+			"Terminal Kota"
+		)
 		response_label.text = "Seorang sopir menatap foto posternya. \"Sentana... kayak pernah dengar. Coba duduk dulu, mungkin ada yang ingat alamatnya.\""
-		clue_label.text = "Beberapa orang terminal mengenali nama Sentana, belum alamatnya."
+		clue_label.text = ""
 	elif item_id == "camera":
 		response_label.text = "Beberapa orang melihat kamera itu, lalu kembali ke urusan masing-masing. Tidak ada yang memberi informasi berguna."
 	else:
@@ -361,6 +371,11 @@ func _show_item_to_harun(item_id: String) -> void:
 		AuctionState.world_flags["harun_offer_day"] = AuctionState.chapter2_day_name()
 		AuctionState.chapter2_leads["adi"] = true
 		AuctionState.chapter2_known_places["kedai_foto"] = true
+		AuctionState.hear_rumor(
+			"adi_lens_buyer",
+			"Katanya ada orang bernama Adi yang kadang membeli lensa lama.",
+			"Pak Harun"
+		)
 		response_label.text = "Pak Harun memeriksa kamera.\n\n\"Kalau saya ambil sekarang, %s.\"\n\nIa menyebut seseorang bernama Adi yang kadang membeli lensa tanpa bodynya." % _rupiah(offer)
 		clue_label.text = "Nama Adi terdengar. Pak Harun menyebut kedai foto lama."
 		_add_action("TERIMA %s" % _rupiah(offer), _accept_harun_offer)
@@ -403,8 +418,13 @@ func _show_item_to_ratna(item_id: String) -> void:
 	if item_id == "camera":
 		AuctionState.chapter2_leads["sentana"] = true
 		AuctionState.chapter2_known_places["terminal_kota"] = true
+		AuctionState.hear_rumor(
+			"sentana_name",
+			"Katanya ada nama Sentana yang beredar di antara sopir-sopir kota.",
+			"Bu Ratna"
+		)
 		response_label.text = "Bu Ratna melihat tas kameramu. \"Pernah dengar nama Sentana dari sopir-sopir kota. Katanya suka barang aneh. Nggak tahu orangnya yang mana.\""
-		clue_label.text = "Nama Sentana pernah disebut orang yang datang dari kota."
+		clue_label.text = ""
 	elif item_id == "mixed_box":
 		response_label.text = "Bu Ratna mengetuk sisi kotaknya. \"Berat. Tapi kalau macet begini jangan dipaksa pakai pisau dapur.\""
 	else:
@@ -493,6 +513,10 @@ func _meet_adi() -> void:
 
 	AuctionState.advance_chapter2_time(20)
 	AuctionState.money += 2100000
+	AuctionState.verify_rumor(
+		"adi_lens_buyer",
+		"Adi memang membeli lensa lama; ia membeli lensamu seharga Rp2.100.000."
+	)
 	AuctionState.camera_sale_status = "lens_only_2100_body_returned"
 	AuctionState.update_inventory_item("camera", {
 		"name": "BODY KAMERA",
@@ -519,8 +543,13 @@ func _ask_terminal() -> void:
 	if not AuctionState.chapter2_leads.has("sentana_address"):
 		AuctionState.chapter2_leads["sentana_address"] = true
 		AuctionState.chapter2_known_places["alamat_sentana"] = true
+		AuctionState.hear_rumor(
+			"sentana_address",
+			"Seorang sopir memberi satu alamat yang mungkin terkait Sentana.",
+			"Terminal Kota"
+		)
 		response_label.text = "Setelah beberapa percakapan, seorang sopir akhirnya memberi patokan sebuah alamat yang mungkin terkait nama Sentana. Ia sendiri tidak yakin."
-		clue_label.text = "Satu alamat belum terverifikasi dicatat."
+		clue_label.text = ""
 	else:
 		response_label.text = "Kamu tidak mendapat tambahan yang lebih pasti dari alamat yang sudah dicatat."
 
@@ -537,8 +566,12 @@ func _build_sentana_actions() -> void:
 func _search_sentana_address() -> void:
 	AuctionState.advance_chapter2_time(150)
 	AuctionState.chapter2_leads["sentana_chased"] = true
+	AuctionState.verify_rumor(
+		"sentana_address",
+		"Alamat yang diberikan sopir memang ada, tetapi belum membuktikan siapa yang terkait dengannya."
+	)
 	response_label.text = "Alamatnya nyata. Sentana tidak ada di sana."
-	clue_label.text = "Kamu menemukan alamat, bukan pembeli."
+	clue_label.text = ""
 	_refresh_status()
 	_check_deadline_event()
 
