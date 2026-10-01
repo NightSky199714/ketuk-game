@@ -27,6 +27,14 @@
     "alamat_sentana": {
       "label": "ALAMAT DI KOTA",
       "description": "Alamat yang berhasil dicocokkan dari beberapa potongan informasi. Tidak ada jaminan orang yang dicari benar-benar ada di sana."
+    },
+    "bengkel_umum": {
+      "label": "BENGKEL UMUM",
+      "description": "Bengkel kecil yang biasa menangani engsel, kunci, kotak, dan perkakas rumah. Tidak khusus barang antik."
+    },
+    "pasar_tua": {
+      "label": "PASAR TUA",
+      "description": "Pasar lama dengan kios campur, bengkel kecil, barang bekas, dan orang-orang yang saling mengenal."
     }
   }
 }
