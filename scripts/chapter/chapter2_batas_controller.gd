@@ -200,10 +200,19 @@ func _show_location(location_id: String, moved: bool) -> void:
 	location_label.text = str(location.get("label", location_id)).to_upper()
 	location_description.text = str(location.get("description", ""))
 
+	var is_open := _location_is_open(location_id)
+	var closed_text := _location_closed_text(location_id)
+
 	if moved:
 		response_label.text = "Kamu tiba di %s." % str(location.get("label", location_id))
 	else:
 		response_label.text = ""
+
+	if not is_open and not closed_text.is_empty():
+		if response_label.text.is_empty():
+			response_label.text = closed_text
+		else:
+			response_label.text += "\n\n" + closed_text
 
 	_refresh_status()
 	_refresh_inventory()
@@ -212,6 +221,15 @@ func _show_location(location_id: String, moved: bool) -> void:
 
 func _refresh_actions() -> void:
 	_clear_actions()
+
+	if not _location_is_open(current_location_id):
+		return
+
+	if current_location_id == "toko_kamera":
+		var offer_day := str(AuctionState.world_flags.get("harun_offer_day", ""))
+		if AuctionState.chapter2_pending_offer > 0 and not offer_day.is_empty():
+			if offer_day != AuctionState.chapter2_day_name():
+				AuctionState.chapter2_pending_offer = 0
 
 	match current_location_id:
 		"rumah":
@@ -282,6 +300,7 @@ func _show_item_to_harun(item_id: String) -> void:
 		if AuctionState.chapter2_time_minutes >= 18 * 60:
 			offer = 1500000
 		AuctionState.chapter2_pending_offer = offer
+		AuctionState.world_flags["harun_offer_day"] = AuctionState.chapter2_day_name()
 		AuctionState.chapter2_leads["adi"] = true
 		AuctionState.chapter2_known_places["kedai_foto"] = true
 		response_label.text = "Pak Harun memeriksa kamera.\n\n\"Kalau saya ambil sekarang, %s.\"\n\nIa menyebut seseorang bernama Adi yang kadang membeli lensa tanpa bodynya." % _rupiah(offer)
@@ -515,6 +534,43 @@ func _refresh_inventory() -> void:
 		str(item.get("name", selected.to_upper())),
 		str(item.get("description", "Belum diketahui."))
 	]
+
+func _location_is_open(location_id: String) -> bool:
+	var locations: Dictionary = map_data.get("locations", {})
+	var location: Dictionary = locations.get(location_id, {})
+	if location.is_empty():
+		return true
+
+	var schedule: Dictionary = location.get("schedule", {})
+	var windows: Array = schedule.get("windows", [])
+	if windows.is_empty():
+		return true
+
+	var day := AuctionState.chapter2_day_name()
+	var minute_of_day := AuctionState.chapter2_time_minutes % (24 * 60)
+
+	for raw_window in windows:
+		if typeof(raw_window) != TYPE_DICTIONARY:
+			continue
+		var window: Dictionary = raw_window
+		if str(window.get("day", "")) != day:
+			continue
+
+		var start_minute := int(window.get("start", 0))
+		var end_minute := int(window.get("end", 24 * 60))
+		if minute_of_day >= start_minute and minute_of_day < end_minute:
+			return true
+
+	return false
+
+func _location_closed_text(location_id: String) -> String:
+	var locations: Dictionary = map_data.get("locations", {})
+	var location: Dictionary = locations.get(location_id, {})
+	if location.is_empty():
+		return ""
+
+	var schedule: Dictionary = location.get("schedule", {})
+	return str(schedule.get("closed_text", ""))
 
 func _refresh_status() -> void:
 	title_label.text = "%s %s" % [
