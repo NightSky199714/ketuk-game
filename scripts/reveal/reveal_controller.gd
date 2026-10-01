@@ -109,7 +109,7 @@ func _build_ui() -> void:
 	root.add_child(end_panel)
 
 	var end_title := Label.new()
-	end_title.text = "BAB 1 — SESUDAH LELANG" if AuctionState.chapter_mode else "P0.1 — AUCTION FEEL SELESAI"
+	end_title.text = "SESUDAH LELANG" if AuctionState.chapter_mode else "P0.1 — AUCTION FEEL SELESAI"
 	end_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	end_title.add_theme_font_size_override("font_size", 28)
 	end_panel.add_child(end_title)
@@ -147,7 +147,7 @@ func _show_post_auction_context() -> void:
 		main_label.text = "Peserta mulai berdiri dan membereskan barang."
 		detail_label.text = "Pak Slamet melihatmu masih memandangi lensa. \"Kalau benar-benar penasaran, Harun belum pulang. Dia biasa pegang kamera.\""
 		slamet_label.text = "Pak Slamet\n[INTERESTED]"
-		followup_button.text = "MINTA PAK HARUN PERIKSA"
+		followup_button.text = "BICARA DENGAN PAK HARUN"
 		leave_button.text = "NANTI SAJA"
 		choice_panel.visible = true
 		return
