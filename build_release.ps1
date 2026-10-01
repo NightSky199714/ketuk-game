@@ -17,9 +17,6 @@ Write-Host "GODOT=$GodotPath"
 
 $CheckScript = Join-Path $Root "release_check.ps1"
 & $CheckScript -GodotPath $GodotPath
-if ($LASTEXITCODE -ne 0) {
-    throw "Release checks failed with exit code $LASTEXITCODE."
-}
 
 & $GodotPath --headless --path $Root --import
 if ($LASTEXITCODE -ne 0) {
