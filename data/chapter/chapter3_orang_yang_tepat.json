@@ -52,6 +52,12 @@
           "text": "Pak Wira melihat konektornya. \"Elektronik lama bukan bidang saya. Coba dengar dulu kata Damar. Dia lebih sering tahu siapa yang harus ditanya daripada jawabannya sendiri.\"",
           "next_person": "pak_damar",
           "next_location": "kedai_pojok"
+        },
+        "mixed_box": {
+          "text": "Pak Wira menekan penutupnya, lalu berhenti. \"Macet. Jangan dipaksa. Pasar ini banyak orang pegang alat, tapi bukan berarti semua tahu isi kotaknya.\""
+        },
+        "camera": {
+          "text": "Pak Wira melihat kamera sebentar. \"Kalau kamera, Harun lebih masuk akal daripada saya. Saya cuma tahu orang, bukan lensanya.\""
         }
       },
       "next_person": "pak_damar",
@@ -77,6 +83,12 @@
           "text": "Pak Damar menggeleng. \"Untuk perangkat begini saya belum punya nama yang saya percaya. Itu juga jawaban: jaringan kita ada bolongnya.\"",
           "next_person": "",
           "next_location": ""
+        },
+        "mixed_box": {
+          "text": "Pak Damar mengangkat kotaknya sebentar. \"Kalau masalahnya mekanisme penutup, cari orang yang tangannya biasa pegang alat. Kalau masalahnya nilai isi, itu cerita lain.\""
+        },
+        "camera": {
+          "text": "Pak Damar menggeleng. \"Saya bisa bilang siapa yang biasa main kamera. Saya tidak akan bilang harga barang ini.\""
         }
       },
       "next_person": "bu_sari",
@@ -104,6 +116,12 @@
           "text": "Bu Sari melihat ujung konektornya. \"Ada logam, tentu. Tapi perangkat asalnya bukan bidang saya. Jangan pakai jawaban saya buat menebak elektronik.\"",
           "next_person": "",
           "next_location": ""
+        },
+        "mixed_box": {
+          "text": "Bu Sari melihat pengunci luarnya. \"Bisa dibuka dengan alat yang tepat, tapi saya nggak tahu apa yang tertekan di dalam. Lebih baik hati-hati.\""
+        },
+        "camera": {
+          "text": "Bu Sari mengembalikannya. \"Logam casing bisa saya lihat. Kamera sebagai kamera bukan bidang saya.\""
         }
       },
       "next_person": "yanto",
@@ -130,6 +148,13 @@
           "text": "Yanto melihat konektornya lalu menyerahkannya kembali. \"Ini listrik, bukan mekanisme. Saya bisa buka casing, tapi itu nggak bikin saya tahu perangkat asalnya.\"",
           "next_person": "",
           "next_location": ""
+        },
+        "mixed_box": {
+          "text": "Yanto melihat pengunci dan engselnya. \"Ini bukan kunci. Mekanismenya macet. Kalau mau, saya bisa coba buka pelan-pelan.\"",
+          "can_open_box": true
+        },
+        "camera": {
+          "text": "Yanto melihat sekrup body. \"Saya bisa servis mekanisme kecil, tapi kamera bukan kerjaan saya.\""
         }
       },
       "next_person": "",
