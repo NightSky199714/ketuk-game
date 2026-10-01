@@ -29,9 +29,13 @@ Target:
 
 Expected home:
 - Kotak Campuran muncul sebagai milik MC;
+- tombol `BUKA KOTAK` tersedia;
+- setelah dibuka, pemain dapat memeriksa TATAKAN / KOREK / ADAPTOR;
+- `SELESAI MEMERIKSA` baru aktif setelah minimal satu objek diperiksa;
+- observasi tidak memberi appraisal final;
 - kamera hanya muncul jika benar-benar dimenangkan MC;
 - uang tersisa sesuai transaksi;
-- Buku menulis:
+- setelah pemeriksaan, Buku menulis:
   `Rp95.000. Sepertinya tidak salah.`
 
 ## Ownership Failure Path
@@ -40,6 +44,8 @@ Ulangi dan sengaja kalah Lot 02.
 
 Expected:
 - Kotak Campuran tidak muncul sebagai milik MC di rumah;
+- tombol `BUKA KOTAK` tidak muncul;
+- scene langsung menawarkan `BUKA BUKU`;
 - Buku tidak menulis seolah-olah MC memilikinya;
 - tidak ada P0.2 fallback yang memberikan kotak kepada MC.
 
