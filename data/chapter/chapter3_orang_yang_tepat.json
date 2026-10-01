@@ -36,37 +36,96 @@
       "name": "Pak Wira",
       "book_note": "Pak Wira — tahu jaringan Pasar Tua; jangan paksa dia jadi ahli barang.",
       "first_meet": "Seorang pria tua melipat koran di samping tumpukan barang campur. Saat namanya disebut, ia mengangkat tangan. \"Saya Wira.\"",
-      "with_box": "Ia melihat tatakan kuningmu sebentar, lalu mengembalikannya. \"Kalau warna begini saya bisa curiga, tapi curiga bukan tahu. Cari Damar di kedai pojok. Dia lebih hafal orang daripada barang.\"",
       "without_box": "Kamu menjelaskan bahwa beberapa keputusan lelang kemarin masih terasa seperti tebakan. Pak Wira mengangguk. \"Kalau belum punya barangnya, yang bisa kamu bangun ya orangnya. Cari Damar di kedai pojok.\"",
-      "next_person": "pak_damar",
-      "next_location": "kedai_pojok"
+      "responses": {
+        "coaster": {
+          "text": "Pak Wira membolak-balik tatakan itu sebentar. \"Kalau cuma dari warna, saya nggak mau nebak. Damar lebih hafal siapa yang biasa menangani barang begini.\"",
+          "next_person": "pak_damar",
+          "next_location": "kedai_pojok"
+        },
+        "lighter": {
+          "text": "Pak Wira mencoba roda koreknya sekali lalu berhenti. \"Macet, iya. Tapi saya nggak akan sok tahu mekanismenya. Coba tanya Damar; dia biasanya tahu siapa yang pegang barang kecil begini.\"",
+          "next_person": "pak_damar",
+          "next_location": "kedai_pojok"
+        },
+        "adapter": {
+          "text": "Pak Wira melihat konektornya. \"Elektronik lama bukan bidang saya. Damar mungkin tahu apakah masih ada orang pasar yang main perangkat begini.\"",
+          "next_person": "pak_damar",
+          "next_location": "kedai_pojok"
+        }
+      }
     },
     "pak_damar": {
       "name": "Pak Damar",
       "book_note": "Pak Damar — tahu siapa yang biasa menangani kategori tertentu; bukan penilai universal.",
       "first_meet": "Pria sekitar enam puluhan menggeser gelas kopinya. \"Damar. Wira nyuruh ke sini?\"",
-      "with_box": "Ia tidak menyentuh tatakannya lama-lama. \"Kalau kamu mau tahu logamnya, jangan tanya saya. Bu Sari di Gang Timur. Dia lihat bahan dari kerjaan sehari-hari.\"",
       "without_box": "Pak Damar mendengarkan ceritamu. \"Pasar begini bukan soal satu orang pintar. Kalau urusan logam, cari Bu Sari di Gang Timur. Kalau mekanisme kecil, ada Yanto di belakang.\"",
-      "next_person": "bu_sari",
-      "next_location": "gang_timur"
+      "responses": {
+        "coaster": {
+          "text": "Pak Damar hanya melihat tepinya. \"Saya curiga. Curiga sama tahu itu beda. Kalau mau tahu logamnya, cari Bu Sari di Gang Timur.\"",
+          "next_person": "bu_sari",
+          "next_location": "gang_timur"
+        },
+        "lighter": {
+          "text": "Pak Damar memutar korek itu di telapak tangan tanpa membongkarnya. \"Mekanisme kecil? Yanto di Lorong Belakang. Saya tahu orangnya, bukan isi koreknya.\"",
+          "next_person": "yanto",
+          "next_location": "lorong_belakang"
+        },
+        "adapter": {
+          "text": "Pak Damar menggeleng. \"Untuk perangkat begini saya belum punya nama yang saya percaya. Itu juga jawaban: jaringan kita ada bolongnya.\"",
+          "next_person": "",
+          "next_location": ""
+        }
+      }
     },
     "bu_sari": {
       "name": "Bu Sari",
       "book_note": "Bu Sari — logam, lapisan, aus, sambungan; tidak mengaku tahu semua kategori.",
       "first_meet": "Seorang perempuan menyeka tangannya setelah memilah potongan logam. \"Sari. Mau lihat apa?\"",
-      "with_box": "Ia menggosok tepi tatakan dengan ibu jari. \"Warna kuningnya lapisan. Bagian aus ini nunjukkin bahan bawahnya beda. Jadi ini bukan kuningan padat.\" Ia melirik korek meja dari kotakmu. \"Kalau yang itu mau kamu bongkar mekanismenya, cari Yanto di Lorong Belakang.\"",
       "without_box": "Tanpa barang di tangan, Bu Sari hanya menjelaskan batasnya. \"Kalau nanti punya benda logam, bawa fisiknya. Foto kadang cukup buat curiga, tidak cukup buat yakin.\"",
-      "finding": "Tatakan Lot 02 berlapis; bukan kuningan padat.",
-      "next_person": "yanto",
-      "next_location": "lorong_belakang"
+      "responses": {
+        "coaster": {
+          "text": "Bu Sari menggosok bagian tepi dengan ibu jari. \"Warna kuningnya lapisan. Bagian aus ini nunjukkin bahan bawahnya beda. Jadi ini bukan kuningan padat.\"",
+          "finding": "Tatakan Lot 02 berlapis; bukan kuningan padat.",
+          "next_person": "yanto",
+          "next_location": "lorong_belakang",
+          "next_text": "Ia menunjuk korek di kotakmu. \"Kalau nanti mau bahas mekanisme kecil itu, Yanto di Lorong Belakang.\""
+        },
+        "lighter": {
+          "text": "Bu Sari melihat casing korek, lalu mengembalikannya. \"Kalau logam luarnya saya masih bisa komentar. Tapi yang kamu mau tahu mekanismenya, kan? Itu bukan bidang saya. Cari Yanto di Lorong Belakang.\"",
+          "next_person": "yanto",
+          "next_location": "lorong_belakang"
+        },
+        "adapter": {
+          "text": "Bu Sari melihat ujung konektornya. \"Ada logam, tentu. Tapi perangkat asalnya bukan bidang saya. Jangan pakai jawaban saya buat menebak elektronik.\"",
+          "next_person": "",
+          "next_location": ""
+        }
+      }
     },
     "yanto": {
       "name": "Yanto",
       "book_note": "Yanto — mekanisme kecil; jam keberadaan tidak selalu tetap.",
       "first_meet": "Di ujung lorong, seorang pria sedang membongkar korek di atas kain tua. \"Kalau cari Yanto, ya saya. Sebentar lagi saya beres-beres.\"",
-      "with_box": "Korek meja dari kotakmu berpindah ke tangannya. Ia menggerakkan roda pemantik. \"Pegasnya masih balik. Yang seret roda sama poros. Cap aus begini belum cukup buat bilang seri atau langka.\"",
       "without_box": "Yanto menunjuk meja kerjanya. \"Kalau soal mekanisme kecil, bawa bendanya. Nama tanpa barang cuma bikin kita sok tahu.\"",
-      "finding": "Korek tua dapat diperiksa mekanismenya, tetapi identitas dan kelangkaannya belum terbukti."
+      "responses": {
+        "coaster": {
+          "text": "Yanto mengetuk tatakannya pelan. \"Ini nggak punya mekanisme. Kalau yang kamu cari bahan logamnya, Bu Sari lebih tepat daripada saya.\"",
+          "next_person": "bu_sari",
+          "next_location": "gang_timur"
+        },
+        "lighter": {
+          "text": "Yanto menggerakkan roda pemantik dengan kuku. \"Pegasnya masih balik. Yang seret roda sama poros. Model lama, tapi cap aus begini belum cukup buat bilang seri atau langka.\"",
+          "finding": "Korek tua dapat diperiksa mekanismenya, tetapi identitas dan kelangkaannya belum terbukti.",
+          "next_person": "",
+          "next_location": ""
+        },
+        "adapter": {
+          "text": "Yanto melihat konektornya lalu menyerahkannya kembali. \"Ini listrik, bukan mekanisme. Saya bisa buka casing, tapi itu nggak bikin saya tahu perangkat asalnya.\"",
+          "next_person": "",
+          "next_location": ""
+        }
+      }
     }
   },
   "poster": {
