@@ -21,6 +21,8 @@ Pemeriksaan Pak Harun — jika pemain mengejar
       ↓
 Pulang
       ↓
+Jika Lot 02 dimiliki: buka/periksa Kotak Campuran
+      ↓
 Buku
       ↓
 BAB 1 SELESAI
@@ -98,3 +100,25 @@ Vertical Slice Chapter 1 lolos jika:
 5. appraisal hanya diketahui jika disaksikan;
 6. Buku merekam hasil yang benar-benar terjadi;
 7. chapter punya pembuka dan penutup yang terasa utuh.
+
+
+## Lot 02 Home Payoff
+
+Jika MC memenangkan Lot 02, barang tidak berhenti sebagai teks inventory.
+
+Di rumah:
+1. MC membuka Kotak Campuran.
+2. Seluruh isi yang sebelumnya hanya terlihat sebagian menjadi jelas.
+3. Pemain dapat memeriksa:
+   - Tatakan;
+   - Korek meja;
+   - Adaptor.
+4. Pemeriksaan hanya memberi observasi dan catatan sementara.
+5. Setelah minimal satu benda diperiksa, pemain boleh lanjut ke Buku.
+
+Tidak ada specialist atau appraisal penuh di Chapter 1.
+
+Tujuan payoff ini adalah menunjukkan:
+> menang barang → barang benar-benar menjadi milikmu → kamu bisa memeriksanya → pengetahuan tetap belum lengkap.
+
+Jika MC tidak memenangkan Lot 02, tahap ini dilewati sepenuhnya.
