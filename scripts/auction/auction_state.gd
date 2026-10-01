@@ -402,3 +402,137 @@ func book_text() -> String:
 		return "Belum ada catatan baru."
 
 	return "\n".join(lines)
+
+
+func export_save_data() -> Dictionary:
+	return {
+		"money": money,
+		"current_lot_id": current_lot_id,
+		"current_bid": current_bid,
+		"current_bidder": current_bidder,
+		"mc_bid_history": mc_bid_history.duplicate(),
+		"bid_history": bid_history.duplicate(true),
+		"lot_results": lot_results.duplicate(true),
+		"investigation": investigation.duplicate(true),
+		"session_memory": session_memory.duplicate(true),
+		"discovery_notes": discovery_notes.duplicate(true),
+		"discovery_target": discovery_target,
+		"inventory": inventory.duplicate(true),
+		"selected_inventory_item": selected_inventory_item,
+		"world_flags": world_flags.duplicate(true),
+		"rumors": rumors.duplicate(true),
+		"npc_memory": npc_memory.duplicate(true),
+		"network_history": network_history.duplicate(true),
+		"network_finding": network_finding,
+		"network_known_contacts": network_known_contacts.duplicate(true),
+		"network_visited_locations": network_visited_locations.duplicate(true),
+		"network_travel_steps": network_travel_steps,
+		"chapter_mode": chapter_mode,
+		"chapter_id": chapter_id,
+		"chapter1_started": chapter1_started,
+		"chapter1_complete": chapter1_complete,
+		"kiosk_arrears": kiosk_arrears,
+		"kiosk_deadline": kiosk_deadline,
+		"book_margin_line_seen": book_margin_line_seen,
+		"camera_appraisal_seen": camera_appraisal_seen,
+		"chapter2_started": chapter2_started,
+		"chapter2_complete": chapter2_complete,
+		"chapter2_route": chapter2_route,
+		"chapter2_time_minutes": chapter2_time_minutes,
+		"kiosk_saved": kiosk_saved,
+		"kiosk_paid": kiosk_paid,
+		"camera_sale_status": camera_sale_status,
+		"chapter2_known_places": chapter2_known_places.duplicate(true),
+		"chapter2_leads": chapter2_leads.duplicate(true),
+		"chapter2_visited": chapter2_visited.duplicate(true),
+		"chapter2_extension_granted": chapter2_extension_granted,
+		"chapter2_deadline_minutes": chapter2_deadline_minutes,
+		"chapter2_pending_offer": chapter2_pending_offer,
+		"chapter3_started": chapter3_started,
+		"chapter3_complete": chapter3_complete,
+		"chapter3_people_book": chapter3_people_book.duplicate(true),
+		"chapter3_context_found": chapter3_context_found,
+		"chapter3_poster_seen": chapter3_poster_seen,
+		"chapter3_poster_photographed": chapter3_poster_photographed
+	}
+
+func import_save_data(data: Dictionary) -> void:
+	reset_prototype()
+
+	money = int(data.get("money", money))
+	current_lot_id = str(data.get("current_lot_id", ""))
+	current_bid = int(data.get("current_bid", 0))
+	current_bidder = str(data.get("current_bidder", ""))
+
+	mc_bid_history.clear()
+	for value in data.get("mc_bid_history", []):
+		mc_bid_history.append(int(value))
+
+	bid_history.clear()
+	for value in data.get("bid_history", []):
+		if typeof(value) == TYPE_DICTIONARY:
+			bid_history.append(value.duplicate(true))
+
+	lot_results = _dict_from_save(data.get("lot_results", {}))
+	investigation = _dict_from_save(data.get("investigation", {}))
+	session_memory = _dict_from_save(data.get("session_memory", {}))
+	discovery_notes = _dict_from_save(data.get("discovery_notes", {}))
+	discovery_target = str(data.get("discovery_target", ""))
+	inventory = _dict_from_save(data.get("inventory", {}))
+	selected_inventory_item = str(data.get("selected_inventory_item", ""))
+	world_flags = _dict_from_save(data.get("world_flags", {}))
+	rumors = _dict_from_save(data.get("rumors", {}))
+	npc_memory = _dict_from_save(data.get("npc_memory", {}))
+
+	network_history.clear()
+	for value in data.get("network_history", []):
+		if typeof(value) == TYPE_DICTIONARY:
+			network_history.append(value.duplicate(true))
+
+	network_finding = str(data.get("network_finding", ""))
+	network_known_contacts = _dict_from_save(data.get("network_known_contacts", {}))
+	network_visited_locations = _dict_from_save(data.get("network_visited_locations", {}))
+	network_travel_steps = int(data.get("network_travel_steps", 0))
+
+	chapter_mode = bool(data.get("chapter_mode", false))
+	chapter_id = str(data.get("chapter_id", ""))
+	chapter1_started = bool(data.get("chapter1_started", false))
+	chapter1_complete = bool(data.get("chapter1_complete", false))
+	kiosk_arrears = int(data.get("kiosk_arrears", 1200000))
+	kiosk_deadline = str(data.get("kiosk_deadline", "Minggu 20:00"))
+	book_margin_line_seen = bool(data.get("book_margin_line_seen", false))
+	camera_appraisal_seen = bool(data.get("camera_appraisal_seen", false))
+
+	chapter2_started = bool(data.get("chapter2_started", false))
+	chapter2_complete = bool(data.get("chapter2_complete", false))
+	chapter2_route = str(data.get("chapter2_route", ""))
+	chapter2_time_minutes = int(data.get("chapter2_time_minutes", 16 * 60))
+	kiosk_saved = bool(data.get("kiosk_saved", false))
+	kiosk_paid = int(data.get("kiosk_paid", 0))
+	camera_sale_status = str(data.get("camera_sale_status", ""))
+	chapter2_known_places = _dict_from_save(data.get("chapter2_known_places", {}))
+	chapter2_leads = _dict_from_save(data.get("chapter2_leads", {}))
+	chapter2_visited = _dict_from_save(data.get("chapter2_visited", {}))
+	chapter2_extension_granted = bool(data.get("chapter2_extension_granted", false))
+	chapter2_deadline_minutes = int(data.get("chapter2_deadline_minutes", 20 * 60))
+	chapter2_pending_offer = int(data.get("chapter2_pending_offer", 0))
+
+	chapter3_started = bool(data.get("chapter3_started", false))
+	chapter3_complete = bool(data.get("chapter3_complete", false))
+	chapter3_people_book = _dict_from_save(data.get("chapter3_people_book", {}))
+	chapter3_context_found = bool(data.get("chapter3_context_found", false))
+	chapter3_poster_seen = bool(data.get("chapter3_poster_seen", false))
+	chapter3_poster_photographed = bool(data.get("chapter3_poster_photographed", false))
+
+	if not inventory.has("book") and chapter1_started:
+		add_inventory_item("book", {
+			"name": "BUKU LAMA",
+			"state": "reference",
+			"description": "Buku keluarga lama dengan catatan formal dan beberapa margin tulisan tangan.",
+			"source": "Keluarga"
+		})
+
+func _dict_from_save(value) -> Dictionary:
+	if typeof(value) != TYPE_DICTIONARY:
+		return {}
+	return value.duplicate(true)
