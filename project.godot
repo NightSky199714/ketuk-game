@@ -6,6 +6,7 @@ config_version=5
 [application]
 
 config/name="KETUK. — Di Balik Harga"
+config/version="0.1.0-rc1"
 run/main_scene="res://scenes/system/main_menu.tscn"
 
 [autoload]
