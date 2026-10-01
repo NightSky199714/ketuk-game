@@ -15,6 +15,12 @@ Write-Host "KETUK_RELEASE_BUILD_START"
 Write-Host "PROJECT=$Root"
 Write-Host "GODOT=$GodotPath"
 
+$CheckScript = Join-Path $Root "release_check.ps1"
+& $CheckScript -GodotPath $GodotPath
+if ($LASTEXITCODE -ne 0) {
+    throw "Release checks failed with exit code $LASTEXITCODE."
+}
+
 & $GodotPath --headless --path $Root --import
 if ($LASTEXITCODE -ne 0) {
     throw "Godot import failed with exit code $LASTEXITCODE."
