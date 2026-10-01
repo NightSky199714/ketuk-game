@@ -146,23 +146,18 @@ func _show_entry() -> void:
 	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
 	var owns_lot02 := str(result.get("winner", "")) == "mc"
 
-	if not owns_lot02 and not AuctionState.prototype_discovery_override:
-		intro_label.text = "Kamu tidak memiliki Kotak Campuran. Tidak ada barang itu di mejamu untuk diperiksa."
+	if not owns_lot02:
+		intro_label.text = "Kotak Campuran bukan milikmu."
 		open_button.visible = false
-		observation_label.text = "Discovery hanya boleh memakai barang yang benar-benar kamu miliki."
-		note_label.text = "Ulangi sesi dan menangkan Lot 02 untuk menguji P0.2."
+		observation_label.text = "Lot 02 dimenangkan orang lain, jadi kotak itu tidak pernah sampai ke rumahmu."
+		note_label.text = "Tidak ada pemeriksaan yang bisa dilakukan pada barang yang tidak kamu miliki."
 		end_panel.visible = true
 		return
 
 	var lot_data: Dictionary = data.get("lot02", {})
-	if AuctionState.prototype_discovery_override and not owns_lot02:
-		intro_label.text = "MODE PROTOTYPE — Kotak Campuran dipakai sebagai sampel uji agar alur P0.2/P0.3 tetap bisa dimainkan."
-		observation_label.text = "Ini bukan perubahan hasil lelang. Kepemilikan asli tetap tercatat."
-		note_label.text = "Tekan BUKA KOTAK untuk menguji Discovery Loop."
-	else:
-		intro_label.text = str(lot_data.get("intro", "Kotak Campuran ada di depanmu."))
-		observation_label.text = str(lot_data.get("source_story", "Kotak ini berasal dari Lot 02 yang kamu menangkan."))
-		note_label.text = "Di ruang lelang kamu belum boleh membongkar isinya."
+	intro_label.text = str(lot_data.get("intro", "Kotak Campuran ada di depanmu."))
+	observation_label.text = str(lot_data.get("source_story", "Kotak ini berasal dari Lot 02 yang kamu menangkan."))
+	note_label.text = "Di ruang lelang kamu belum boleh membongkar isinya."
 
 func _open_box() -> void:
 	open_button.visible = false
