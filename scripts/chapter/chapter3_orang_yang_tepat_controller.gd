@@ -354,9 +354,14 @@ func _refresh_location_controls() -> void:
 func _poster_available() -> bool:
 	if AuctionState.chapter3_poster_photographed:
 		return true
-	return AuctionState.chapter3_people_book.size() >= 2 or int(
-		AuctionState.world_flags.get("market_interactions", 0)
-	) >= 2
+
+	var day := AuctionState.chapter2_day_name()
+	var minute_of_day := AuctionState.chapter2_time_minutes % (24 * 60)
+
+	if day == "Minggu":
+		return minute_of_day >= 18 * 60 + 30
+
+	return day == "Senin"
 
 func _inspect_notice_board() -> void:
 	if current_location_id != "papan_pengumuman":
