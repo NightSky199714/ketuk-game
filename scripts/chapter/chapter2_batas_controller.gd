@@ -4,18 +4,18 @@ const MAP_DATA_PATH := "res://data/chapter/chapter2_batas_map.json"
 
 var map_data: Dictionary = {}
 var current_location_id: String = "rumah"
-var chapter_done: bool = false
 
 var title_label: Label
 var clock_label: Label
 var money_label: Label
 var clue_label: Label
+var inventory_grid: GridContainer
+var inventory_detail: Label
 var map_row: GridContainer
 var location_label: Label
 var location_description: Label
 var response_label: Label
 var action_row: VBoxContainer
-var continue_button: Button
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func _load_map() -> void:
 	if not FileAccess.file_exists(MAP_DATA_PATH):
-		push_error("Chapter 2 map data not found: %s" % MAP_DATA_PATH)
+		push_error("World map data not found: %s" % MAP_DATA_PATH)
 		return
 
 	var file := FileAccess.open(MAP_DATA_PATH, FileAccess.READ)
@@ -35,7 +35,7 @@ func _load_map() -> void:
 	if typeof(parsed) == TYPE_DICTIONARY:
 		map_data = parsed
 	else:
-		push_error("Chapter 2 map data invalid.")
+		push_error("World map data invalid.")
 
 func _build_ui() -> void:
 	var background := ColorRect.new()
@@ -47,47 +47,68 @@ func _build_ui() -> void:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	margin.add_theme_constant_override("margin_left", 28)
 	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_top", 30)
-	margin.add_theme_constant_override("margin_bottom", 30)
+	margin.add_theme_constant_override("margin_top", 24)
+	margin.add_theme_constant_override("margin_bottom", 24)
 	add_child(margin)
 
 	var root := VBoxContainer.new()
 	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	root.add_theme_constant_override("separation", 10)
+	root.add_theme_constant_override("separation", 8)
 	margin.add_child(root)
 
 	title_label = Label.new()
 	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title_label.text = "BAB 2 — BATAS"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 29)
+	title_label.add_theme_font_size_override("font_size", 27)
 	root.add_child(title_label)
 
 	clock_label = Label.new()
 	clock_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	clock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	clock_label.add_theme_font_size_override("font_size", 18)
+	clock_label.add_theme_font_size_override("font_size", 17)
 	root.add_child(clock_label)
 
 	money_label = Label.new()
 	money_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	money_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	money_label.add_theme_font_size_override("font_size", 17)
+	money_label.add_theme_font_size_override("font_size", 16)
 	root.add_child(money_label)
 
 	clue_label = Label.new()
 	clue_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 90)
-	clue_label.add_theme_font_size_override("font_size", 16)
+	clue_label.custom_minimum_size = Vector2(0, 70)
+	clue_label.add_theme_font_size_override("font_size", 15)
 	root.add_child(clue_label)
+
+	var inv_title := Label.new()
+	inv_title.text = "INVENTORY"
+	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inv_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	inv_title.add_theme_font_size_override("font_size", 16)
+	root.add_child(inv_title)
+
+	inventory_grid = GridContainer.new()
+	inventory_grid.columns = 2
+	inventory_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inventory_grid.add_theme_constant_override("h_separation", 7)
+	inventory_grid.add_theme_constant_override("v_separation", 7)
+	root.add_child(inventory_grid)
+
+	inventory_detail = Label.new()
+	inventory_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inventory_detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	inventory_detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	inventory_detail.custom_minimum_size = Vector2(0, 105)
+	inventory_detail.add_theme_font_size_override("font_size", 15)
+	root.add_child(inventory_detail)
 
 	var map_title := Label.new()
 	map_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	map_title.text = "PETA"
 	map_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	map_title.add_theme_font_size_override("font_size", 17)
+	map_title.add_theme_font_size_override("font_size", 16)
 	root.add_child(map_title)
 
 	map_row = GridContainer.new()
@@ -102,6 +123,8 @@ func _build_ui() -> void:
 		"toko_kamera",
 		"warung_ratna",
 		"pak_arman",
+		"bengkel_umum",
+		"pasar_tua",
 		"kedai_foto",
 		"terminal_kota",
 		"alamat_sentana"
@@ -109,7 +132,7 @@ func _build_ui() -> void:
 
 	for location_id in order:
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(0, 58)
+		button.custom_minimum_size = Vector2(0, 54)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var captured_id: String = location_id
 		button.pressed.connect(func(): _travel_to(captured_id))
@@ -119,69 +142,52 @@ func _build_ui() -> void:
 	location_label = Label.new()
 	location_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_label.add_theme_font_size_override("font_size", 23)
+	location_label.add_theme_font_size_override("font_size", 21)
 	root.add_child(location_label)
 
 	location_description = Label.new()
 	location_description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	location_description.custom_minimum_size = Vector2(0, 110)
-	location_description.add_theme_font_size_override("font_size", 17)
+	location_description.custom_minimum_size = Vector2(0, 85)
+	location_description.add_theme_font_size_override("font_size", 16)
 	root.add_child(location_description)
 
 	response_label = Label.new()
 	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	response_label.custom_minimum_size = Vector2(0, 190)
-	response_label.add_theme_font_size_override("font_size", 18)
+	response_label.custom_minimum_size = Vector2(0, 135)
+	response_label.add_theme_font_size_override("font_size", 17)
 	root.add_child(response_label)
 
 	action_row = VBoxContainer.new()
+	action_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	action_row.add_theme_constant_override("separation", 7)
 	root.add_child(action_row)
 
-	continue_button = Button.new()
-	continue_button.visible = false
-	continue_button.custom_minimum_size = Vector2(280, 66)
-	continue_button.pressed.connect(_continue_after_chapter)
-	root.add_child(continue_button)
-
 	_refresh_status()
+	_refresh_inventory()
 	_refresh_map()
 
 func _show_opening() -> void:
-	var owns_camera := _owns_camera()
-	if owns_camera:
-		response_label.text = "Minggu sore. Kamera masih ada di tanganmu. Tunggakan kios harus lunas sebelum jam delapan malam."
-		if AuctionState.camera_appraisal_seen:
-			clue_label.text = "CATATAN — Pak Harun pernah bilang body biasa, tetapi lensanya punya pasar kolektor."
-		else:
-			clue_label.text = "CATATAN — Kamera belum memberi uang hanya karena kelihatannya menarik."
-	else:
-		response_label.text = "Minggu sore. Kamera bukan milikmu. Tunggakan kios tetap harus lunas sebelum jam delapan malam."
-		clue_label.text = "CATATAN — Kamu butuh cara lain untuk menghadapi tunggakan."
-
+	title_label.text = "MINGGU SORE"
+	response_label.text = "Tunggakan kios masih berjalan. Barang hasil lelang ada di inventory; selebihnya tergantung apa yang kamu coba."
+	clue_label.text = "Tidak ada tujuan aktif."
 	_refresh_actions()
 
 func _travel_to(location_id: String) -> void:
-	if chapter_done:
-		return
 	if not AuctionState.chapter2_known_places.has(location_id):
 		return
 	if location_id == current_location_id:
 		_show_location(location_id, false)
 		return
 
-	var travel_minutes := _travel_minutes(location_id)
-	AuctionState.advance_chapter2_time(travel_minutes)
+	AuctionState.advance_chapter2_time(_travel_minutes(location_id))
 	current_location_id = location_id
 	AuctionState.chapter2_visited[location_id] = true
 	_show_location(location_id, true)
-
-	if _check_hard_deadline():
-		return
+	_check_deadline_event()
 
 func _show_location(location_id: String, moved: bool) -> void:
 	var locations: Dictionary = map_data.get("locations", {})
@@ -199,23 +205,32 @@ func _show_location(location_id: String, moved: bool) -> void:
 		response_label.text = ""
 
 	_refresh_status()
+	_refresh_inventory()
 	_refresh_map()
 	_refresh_actions()
 
 func _refresh_actions() -> void:
 	_clear_actions()
-	if chapter_done:
-		return
 
 	match current_location_id:
 		"rumah":
 			_build_home_actions()
 		"toko_kamera":
-			_build_camera_shop_actions()
+			_add_action("BICARA DENGAN PAK HARUN", _talk_harun)
+			_add_show_item_action()
 		"warung_ratna":
 			_add_action("BICARA DENGAN BU RATNA", _talk_ratna)
+			_add_show_item_action()
 		"pak_arman":
-			_build_arman_actions()
+			_add_action("BICARA DENGAN PAK ARMAN", _talk_arman)
+			var remaining := maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0)
+			if remaining > 0 and AuctionState.money >= remaining:
+				_add_action("BAYAR %s" % _rupiah(remaining), _pay_arman)
+		"bengkel_umum":
+			_add_action("BICARA DENGAN PENGRAJIN", _talk_craftsman)
+			_add_show_item_action()
+		"pasar_tua":
+			_add_action("MASUK PASAR", _enter_old_market)
 		"kedai_foto":
 			_build_adi_actions()
 		"terminal_kota":
@@ -225,141 +240,123 @@ func _refresh_actions() -> void:
 
 func _build_home_actions() -> void:
 	if AuctionState.chapter2_extension_granted and AuctionState.chapter2_day_name() == "Minggu":
-		_add_action("ISTIRAHAT SAMPAI SENIN PAGI", _wait_until_monday)
+		_add_action("ISTIRAHAT", _wait_until_monday)
 	else:
 		_add_action("TUNGGU SATU JAM", _wait_one_hour)
 
-func _build_camera_shop_actions() -> void:
-	if not _owns_camera():
-		response_label.text = "Rak kamera lama ada di belakang kaca. Kamu tidak membawa kamera yang bisa ditawarkan."
+func _add_show_item_action() -> void:
+	if AuctionState.selected_inventory_item.is_empty():
+		return
+	if not AuctionState.has_inventory_item(AuctionState.selected_inventory_item):
+		return
+	_add_action("TUNJUKKAN BARANG", _show_selected_item_here)
+
+func _show_selected_item_here() -> void:
+	var item_id := AuctionState.selected_inventory_item
+	if item_id.is_empty():
 		return
 
-	if AuctionState.camera_sale_status.is_empty():
-		if AuctionState.chapter2_time_minutes >= 18 * 60 and AuctionState.chapter2_pending_offer > 1500000:
-			AuctionState.chapter2_pending_offer = 1500000
-			response_label.text = "Pak Harun melihat jam. Penawaran yang tadi ia sebut tidak lagi sama menjelang toko tutup."
+	match current_location_id:
+		"toko_kamera":
+			_show_item_to_harun(item_id)
+		"warung_ratna":
+			_show_item_to_ratna(item_id)
+		"bengkel_umum":
+			_show_item_to_craftsman(item_id)
+		_:
+			response_label.text = "Tidak ada reaksi khusus terhadap barang itu di sini."
 
-		_add_action("BICARA DENGAN PAK HARUN", _talk_harun)
-		if AuctionState.chapter2_pending_offer > 0:
-			_add_action(
-				"TERIMA %s" % _rupiah(AuctionState.chapter2_pending_offer),
-				_accept_harun_offer
-			)
+	_refresh_inventory()
+	_refresh_actions()
 
-func _build_arman_actions() -> void:
-	_add_action("BICARA DENGAN PAK ARMAN", _talk_arman)
-
-	var remaining := maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0)
-	if remaining > 0 and AuctionState.money >= remaining:
-		_add_action("BAYAR TUNGGAKAN %s" % _rupiah(remaining), _pay_arman)
-
-func _build_adi_actions() -> void:
-	if not AuctionState.chapter2_leads.has("adi"):
-		response_label.text = "Kedai kecil itu tidak berarti banyak bagimu. Belum ada alasan khusus untuk mencari seseorang di sini."
-		return
-
-	if AuctionState.camera_sale_status.begins_with("sold_full"):
-		response_label.text = "Kamu sudah menjual kamera beserta lensanya. Lead tentang Adi tidak lagi bisa dipakai untuk transaksi itu."
-		return
-
-	if AuctionState.camera_sale_status == "lens_only_2100_body_returned":
-		response_label.text = "Transaksi dengan Adi sudah selesai. Body kamera masih ada di tanganmu."
-		return
-
-	if not _owns_camera():
-		response_label.text = "Kamu tidak membawa kamera yang dibutuhkan untuk menindaklanjuti lead ini."
-		return
-
-	if AuctionState.chapter2_day_name() == "Minggu":
-		_add_action("CEK KEDAI FOTO", _check_adi_sunday)
-		return
-
-	if AuctionState.camera_sale_status.is_empty():
-		_add_action("TEMUI ADI", _meet_adi)
-
-func _build_terminal_actions() -> void:
-	if not AuctionState.chapter2_leads.has("sentana"):
-		response_label.text = "Terminal ramai. Tanpa nama atau alasan, bertanya di sini hanya membuang waktu."
-		return
-
-	if not AuctionState.chapter2_leads.has("sentana_address"):
-		_add_action("TANYA-TANYA", _ask_terminal)
+func _show_item_to_harun(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(10)
+	if item_id == "camera" and AuctionState.has_inventory_item("camera"):
+		var offer := 1650000
+		if AuctionState.chapter2_time_minutes >= 18 * 60:
+			offer = 1500000
+		AuctionState.chapter2_pending_offer = offer
+		AuctionState.chapter2_leads["adi"] = true
+		AuctionState.chapter2_known_places["kedai_foto"] = true
+		response_label.text = "Pak Harun memeriksa kamera.\n\n\"Kalau saya ambil sekarang, %s.\"\n\nIa menyebut seseorang bernama Adi yang kadang membeli lensa tanpa bodynya." % _rupiah(offer)
+		clue_label.text = "Nama Adi terdengar. Pak Harun menyebut kedai foto lama."
+		_add_action("TERIMA %s" % _rupiah(offer), _accept_harun_offer)
+	elif item_id == "mixed_box":
+		response_label.text = "Pak Harun menekan tutup kotak sebentar lalu mengembalikannya. \"Bukan alat saya. Saya nggak mau paksa dan merusak isinya.\""
 	else:
-		response_label.text = "Kamu sudah punya satu alamat yang mungkin terkait dengan nama Sentana."
-
-func _build_sentana_actions() -> void:
-	if not AuctionState.chapter2_leads.has("sentana_address"):
-		response_label.text = "Alamat ini belum berarti apa-apa bagimu."
-		return
-
-	_add_action("CARI ORANG DI ALAMAT INI", _search_sentana_address)
+		response_label.text = "Pak Harun melihat barang itu, lalu menggeleng. \"Kalau bukan kamera atau optik, saya cuma akan nebak.\""
 
 func _talk_harun() -> void:
-	AuctionState.advance_chapter2_time(20)
-	if _check_hard_deadline():
-		return
-
-	var offer := 1650000
-	if AuctionState.chapter2_time_minutes >= 18 * 60:
-		offer = 1500000
-
-	AuctionState.chapter2_pending_offer = offer
-	AuctionState.chapter2_leads["adi"] = true
-	AuctionState.chapter2_known_places["kedai_foto"] = true
-
-	response_label.text = "Pak Harun melihat kamera dan lensanya sekali lagi.\n\n\"Kalau saya ambil sekarang, %s. Saya tetap harus punya ruang buat jual lagi.\"\n\nSaat kamu tidak langsung menjawab, ia menambahkan, \"Kalau yang dicari cuma lensanya, Adi kadang beli barang begini. Dia biasa muncul di kedai foto lama.\"" % _rupiah(offer)
-
-	clue_label.text = "CATATAN — Harun memberi angka tunai sekarang. Nama Adi muncul sebagai orang yang kadang membeli lensa saja."
+	AuctionState.advance_chapter2_time(10)
+	response_label.text = "Pak Harun sedang membersihkan lensa di meja. Ia tidak bertanya apa yang kamu bawa."
+	if AuctionState.chapter2_time_minutes >= 18 * 60 and AuctionState.chapter2_pending_offer > 1500000:
+		AuctionState.chapter2_pending_offer = 1500000
 	_refresh_status()
-	_refresh_map()
-	_refresh_actions()
 
 func _accept_harun_offer() -> void:
 	if AuctionState.chapter2_pending_offer <= 0:
+		return
+	if not AuctionState.has_inventory_item("camera"):
 		return
 
 	var offer := AuctionState.chapter2_pending_offer
 	AuctionState.money += offer
 	AuctionState.camera_sale_status = "sold_full_1650" if offer >= 1650000 else "sold_full_1500_late"
 	AuctionState.chapter2_pending_offer = 0
-
-	response_label.text = "Kamera berpindah tangan. %s masuk ke dompetmu. Pak Harun tidak ikut mengurus tunggakan kios; itu tetap urusanmu." % _rupiah(offer)
-	clue_label.text = "CATATAN — Kamera sudah terjual. Deadline kios tetap berjalan."
+	AuctionState.remove_inventory_item("camera")
+	response_label.text = "Kamera berpindah tangan. %s masuk ke dompetmu." % _rupiah(offer)
+	clue_label.text = "Kamera sudah tidak ada di inventory."
 	_refresh_status()
+	_refresh_inventory()
 	_refresh_actions()
 
 func _talk_ratna() -> void:
-	AuctionState.advance_chapter2_time(15)
-	if _check_hard_deadline():
-		return
+	AuctionState.advance_chapter2_time(10)
+	response_label.text = "Bu Ratna sedang melayani dua orang. Obrolan di warung berpindah-pindah dari harga beras sampai orang kota."
+	_refresh_status()
 
-	if _owns_camera():
+func _show_item_to_ratna(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(10)
+	if item_id == "camera":
 		AuctionState.chapter2_leads["sentana"] = true
 		AuctionState.chapter2_known_places["terminal_kota"] = true
-		response_label.text = "Bu Ratna melihat tas kameramu.\n\n\"Kalau kamu memang cari orang yang berani bayar barang aneh, aku pernah dengar nama Sentana. Bukan orang pasar sini. Sopir-sopir kota yang pernah ngomong.\"\n\nIa tidak punya alamat."
-		clue_label.text = "CATATAN — Nama Sentana pernah terdengar dari orang-orang yang datang dari kota."
+		response_label.text = "Bu Ratna melihat tas kameramu. \"Pernah dengar nama Sentana dari sopir-sopir kota. Katanya suka barang aneh. Nggak tahu orangnya yang mana.\""
+		clue_label.text = "Nama Sentana pernah disebut orang yang datang dari kota."
+	elif item_id == "mixed_box":
+		response_label.text = "Bu Ratna mengetuk sisi kotaknya. \"Berat. Tapi kalau macet begini jangan dipaksa pakai pisau dapur.\""
 	else:
-		response_label.text = "Bu Ratna tidak punya solusi cepat untuk tunggakanmu. Ia cuma mengingatkan bahwa orang pasar sering tahu orang lain, bukan selalu tahu harga barang."
-		clue_label.text = "CATATAN — Jaringan bisa berguna, tapi tidak otomatis menghasilkan uang."
+		response_label.text = "Bu Ratna melihatnya sebentar. \"Aku bisa jual makanan. Kalau barang begini, aku cuma bisa ikut penasaran.\""
 
+func _talk_craftsman() -> void:
+	AuctionState.advance_chapter2_time(10)
+	response_label.text = "Pengrajin itu sedang memperbaiki engsel lemari. Meja kerjanya penuh ragum, tang, dan alat kecil."
 	_refresh_status()
-	_refresh_map()
-	_refresh_actions()
+
+func _show_item_to_craftsman(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(20)
+	if item_id == "mixed_box":
+		var box := AuctionState.get_inventory_item("mixed_box")
+		if str(box.get("state", "")) == "closed":
+			response_label.text = "Ia menjepit bagian luar kotak dengan kain, lalu bekerja pada penguncinya beberapa menit.\n\n\"Bukan terkunci. Cuma mekanismenya macet.\"\n\nTutup akhirnya terbuka."
+			AuctionState.open_mixed_box()
+			AuctionState.selected_inventory_item = ""
+			clue_label.text = "Isi kotak sekarang masuk ke inventory."
+		else:
+			response_label.text = "Kotaknya sudah terbuka."
+	elif item_id == "camera":
+		response_label.text = "\"Bisa saya buka sekrupnya, tapi itu bukan berarti saya paham kameranya.\""
+	else:
+		response_label.text = "\"Kalau cuma mau dibuka atau dibetulkan mekaniknya mungkin bisa. Kalau mau tahu nilainya, itu urusan lain.\""
 
 func _talk_arman() -> void:
 	AuctionState.advance_chapter2_time(10)
-	if _check_hard_deadline():
-		return
-
 	if AuctionState.chapter2_leads.has("adi_waiting") and not AuctionState.chapter2_extension_granted:
 		AuctionState.chapter2_extension_granted = true
-		response_label.text = "Kamu menjelaskan bahwa ada pembeli lensa, tetapi baru Senin pagi.\n\nPak Arman diam sebentar. \"Senin jam sepuluh. Lewat itu, saya anggap kamu tidak sanggup.\"\n\nTidak ada diskon. Hanya waktu."
-		clue_label.text = "CATATAN — Batas baru: Senin 10:00."
+		response_label.text = "Kamu menjelaskan bahwa ada pembeli yang baru bisa ditemui Senin.\n\nPak Arman memberi waktu sampai Senin 10:00."
+		clue_label.text = "Batas pembayaran berubah: Senin 10:00."
 	else:
-		response_label.text = "\"Saya cuma perlu kepastian,\" kata Pak Arman. \"Kalau ada uangnya, bayar. Kalau belum, batasnya tetap.\""
-
+		response_label.text = "\"Kalau ada uangnya, bayar. Kalau belum, batasnya tetap,\" kata Pak Arman."
 	_refresh_status()
-	_refresh_actions()
 
 func _pay_arman() -> void:
 	var remaining := maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0)
@@ -367,154 +364,163 @@ func _pay_arman() -> void:
 		return
 
 	AuctionState.pay_kiosk(remaining)
-
-	if AuctionState.camera_sale_status == "lens_only_2100_body_returned":
-		AuctionState.finish_chapter2("B2_ADI")
-	elif AuctionState.camera_sale_status == "sold_full_1500_late":
-		AuctionState.finish_chapter2("B3A_LATE_RETURN")
-	elif AuctionState.camera_sale_status == "sold_full_1650":
-		AuctionState.finish_chapter2("B1_SAFE_SALE")
-	else:
-		AuctionState.finish_chapter2("PAID_OTHER")
-
-	response_label.text = "Pak Arman menghitung uangnya sekali. Tunggakan lunas. Kios tetap bisa dibuka."
-	clue_label.text = "CATATAN — Utang kios selesai. Harga kamera dan keputusan waktumu tetap punya konsekuensi sendiri."
-	_finish_chapter2()
-
-func _check_adi_sunday() -> void:
-	var target := 18 * 60
-	if AuctionState.chapter2_time_minutes < target:
-		AuctionState.chapter2_time_minutes = target
-	else:
-		AuctionState.advance_chapter2_time(20)
-
-	if _check_hard_deadline():
-		return
-
-	AuctionState.chapter2_leads["adi_waiting"] = true
-	response_label.text = "Kedai hampir tutup. Adi tidak ada di sana.\n\nPemilik kedai menunjukkan pesan yang baru masuk: \"Lensa saja. Rp2.100.000. Bisa ketemu Senin pagi. Body bawa pulang.\""
-	clue_label.text = "CATATAN — Adi: Rp2.100.000 untuk lensa saja, tetapi baru Senin pagi."
+	AuctionState.kiosk_saved = true
+	AuctionState.world_flags["kiosk_resolved"] = true
+	response_label.text = "Pak Arman menghitung uangnya. Tunggakan lunas."
+	clue_label.text = "Kios tetap bisa dipakai."
 	_refresh_status()
 	_refresh_actions()
+
+func _build_adi_actions() -> void:
+	if not AuctionState.chapter2_leads.has("adi"):
+		response_label.text = "Kedai foto buka, tetapi tidak ada alasan khusus yang membuatmu mencari seseorang di sini."
+		return
+
+	if not AuctionState.has_inventory_item("camera"):
+		response_label.text = "Lead tentang pembeli lensa masih ada, tapi kameranya sudah tidak ada di inventory."
+		return
+
+	if AuctionState.chapter2_day_name() == "Minggu":
+		_add_action("LIHAT- LIHAT", _check_adi_sunday)
+	else:
+		_add_action("BICARA DENGAN ADI", _meet_adi)
+
+func _check_adi_sunday() -> void:
+	if AuctionState.chapter2_time_minutes < 18 * 60:
+		AuctionState.chapter2_time_minutes = 18 * 60
+	else:
+		AuctionState.advance_chapter2_time(15)
+
+	AuctionState.chapter2_leads["adi_waiting"] = true
+	response_label.text = "Adi tidak ada. Pemilik kedai menunjukkan pesan singkat: lensa saja, Rp2.100.000, Senin pagi."
+	clue_label.text = "Adi baru bisa ditemui Senin pagi."
+	_refresh_status()
+	_refresh_actions()
+	_check_deadline_event()
 
 func _wait_until_monday() -> void:
 	AuctionState.chapter2_time_minutes = 24 * 60 + 8 * 60 + 40
-	response_label.text = "Malam lewat. Kamu bangun sebelum jam sembilan."
+	response_label.text = "Pagi datang."
 	_refresh_status()
 	_refresh_actions()
+	_check_deadline_event()
 
 func _meet_adi() -> void:
 	if not AuctionState.chapter2_extension_granted:
-		response_label.text = "Adi bisa membeli lensanya, tetapi urusan kiosmu belum punya waktu tambahan."
+		response_label.text = "Adi ada di sana, tetapi deadline kiosmu sudah tidak cocok dengan waktunya."
+		return
+	if not AuctionState.has_inventory_item("camera"):
 		return
 
 	AuctionState.advance_chapter2_time(20)
-	if _check_hard_deadline():
-		return
-
 	AuctionState.money += 2100000
 	AuctionState.camera_sale_status = "lens_only_2100_body_returned"
-	response_label.text = "Adi memeriksa lensa lebih lama daripada body.\n\nRp2.100.000 untuk lensa. Body dikembalikan kepadamu."
-	clue_label.text = "CATATAN — Lensa sudah terjual. Batas Pak Arman: Senin 10:00."
+	AuctionState.update_inventory_item("camera", {
+		"name": "BODY KAMERA",
+		"description": "Body kamera tanpa lensa. Lensanya sudah dijual kepada Adi."
+	})
+	response_label.text = "Adi membeli lensanya seharga Rp2.100.000. Body dikembalikan."
+	clue_label.text = "Body kamera tetap di inventory."
 	_refresh_status()
+	_refresh_inventory()
 	_refresh_actions()
 
-func _ask_terminal() -> void:
-	if AuctionState.chapter2_time_minutes < 17 * 60 + 5:
-		AuctionState.chapter2_time_minutes = 17 * 60 + 5
-	AuctionState.advance_chapter2_time(55)
-
-	if _check_hard_deadline():
+func _build_terminal_actions() -> void:
+	if not AuctionState.chapter2_leads.has("sentana"):
+		response_label.text = "Terminal ramai. Tanpa nama tertentu, tidak banyak yang bisa ditanyakan."
 		return
+	if not AuctionState.chapter2_leads.has("sentana_address"):
+		_add_action("DUDUK DAN MENDENGAR", _ask_terminal)
+	else:
+		response_label.text = "Satu alamat yang mungkin terkait Sentana sudah kamu catat."
 
+func _ask_terminal() -> void:
+	AuctionState.advance_chapter2_time(55)
 	AuctionState.chapter2_leads["sentana_address"] = true
 	AuctionState.chapter2_known_places["alamat_sentana"] = true
-	response_label.text = "Beberapa orang menggeleng. Seorang sopir akhirnya mengenali namanya.\n\n\"Sentana? Pernah antar orang ke alamat di kota. Belum tentu orang yang sama.\"\n\nIa memberimu patokan jalan, bukan kepastian."
-	clue_label.text = "CATATAN — Ada satu alamat yang mungkin terkait Sentana. Belum terverifikasi."
+	response_label.text = "Seorang sopir mengenali nama Sentana dan memberi patokan sebuah alamat. Ia sendiri tidak yakin itu orang yang sama."
+	clue_label.text = "Ada satu alamat yang belum terverifikasi."
 	_refresh_status()
 	_refresh_map()
 	_refresh_actions()
+	_check_deadline_event()
+
+func _build_sentana_actions() -> void:
+	if not AuctionState.chapter2_leads.has("sentana_address"):
+		return
+	_add_action("DATANGI RUMAH", _search_sentana_address)
 
 func _search_sentana_address() -> void:
 	AuctionState.advance_chapter2_time(150)
-
-	if AuctionState.chapter2_time_minutes <= 20 * 60:
-		AuctionState.chapter2_time_minutes = 20 * 60 + 30
-
-	AuctionState.kiosk_saved = false
-	AuctionState.finish_chapter2("B3B_CHASE_TOO_LONG")
-	chapter_done = true
-
-	title_label.text = "MINGGU — %s" % AuctionState.chapter2_clock()
-	response_label.text = "Alamatnya nyata. Sentana tidak ada.\n\nSaat kamu kembali, waktu sudah lewat. Pak Arman telah menutup kios dan menyerahkan papan namanya dengan hati-hati."
-	clue_label.text = "CATATAN — Kamu menemukan alamat, bukan pembeli."
-	continue_button.text = "ESOK PAGI"
-	continue_button.visible = true
-	_clear_actions()
+	AuctionState.chapter2_leads["sentana_chased"] = true
+	response_label.text = "Alamatnya nyata. Sentana tidak ada di sana."
+	clue_label.text = "Kamu menemukan alamat, bukan pembeli."
 	_refresh_status()
+	_check_deadline_event()
+
+func _enter_old_market() -> void:
+	get_tree().change_scene_to_file("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
 
 func _wait_one_hour() -> void:
 	AuctionState.advance_chapter2_time(60)
 	response_label.text = "Satu jam lewat."
 	_refresh_status()
+	_refresh_actions()
+	_check_deadline_event()
 
-	if _check_hard_deadline():
+func _check_deadline_event() -> void:
+	if AuctionState.world_flags.has("kiosk_resolved"):
+		return
+	if not AuctionState.chapter2_past_deadline():
 		return
 
+	AuctionState.kiosk_saved = false
+	AuctionState.world_flags["kiosk_resolved"] = true
+	AuctionState.world_flags["kiosk_lost"] = true
+	response_label.text += "\n\nSaat batas lewat tanpa pembayaran penuh, Pak Arman menutup kios dan mengembalikan papan namanya."
+	clue_label.text = "Kios sudah ditutup. Dunia tetap berjalan."
 	_refresh_actions()
 
-func _check_hard_deadline() -> bool:
-	if AuctionState.kiosk_saved:
-		return false
+func _select_inventory_item(item_id: String) -> void:
+	AuctionState.selected_inventory_item = item_id
+	_refresh_inventory()
+	_refresh_actions()
 
-	if not AuctionState.chapter2_past_deadline():
-		return false
+func _refresh_inventory() -> void:
+	for child in inventory_grid.get_children():
+		child.queue_free()
 
-	AuctionState.kiosk_saved = false
-	if not AuctionState.chapter2_complete:
-		AuctionState.finish_chapter2("A_KIOS_LOST")
+	for item_id in AuctionState.inventory.keys():
+		var item: Dictionary = AuctionState.get_inventory_item(str(item_id))
+		var button := Button.new()
+		button.text = str(item.get("name", str(item_id).to_upper()))
+		button.custom_minimum_size = Vector2(0, 48)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var captured_id := str(item_id)
+		button.pressed.connect(func(): _select_inventory_item(captured_id))
+		inventory_grid.add_child(button)
 
-	chapter_done = true
-	title_label.text = "%s — %s" % [
+	if AuctionState.inventory.is_empty():
+		inventory_detail.text = "Inventory kosong."
+		return
+
+	var selected := AuctionState.selected_inventory_item
+	if selected.is_empty() or not AuctionState.has_inventory_item(selected):
+		inventory_detail.text = "Pilih barang. Barang yang dipilih bisa dicoba di tempat berbeda."
+		return
+
+	var item := AuctionState.get_inventory_item(selected)
+	inventory_detail.text = "%s\n%s" % [
+		str(item.get("name", selected.to_upper())),
+		str(item.get("description", "Belum diketahui."))
+	]
+
+func _refresh_status() -> void:
+	title_label.text = "%s %s" % [
 		AuctionState.chapter2_day_name().to_upper(),
 		AuctionState.chapter2_clock()
 	]
-	response_label.text = "Batas lewat tanpa pembayaran penuh. Pak Arman menutup kios dan menyerahkan papan namanya kembali."
-	clue_label.text = "CATATAN — Waktu habis. Cerita tidak berhenti."
-	continue_button.text = "LANJUT BAB 3"
-	continue_button.visible = true
-	_clear_actions()
-	_refresh_status()
-	return true
-
-func _finish_chapter2() -> void:
-	chapter_done = true
-	title_label.text = "BAB 2 — BATAS"
-	response_label.text += "\n\nKios selamat. Bukan karena game memilihkan jalur, tetapi karena kamu menemukan cara mengubah aset menjadi uang sebelum batas."
-	continue_button.text = "LANJUT BAB 3"
-	continue_button.visible = true
-	_clear_actions()
-	_refresh_status()
-
-func _continue_after_chapter() -> void:
-	if AuctionState.chapter2_route == "B3B_CHASE_TOO_LONG" and AuctionState.chapter2_day_name() == "Minggu":
-		AuctionState.chapter2_time_minutes = 24 * 60 + 9 * 60 + 10
-		title_label.text = "SENIN — 09:10"
-		response_label.text = "Pesan masuk dari nomor yang kemarin tidak menjawab.\n\nSentana ternyata nyata. Ia menawarkan Rp3.800.000 setelah melihat foto lensa. Kios tetap sudah hilang."
-		clue_label.text = "CATATAN — Harga tertinggi datang setelah waktu yang dibutuhkan habis."
-		continue_button.text = "LANJUT BAB 3"
-		_refresh_status()
-		return
-
-	get_tree().change_scene_to_file("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
-
-func _refresh_status() -> void:
-	clock_label.text = "Waktu: %s %s  |  Batas: %s" % [
-		AuctionState.chapter2_day_name(),
-		AuctionState.chapter2_clock(),
-		AuctionState.chapter2_deadline_label()
-	]
-
+	clock_label.text = "Batas kios: %s" % AuctionState.chapter2_deadline_label()
 	money_label.text = "Uang: %s  |  Tunggakan: %s" % [
 		_rupiah(AuctionState.money),
 		_rupiah(maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0))
@@ -542,7 +548,8 @@ func _clear_actions() -> void:
 func _add_action(label: String, callback: Callable) -> void:
 	var button := Button.new()
 	button.text = label
-	button.custom_minimum_size = Vector2(0, 60)
+	button.custom_minimum_size = Vector2(0, 56)
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.pressed.connect(callback)
 	action_row.add_child(button)
 
@@ -551,15 +558,11 @@ func _travel_minutes(location_id: String) -> int:
 		"terminal_kota":
 			return 30
 		"alamat_sentana":
-			return 20
+			return 25
+		"pasar_tua":
+			return 25
 		_:
-			return 20
-
-func _owns_camera() -> bool:
-	var lot03: Dictionary = AuctionState.lot_results.get("lot03", {})
-	if str(lot03.get("winner", "")) != "mc":
-		return false
-	return AuctionState.camera_sale_status.is_empty()
+			return 15
 
 func _rupiah(value: int) -> String:
 	var raw := str(value)
