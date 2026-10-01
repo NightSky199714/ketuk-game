@@ -1,8 +1,8 @@
 {
   "lot02": {
     "title": "Kotak Campuran",
-    "intro": "Kotaknya sekarang milikmu. Di ruang lelang kamu hanya sempat melihat sebagian isinya.",
-    "open_text": "Kamu membuka kotak sepenuhnya dan memisahkan barang yang paling mudah diperiksa.",
+    "intro": "Sesudah lelang, kamu membawa Kotak Campuran Lot 02 pulang dan meletakkannya di meja. Beberapa barang yang tadi cuma terlihat dari atas sekarang bisa kamu keluarkan satu per satu.",
+    "open_text": "Kamu membuka kotak sepenuhnya. Isinya: dua tatakan logam kuning, sendok kecil, kotak tembakau retak, gulungan kabel, korek meja lama, dan sebuah adaptor. Tiga benda membuatmu berhenti lebih lama.",
     "objects": [
       {
         "id": "coaster",
@@ -25,6 +25,8 @@
         "note": "Barang lama, belum tentu bernilai. Perangkat asal belum diketahui.",
         "next_question": "Butuh konteks perangkat atau elektronik lama."
       }
-    ]
+    ],
+    "source_story": "Lot 02 tadi berasal dari bersih-bersih gudang sebuah rumah toko lama. Pak Lurah menjual satu kotak penuh apa adanya karena isinya tidak disortir satu per satu.",
+    "selection_reason": "Tatakan karena warna tepinya berbeda. Korek karena mekanismenya macet dan punya cap aus. Adaptor karena model konektornya tidak kamu kenali."
   }
 }
