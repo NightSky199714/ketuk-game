@@ -36,20 +36,20 @@
       "name": "Pak Wira",
       "book_note": "Pak Wira — tahu jaringan Pasar Tua; jangan paksa dia jadi ahli barang.",
       "first_meet": "Seorang pria tua melipat koran di samping tumpukan barang campur. Saat namanya disebut, ia mengangkat tangan. \"Saya Wira.\"",
-      "without_box": "Kamu menjelaskan bahwa beberapa keputusan lelang kemarin masih terasa seperti tebakan. Pak Wira mengangguk. \"Kalau belum punya barangnya, yang bisa kamu bangun ya orangnya. Cari Damar di kedai pojok.\"",
+      "without_box": "Kamu menjelaskan bahwa beberapa keputusan lelang kemarin masih terasa seperti tebakan. Pak Wira mengangguk. \"Kalau belum punya barangnya, bangun dulu orang yang kamu kenal. Damar biasanya ngopi di ujung pasar.\"",
       "responses": {
         "coaster": {
-          "text": "Pak Wira membolak-balik tatakan itu sebentar. \"Kalau cuma dari warna, saya nggak mau nebak. Damar lebih hafal siapa yang biasa menangani barang begini.\"",
+          "text": "Pak Wira membolak-balik tatakan itu sebentar. \"Kalau cuma dari warna, saya nggak mau nebak. Damar biasanya lebih hafal orang daripada barang. Sore begini dia sering ngopi di ujung pasar.\"",
           "next_person": "pak_damar",
           "next_location": "kedai_pojok"
         },
         "lighter": {
-          "text": "Pak Wira mencoba roda koreknya sekali lalu berhenti. \"Macet, iya. Tapi saya nggak akan sok tahu mekanismenya. Coba tanya Damar; dia biasanya tahu siapa yang pegang barang kecil begini.\"",
+          "text": "Pak Wira mencoba roda koreknya sekali lalu berhenti. \"Macet, iya. Tapi saya nggak akan sok tahu mekanismenya. Damar lebih hafal siapa yang biasa pegang barang kecil. Kalau belum pulang, biasanya dia lagi ngopi.\"",
           "next_person": "pak_damar",
           "next_location": "kedai_pojok"
         },
         "adapter": {
-          "text": "Pak Wira melihat konektornya. \"Elektronik lama bukan bidang saya. Damar mungkin tahu apakah masih ada orang pasar yang main perangkat begini.\"",
+          "text": "Pak Wira melihat konektornya. \"Elektronik lama bukan bidang saya. Coba dengar dulu kata Damar. Dia lebih sering tahu siapa yang harus ditanya daripada jawabannya sendiri.\"",
           "next_person": "pak_damar",
           "next_location": "kedai_pojok"
         }
@@ -61,15 +61,15 @@
       "name": "Pak Damar",
       "book_note": "Pak Damar — tahu siapa yang biasa menangani kategori tertentu; bukan penilai universal.",
       "first_meet": "Pria sekitar enam puluhan menggeser gelas kopinya. \"Damar. Wira nyuruh ke sini?\"",
-      "without_box": "Pak Damar mendengarkan ceritamu. \"Pasar begini bukan soal satu orang pintar. Kalau urusan logam, cari Bu Sari di Gang Timur. Kalau mekanisme kecil, ada Yanto di belakang.\"",
+      "without_box": "Pak Damar mendengarkan ceritamu. \"Pasar begini bukan soal satu orang pintar. Untuk logam, dengar bengkel di timur. Untuk mekanisme kecil, cari meja servis di belakang.\"",
       "responses": {
         "coaster": {
-          "text": "Pak Damar hanya melihat tepinya. \"Saya curiga. Curiga sama tahu itu beda. Kalau mau tahu logamnya, cari Bu Sari di Gang Timur.\"",
+          "text": "Pak Damar melihat tepinya. \"Saya curiga. Curiga sama tahu itu beda. Ada orang bengkel yang tangannya tiap hari kena logam dan lapisan. Kalau dari sini, suara gerindanya biasanya kedengaran dari arah timur.\"",
           "next_person": "bu_sari",
           "next_location": "gang_timur"
         },
         "lighter": {
-          "text": "Pak Damar memutar korek itu di telapak tangan tanpa membongkarnya. \"Mekanisme kecil? Yanto di Lorong Belakang. Saya tahu orangnya, bukan isi koreknya.\"",
+          "text": "Pak Damar memutar korek itu di telapak tangan tanpa membongkarnya. \"Pegas, roda, poros kecil... ada orang yang lebih cocok. Dia suka bongkar jam dan korek di lorong sempit belakang pasar. Namanya Yanto.\"",
           "next_person": "yanto",
           "next_location": "lorong_belakang"
         },
@@ -93,10 +93,10 @@
           "finding": "Tatakan Lot 02 berlapis; bukan kuningan padat.",
           "next_person": "yanto",
           "next_location": "lorong_belakang",
-          "next_text": "Ia menunjuk korek di kotakmu. \"Kalau nanti mau bahas mekanisme kecil itu, Yanto di Lorong Belakang.\""
+          "next_text": "Matanya sempat jatuh ke korek di kotakmu. \"Yang punya pegas dan roda kecil begitu bukan kerjaan saya. Di belakang pasar ada orang yang lebih telaten soal mekanisme.\""
         },
         "lighter": {
-          "text": "Bu Sari melihat casing korek, lalu mengembalikannya. \"Kalau logam luarnya saya masih bisa komentar. Tapi yang kamu mau tahu mekanismenya, kan? Itu bukan bidang saya. Cari Yanto di Lorong Belakang.\"",
+          "text": "Bu Sari melihat casing korek, lalu mengembalikannya. \"Logam luarnya bisa saya komentari. Tapi yang kamu kejar mekanismenya, kan? Di belakang pasar ada orang yang lebih cocok buat itu.\"",
           "next_person": "yanto",
           "next_location": "lorong_belakang"
         },
@@ -116,7 +116,7 @@
       "without_box": "Yanto menunjuk meja kerjanya. \"Kalau soal mekanisme kecil, bawa bendanya. Nama tanpa barang cuma bikin kita sok tahu.\"",
       "responses": {
         "coaster": {
-          "text": "Yanto mengetuk tatakannya pelan. \"Ini nggak punya mekanisme. Kalau yang kamu cari bahan logamnya, Bu Sari lebih tepat daripada saya.\"",
+          "text": "Yanto mengetuk tatakannya pelan. \"Ini nggak punya mekanisme. Kalau yang kamu cari bahan logamnya, dengar bunyi gerinda dari gang timur. Orang sana lebih tepat daripada saya.\"",
           "next_person": "bu_sari",
           "next_location": "gang_timur"
         },
