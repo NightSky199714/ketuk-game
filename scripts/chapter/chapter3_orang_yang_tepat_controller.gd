@@ -32,6 +32,7 @@ func _load_data() -> void:
 	if not FileAccess.file_exists(DATA_PATH):
 		push_error("Chapter 3 data not found: %s" % DATA_PATH)
 		return
+
 	var file := FileAccess.open(DATA_PATH, FileAccess.READ)
 	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) == TYPE_DICTIONARY:
@@ -188,6 +189,7 @@ func _show_location(location_id: String, moved: bool) -> void:
 			poster_button.text = "PERGI KE PAPAN PENGUMUMAN"
 	else:
 		poster_button.visible = false
+
 	_refresh_map_buttons()
 	_refresh_travel()
 	_refresh_book()
@@ -227,20 +229,17 @@ func _talk_here() -> void:
 	if not next_person.is_empty():
 		AuctionState.network_known_contacts[next_person] = true
 
-	response_label.text = "
-
-".join(lines)
+	response_label.text = "\n\n".join(lines)
 
 	if not next_person.is_empty():
-		response_label.text += "
-
-Petunjuk: %s — %s." % [
+		response_label.text += "\n\nPetunjuk: %s — %s." % [
 			_person_name(next_person),
 			_location_name(next_location)
 		]
 
 	_refresh_book()
 	_refresh_map_buttons()
+
 	if _network_complete():
 		poster_button.visible = true
 		poster_button.text = "PERGI KE PAPAN PENGUMUMAN" if current_location_id != "papan_pengumuman" else "PERIKSA POSTER"
@@ -274,9 +273,7 @@ func _show_poster() -> void:
 	book_label.text = "Syarat masuk: %s" % str(poster.get("requirement", "INVITE REQUIRED"))
 
 	if AuctionState.chapter2_route == "B3B_CHASE_TOO_LONG":
-		response_label.text = "Nama yang sama.
-
-" + response_label.text
+		response_label.text = "Nama yang sama.\n\n" + response_label.text
 
 	AuctionState.chapter3_poster_photographed = true
 	finish_button.visible = true
@@ -294,8 +291,7 @@ func _finish_chapter() -> void:
 	response_label.text = "Pengetahuan tidak tinggal di satu orang. Kamu pulang dengan empat nama, beberapa batas pengetahuan, dan satu foto undangan yang belum bisa kamu masuki."
 
 	if owns_box and AuctionState.chapter3_context_found:
-		book_label.text = "BUKU — Tatakan: berlapis, bukan kuningan padat.
-Poster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
+		book_label.text = "BUKU — Tatakan: berlapis, bukan kuningan padat.\nPoster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
 	else:
 		book_label.text = "BUKU — jaringan bertambah. Poster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
 
@@ -311,11 +307,9 @@ func _refresh_map_buttons() -> void:
 		var contact_id := str(location.get("contact", ""))
 
 		if not contact_id.is_empty() and AuctionState.chapter3_people_book.has(contact_id):
-			label += "
-%s" % _person_name(contact_id)
+			label += "\n%s" % _person_name(contact_id)
 		elif not contact_id.is_empty() and AuctionState.network_known_contacts.has(contact_id):
-			label += "
-%s?" % _person_name(contact_id)
+			label += "\n%s?" % _person_name(contact_id)
 
 		if location_id == current_location_id:
 			label = "• " + label
@@ -331,8 +325,7 @@ func _refresh_book() -> void:
 	for person_id in ["pak_wira", "pak_damar", "bu_sari", "yanto"]:
 		if AuctionState.chapter3_people_book.has(person_id):
 			lines.append("• %s" % str(AuctionState.chapter3_people_book[person_id]))
-	book_label.text = "
-".join(lines)
+	book_label.text = "\n".join(lines)
 
 func _refresh_travel() -> void:
 	travel_label.text = "Perpindahan lokasi: %d" % AuctionState.network_travel_steps
