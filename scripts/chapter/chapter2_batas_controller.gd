@@ -280,6 +280,8 @@ func _build_home_actions() -> void:
 func _add_show_item_action() -> void:
 	if AuctionState.selected_inventory_item.is_empty():
 		return
+	if AuctionState.selected_inventory_item == "book":
+		return
 	if not AuctionState.has_inventory_item(AuctionState.selected_inventory_item):
 		return
 	_add_action("TUNJUKKAN BARANG", _show_selected_item_here)
@@ -621,6 +623,10 @@ func _refresh_inventory() -> void:
 	var selected := AuctionState.selected_inventory_item
 	if selected.is_empty() or not AuctionState.has_inventory_item(selected):
 		inventory_detail.text = "Tidak ada barang yang sedang dipilih."
+		return
+
+	if selected == "book":
+		inventory_detail.text = "BUKU LAMA\n\n%s" % AuctionState.book_text()
 		return
 
 	var item := AuctionState.get_inventory_item(selected)
