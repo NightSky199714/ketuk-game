@@ -28,7 +28,7 @@ func _ready() -> void:
 	_load_data()
 	_build_ui()
 	_show_location("pintu_pasar", false)
-	response_label.text = "Pasar ramai seperti biasa. Tidak ada penanda yang menunjukkan siapa yang harus kamu cari."
+	response_label.text = "Pasar ramai. Suara pedagang, alat kerja, dan orang lewat bercampur dari beberapa lorong."
 	_refresh_inventory()
 	_refresh_book()
 
@@ -71,7 +71,7 @@ func _build_ui() -> void:
 	root.add_child(title_label)
 
 	subtitle_label = Label.new()
-	subtitle_label.text = "Pilih tempat. Coba barang. Dengarkan orang."
+	subtitle_label.text = ""
 	subtitle_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -409,7 +409,7 @@ func _refresh_inventory() -> void:
 
 	var selected := AuctionState.selected_inventory_item
 	if selected.is_empty() or not AuctionState.has_inventory_item(selected):
-		inventory_detail.text = "Pilih barang kalau ingin mencoba menunjukkannya kepada seseorang."
+		inventory_detail.text = "Tidak ada barang yang sedang dipilih."
 		return
 
 	var item := AuctionState.get_inventory_item(selected)
