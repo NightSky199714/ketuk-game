@@ -261,10 +261,24 @@ func _talk_here() -> void:
 		poster_button.visible = false
 
 func _network_complete() -> bool:
-	for person_id in ["pak_wira", "pak_damar", "bu_sari", "yanto"]:
+	for person_id in _required_people():
 		if not AuctionState.chapter3_people_book.has(person_id):
 			return false
 	return true
+
+func _required_people() -> Array[String]:
+	if not owns_box:
+		return ["pak_wira", "pak_damar", "bu_sari", "yanto"]
+
+	match target_id:
+		"coaster":
+			return ["pak_wira", "pak_damar", "bu_sari"]
+		"lighter":
+			return ["pak_wira", "pak_damar", "yanto"]
+		"adapter":
+			return ["pak_wira", "pak_damar"]
+		_:
+			return ["pak_wira", "pak_damar"]
 
 func _poster_action() -> void:
 	if current_location_id != "papan_pengumuman":
