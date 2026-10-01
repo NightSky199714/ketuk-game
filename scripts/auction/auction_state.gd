@@ -175,7 +175,9 @@ func start_chapter2() -> void:
 		"warung_ratna": true,
 		"pak_arman": true,
 		"bengkel_umum": true,
-		"pasar_tua": true
+		"pasar_tua": true,
+		"kedai_foto": true,
+		"terminal_kota": true
 	}
 	chapter2_leads.clear()
 	chapter2_visited.clear()
