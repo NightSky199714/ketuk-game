@@ -71,7 +71,7 @@ func _build_ui() -> void:
 
 	ratna_label = _npc_label("Bu Ratna", "NEUTRAL")
 	npc_row.add_child(ratna_label)
-	jaka_label = _npc_label("Jaka", winner == "mc" ? "NEUTRAL" : "SURPRISED")
+	jaka_label = _npc_label("Jaka", "NEUTRAL" if winner == "mc" else "SURPRISED")
 	npc_row.add_child(jaka_label)
 	slamet_label = _npc_label("Pak Slamet", "NEUTRAL")
 	npc_row.add_child(slamet_label)
