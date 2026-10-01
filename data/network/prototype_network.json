@@ -18,6 +18,11 @@
           "text": "Pak Wira menggeleng. \"Yang lama bukan berarti saya tahu. Elektronik begini kita belum punya orangnya. Saya bisa tanya-tanya siapa yang masih main perangkat lama.\"",
           "status": "network_gap",
           "referral": ""
+        },
+        "unsure": {
+          "text": "Pak Wira menatap isi kotak. \"Kalau kamu sendiri belum tahu apa yang bikin curiga, jangan mulai dari harga. Pilih dulu: bahan, mekanisme, atau perangkatnya. Baru cari orangnya.\"",
+          "status": "framing",
+          "referral": ""
         }
       }
     },
@@ -39,6 +44,11 @@
           "text": "Bu Sari mengembalikan adaptor. \"Ada logam di konektornya, iya. Tapi perangkatnya sendiri bukan bidang saya. Saya nggak akan pura-pura tahu.\"",
           "status": "outside_field",
           "referral": ""
+        },
+        "unsure": {
+          "text": "Bu Sari mengangkat bahu. \"Kotaknya banyak isi. Kalau yang kamu tanya logam, tunjuk logamnya. Kalau bukan, saya cuma akan bikin kamu tambah bingung.\"",
+          "status": "framing",
+          "referral": ""
         }
       }
     },
@@ -59,6 +69,11 @@
         "adapter": {
           "text": "Yanto melihat konektornya lalu menyerahkannya kembali. \"Ini listrik, bukan mekanisme. Saya bisa bongkar casing, tapi itu nggak bikin saya tahu perangkat asalnya.\"",
           "status": "outside_field",
+          "referral": ""
+        },
+        "unsure": {
+          "text": "Yanto: \"Mau tanya bagian mana? Kalau semuanya sekaligus, jawabannya ya: saya juga nggak tahu semuanya.\"",
+          "status": "framing",
           "referral": ""
         }
       }
