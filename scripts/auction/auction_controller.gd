@@ -44,7 +44,8 @@ var inspected: Dictionary = {}
 func _ready() -> void:
 	_build_ui()
 	_load_lots()
-	AuctionState.reset_prototype()
+	if not AuctionState.chapter_mode:
+		AuctionState.reset_prototype()
 	if lots.is_empty():
 		_add_log("ERROR: data lot tidak ditemukan.")
 		return
@@ -69,7 +70,7 @@ func _build_ui() -> void:
 	margin.add_child(root)
 
 	var brand := Label.new()
-	brand.text = "KETUK.  —  PROTOTYPE P0.3"
+	brand.text = "KETUK. — DI BALIK HARGA\nBAB 1"
 	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	brand.add_theme_font_size_override("font_size", 26)
 	root.add_child(brand)
