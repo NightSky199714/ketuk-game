@@ -21,7 +21,55 @@
         "label": "KABEL",
         "text": "Steker terlihat lebih baru daripada kabelnya. Tidak ada tembaga terbuka. Pernah diperbaiki, tapi belum jelas apakah itu masalah atau justru perawatan."
       }
-    ]
+    ],
+    "post_lot_drama": {
+      "bu_ratna": [
+        {
+          "actor": "room",
+          "text": "Seseorang di belakang terkekeh. \"Seratus tiga puluh buat rice cooker begini?\"",
+          "pause": 0.9
+        },
+        {
+          "actor": "bu_ratna",
+          "expression": "CONFIDENT",
+          "text": "Bu Ratna: \"Yang masak nasi di rumah saya, bukan kalian.\"",
+          "pause": 1.1
+        },
+        {
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "text": "Pak Slamet: \"Kalau dipakai tiap hari, hitungannya memang beda.\"",
+          "pause": 1.0
+        }
+      ],
+      "mc": [
+        {
+          "actor": "bu_ratna",
+          "expression": "SUSPICIOUS",
+          "text": "Bu Ratna: \"Kalau mau dijual lagi, semoga hitungannya masuk.\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka tersenyum kecil. \"Atau cuma pengin menang?\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "pak_slamet",
+          "expression": "NEUTRAL",
+          "text": "Pak Slamet: \"Menang lot belum tentu menang harga.\"",
+          "pause": 1.0
+        }
+      ],
+      "none": [
+        {
+          "actor": "room",
+          "text": "Tak ada yang mengejar. Pak Lurah menggeser rice cooker ke samping tanpa komentar.",
+          "pause": 0.8
+        }
+      ]
+    }
   },
   {
     "id": "lot02",
@@ -45,7 +93,54 @@
         "label": "ANGKAT",
         "text": "Kotaknya terasa lebih berat daripada isi yang terlihat. Saat digeser, ada benda kecil bergerak di dasar. Kotak tidak boleh dibongkar sebelum lot dimenangkan."
       }
-    ]
+    ],
+    "post_lot_drama": {
+      "mc": [
+        {
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka: \"Sembilan puluh lima buat kotak begini? Berani juga.\"",
+          "pause": 0.9
+        },
+        {
+          "actor": "room",
+          "text": "Dua orang di baris belakang tertawa kecil.",
+          "pause": 0.7
+        },
+        {
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "text": "Pak Slamet melirik kotak itu lagi. \"Belum dibuka, belum tentu rongsok.\"",
+          "pause": 1.1
+        }
+      ],
+      "jaka": [
+        {
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka menarik kotaknya mendekat. \"Kalau isinya sampah, paling tidak kotaknya masih bisa dipakai.\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "bu_ratna",
+          "expression": "NEUTRAL",
+          "text": "Bu Ratna: \"Yang ngomong begitu biasanya sudah mulai menyesal.\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "room",
+          "text": "Tawa pendek terdengar dari sisi ruangan. Jaka pura-pura tidak dengar.",
+          "pause": 0.8
+        }
+      ],
+      "none": [
+        {
+          "actor": "room",
+          "text": "Kotak itu tidak laku. Seseorang berbisik, \"Besok juga muncul lagi.\"",
+          "pause": 0.8
+        }
+      ]
+    }
   },
   {
     "id": "lot03",
@@ -69,6 +164,53 @@
         "label": "TAS",
         "text": "Tas kulit tampak lebih tua daripada body. Ada inisial kecil di flap dan tali yang lebih baru. Bisa jadi satu set lama, bisa juga aksesori campuran."
       }
-    ]
+    ],
+    "post_lot_drama": {
+      "jaka": [
+        {
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka mengangkat alis ke arahmu. \"Sudah? Kirain masih mau ngejar.\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "bu_ratna",
+          "expression": "NEUTRAL",
+          "text": "Bu Ratna: \"Yang menang jangan senang dulu. Kameranya saja belum tentu sehat.\"",
+          "pause": 1.0
+        },
+        {
+          "actor": "jaka",
+          "expression": "SUSPICIOUS",
+          "text": "Jaka melihat kamera untuk pertama kalinya sedikit lebih lama.",
+          "pause": 1.0
+        }
+      ],
+      "mc": [
+        {
+          "actor": "jaka",
+          "expression": "SURPRISED",
+          "text": "Jaka: \"Dua enam puluh? Serius?\"",
+          "pause": 0.9
+        },
+        {
+          "actor": "room",
+          "text": "Seseorang di belakang bersiul pelan. Yang lain tertawa pendek.",
+          "pause": 0.8
+        },
+        {
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka menyandarkan badan. \"Ya sudah. Semoga bukan cuma menang gengsi.\"",
+          "pause": 1.1
+        },
+        {
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "text": "Pak Slamet hanya berkata, \"Hm.\"",
+          "pause": 0.9
+        }
+      ]
+    }
   }
 ]
