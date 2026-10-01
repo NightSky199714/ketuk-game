@@ -4,7 +4,7 @@
 
 1. Checkout `prototype/p0.3-human-network`.
 2. Mainkan sampai P0.2.
-3. Pilih target TATAKAN, KOREK, atau ADAPTOR.
+3. Pilih target TATAKAN, KOREK, ADAPTOR, atau BELUM YAKIN.
 4. Tekan `CARI ORANG YANG TAHU`.
 
 ## Expected
@@ -33,6 +33,11 @@
 ### ADAPTOR
 - Tidak ada kontak prototype yang memberi identifikasi final.
 - Pak Wira menyatakan perlu memperluas jaringan.
+
+### BELUM YAKIN
+- Tetap boleh masuk ke Human Network.
+- NPC tidak memberi appraisal.
+- Respons membantu pemain menyadari bahwa pertanyaannya terlalu luas dan perlu dipersempit.
 
 ## Fail Fast
 
