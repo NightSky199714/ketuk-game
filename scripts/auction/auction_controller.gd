@@ -343,7 +343,6 @@ func _on_bid() -> void:
 		var bid_count := AuctionState.mc_bid_history.size()
 		if bid_count == 1:
 			_set_expression("jaka", "INTERESTED")
-			_add_log("Jaka tidak melihat kamera. Ia melihatmu.")
 		elif bid_count == 2:
 			_set_expression("jaka", "CONFIDENT")
 		else:
