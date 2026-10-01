@@ -121,10 +121,9 @@ func _build_ui() -> void:
 	root.add_child(book_label)
 
 	poster_button = Button.new()
-	poster_button.text = "KEMBALI KE PINTU PASAR"
 	poster_button.visible = false
 	poster_button.custom_minimum_size = Vector2(280, 62)
-	poster_button.pressed.connect(_show_poster)
+	poster_button.pressed.connect(_poster_action)
 	root.add_child(poster_button)
 
 	finish_button = Button.new()
@@ -181,7 +180,14 @@ func _show_location(location_id: String, moved: bool) -> void:
 		else:
 			contact_button.text = "TANYA ORANG DI SINI"
 
-	poster_button.visible = _network_complete()
+	if _network_complete():
+		poster_button.visible = true
+		if current_location_id == "papan_pengumuman":
+			poster_button.text = "PERIKSA POSTER"
+		else:
+			poster_button.text = "PERGI KE PAPAN PENGUMUMAN"
+	else:
+		poster_button.visible = false
 	_refresh_map_buttons()
 	_refresh_travel()
 	_refresh_book()
@@ -235,13 +241,24 @@ Petunjuk: %s — %s." % [
 
 	_refresh_book()
 	_refresh_map_buttons()
-	poster_button.visible = _network_complete()
+	if _network_complete():
+		poster_button.visible = true
+		poster_button.text = "PERGI KE PAPAN PENGUMUMAN" if current_location_id != "papan_pengumuman" else "PERIKSA POSTER"
+	else:
+		poster_button.visible = false
 
 func _network_complete() -> bool:
 	for person_id in ["pak_wira", "pak_damar", "bu_sari", "yanto"]:
 		if not AuctionState.chapter3_people_book.has(person_id):
 			return false
 	return true
+
+func _poster_action() -> void:
+	if current_location_id != "papan_pengumuman":
+		AuctionState.network_travel_steps += 1
+		_show_location("papan_pengumuman", true)
+		return
+	_show_poster()
 
 func _show_poster() -> void:
 	AuctionState.chapter3_poster_seen = true
