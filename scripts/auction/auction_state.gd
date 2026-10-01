@@ -11,6 +11,8 @@ var investigation: Dictionary = {}
 var session_memory: Dictionary = {}
 var discovery_notes: Dictionary = {}
 var discovery_target: String = ""
+var network_history: Array[Dictionary] = []
+var network_finding: String = ""
 
 func reset_prototype() -> void:
 	money = 430000
@@ -24,6 +26,8 @@ func reset_prototype() -> void:
 	session_memory.clear()
 	discovery_notes.clear()
 	discovery_target = ""
+	network_history.clear()
+	network_finding = ""
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
