@@ -2,40 +2,107 @@
 
 > Setiap tawaran punya harga.
 
-**KETUK.** adalah game auction-adventure berlatar Indonesia tentang membaca nilai barang, membaca manusia, mengambil risiko, dan hidup dengan konsekuensi keputusan.
+**KETUK.** adalah game auction-adventure berlatar Indonesia tentang membaca nilai barang, membaca manusia, mencari konteks, mengambil risiko, dan hidup dengan konsekuensi keputusan.
 
 ## Status
 
-Saat ini proyek berada di fase **Prototype 0.1 — Auction Feel**.
+**0.1.0-rc1 — Release Candidate**
 
-Tujuan P0.1 hanya membuktikan bahwa:
-- bidding terasa tegang,
-- perilaku NPC bisa dibaca,
-- keputusan STOP/BID terasa bermakna,
-- reveal barang memberi payoff yang kuat,
-- pemain ingin mencoba cabang lain.
+Build ini bukan lagi prototype P0.1 terpisah. Flow utama sekarang menghubungkan:
+- pembuka dan lelang;
+- inventory nyata berdasarkan barang yang benar-benar dimenangkan;
+- eksplorasi lokasi;
+- waktu dunia dan jadwal tersembunyi;
+- jaringan NPC;
+- rumor vs informasi terverifikasi;
+- konsekuensi ekonomi kios;
+- Save / Continue;
+- Windows dan Web export presets.
 
-## Scope P0.1
+## Core Loop
 
-- 1 ruang lelang
-- 3 lot: rice cooker, kotak campuran, kamera analog
-- NPC: Pak Lurah, Pak Slamet, Bu Ratna, Jaka, Pak Harun
-- aksi pemain: BID / WAIT / STOP
-- investigasi kamera: Body / Lensa / Tas
-- dua hasil Lot 03: Jaka menang atau MC menang
-- satu sequence reveal lensa
+```
+Lelang
+→ memperoleh / kehilangan barang
+→ inventory
+→ mencoba tempat dan orang
+→ observasi / rumor / konteks
+→ Buku Lama
+→ keputusan ekonomi
+→ konsekuensi dunia
+→ eksplorasi berikutnya
+```
 
-Hal-hal seperti inventory penuh, Buku Temuan, Pasar Tua, save branching, voice acting, dan Chapter 2+ sengaja **belum** dibangun.
+Game tidak menampilkan jalur benar sebagai quest marker. Peta menampilkan tempat yang diketahui MC; pemain menyimpulkan sendiri tempat atau orang yang layak dicoba.
+
+## Current Playable Content
+
+- Balai Lelang Kampung Suka Jaya
+- 3 lot awal
+- BID / WAIT / STOP
+- pre-bid investigation
+- post-lot social drama
+- KOTAK CAMPURAN yang harus dibuka melalui konteks dunia
+- Kamera Analog dengan beberapa kemungkinan transaksi/informasi
+- Rumah / Kios
+- Toko Kamera
+- Warung Bu Ratna
+- Rumah Pak Arman
+- Bengkel Umum
+- Kedai Foto Lama
+- Terminal Kota
+- Pasar Tua
+- hidden schedules / opening hours
+- Buku Lama sebagai inventory knowledge record
+- rumor state: DENGAR / TERVERIFIKASI
+- NPC memory untuk item yang pernah diperiksa
+- Save / Continue dari Main Menu
 
 ## Engine
 
-Godot 4.x
+Godot 4.x, GL Compatibility.
+
+Viewport target saat ini: 720 × 1280 (portrait-first).
+
+## Local Validation
+
+Headless smoke gate:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\release_check.ps1 -GodotPath "PATH_KE_GODOT.exe"
+```
+
+Release build:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target all
+```
+
+Export templates Godot harus sudah terpasang.
+
+## Release Outputs
+
+```
+build/windows/KETUK.exe
+build/web/index.html
+```
+
+Folder `build/` tidak masuk Git.
 
 ## Branch
 
-- `main` — baseline yang stabil
-- `prototype/p0.1-auction-feel` — pengembangan prototype Auction Feel
+Current release-candidate work:
+- `vertical-slice/chapter-1-3-complete`
 
-## Prinsip Prototype
+Draft integration PR:
+- PR #6
 
-Layar sederhana yang bisa membuat pemain ragu untuk menawar lebih berharga daripada layar indah yang belum punya keputusan bermakna.
+## Design Rule
+
+Pemain seharusnya berpikir:
+
+> “Aku punya benda ini. Coba kubawa ke mana?”
+
+bukan:
+
+> “Game menyuruhku menekan objective berikutnya.”
