@@ -16,6 +16,7 @@ var location_label: Label
 var location_description: Label
 var response_label: Label
 var action_row: VBoxContainer
+var menu_button: Button
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
@@ -172,6 +173,13 @@ func _build_ui() -> void:
 	action_row.add_theme_constant_override("separation", 7)
 	root.add_child(action_row)
 
+	menu_button = Button.new()
+	menu_button.text = "MENU UTAMA"
+	menu_button.custom_minimum_size = Vector2(0, 48)
+	menu_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	menu_button.pressed.connect(_return_to_menu)
+	root.add_child(menu_button)
+
 	_refresh_status()
 	_refresh_inventory()
 	_refresh_map()
@@ -224,6 +232,7 @@ func _show_location(location_id: String, moved: bool) -> void:
 	_refresh_inventory()
 	_refresh_map()
 	_refresh_actions()
+	_autosave()
 
 func _refresh_actions() -> void:
 	_clear_actions()
@@ -309,6 +318,7 @@ func _show_selected_item_here() -> void:
 
 	_refresh_inventory()
 	_refresh_actions()
+	_autosave()
 
 func _show_item_to_arman(item_id: String) -> void:
 	var memory_id := "shown_%s" % item_id
@@ -760,3 +770,12 @@ func _rupiah(value: int) -> String:
 		formatted = "." + raw.substr(raw.length() - 3, 3) + formatted
 		raw = raw.substr(0, raw.length() - 3)
 	return "Rp" + raw + formatted
+
+
+func _autosave() -> void:
+	if AuctionState.chapter2_started:
+		SaveManager.save_game("res://scenes/chapter/chapter2_batas.tscn")
+
+func _return_to_menu() -> void:
+	_autosave()
+	get_tree().change_scene_to_file("res://scenes/system/main_menu.tscn")
