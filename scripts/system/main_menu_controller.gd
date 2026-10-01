@@ -12,7 +12,7 @@ func _ready() -> void:
 	_refresh_save_state()
 
 func _refresh_save_state() -> void:
-	var has_save := SaveManager.has_save()
+	var has_save := SaveManager.has_valid_save()
 	continue_button.disabled = not has_save
 	save_status.text = "Progress tersimpan tersedia." if has_save else "Belum ada progress tersimpan."
 
@@ -23,7 +23,7 @@ func _continue_game() -> void:
 		save_status.text = "Save tidak dapat dibaca. Game baru tetap bisa dimulai."
 
 func _request_new_game() -> void:
-	if SaveManager.has_save():
+	if SaveManager.has_valid_save():
 		overwrite_dialog.popup_centered()
 		return
 	_start_new_game()
