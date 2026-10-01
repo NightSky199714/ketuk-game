@@ -1,0 +1,67 @@
+{
+  "contacts": {
+    "pak_wira": {
+      "display_name": "Pak Wira",
+      "role": "network",
+      "responses": {
+        "coaster": {
+          "text": "Pak Wira membolak-balik tatakan itu sebentar. \"Kalau cuma dari warna, saya nggak mau nebak. Coba bawa ke Bu Sari. Dia biasa lihat logam dan lapisan begini.\"",
+          "status": "referral",
+          "referral": "bu_sari"
+        },
+        "lighter": {
+          "text": "Pak Wira menekan pemantiknya sekali. \"Macetnya saya lihat. Tapi mekanisme kecil begini Yanto lebih telaten. Jangan tanya saya modelnya.\"",
+          "status": "referral",
+          "referral": "yanto"
+        },
+        "adapter": {
+          "text": "Pak Wira menggeleng. \"Yang lama bukan berarti saya tahu. Elektronik begini kita belum punya orangnya. Saya bisa tanya-tanya siapa yang masih main perangkat lama.\"",
+          "status": "network_gap",
+          "referral": ""
+        }
+      }
+    },
+    "bu_sari": {
+      "display_name": "Bu Sari",
+      "role": "metal",
+      "responses": {
+        "coaster": {
+          "text": "Bu Sari menggosok bagian tepi dengan ibu jari. \"Warna kuningnya lapisan. Lihat bagian aus ini—bahan di bawahnya beda. Jadi jangan hitung ini sebagai kuningan padat.\"",
+          "status": "context",
+          "finding": "Permukaan kuning adalah lapisan; benda bukan kuningan padat."
+        },
+        "lighter": {
+          "text": "Bu Sari melihat casingnya. \"Logam luarnya bisa saya komentari, tapi kalau kamu mau tahu kenapa pemantiknya macet atau mekanismenya apa, itu bukan kerjaan saya. Tanya Yanto.\"",
+          "status": "referral",
+          "referral": "yanto"
+        },
+        "adapter": {
+          "text": "Bu Sari mengembalikan adaptor. \"Ada logam di konektornya, iya. Tapi perangkatnya sendiri bukan bidang saya. Saya nggak akan pura-pura tahu.\"",
+          "status": "outside_field",
+          "referral": ""
+        }
+      }
+    },
+    "yanto": {
+      "display_name": "Yanto",
+      "role": "mechanism",
+      "responses": {
+        "coaster": {
+          "text": "Yanto mengetuk tatakannya pelan. \"Kalau soal mekanisme, ini malah nggak punya. Bahan logamnya tanya Bu Sari, jangan saya.\"",
+          "status": "referral",
+          "referral": "bu_sari"
+        },
+        "lighter": {
+          "text": "Yanto menggerakkan roda pemantik dengan kuku. \"Pegasnya masih balik. Yang macet bagian roda dan porosnya. Model lama, tapi cap aus ini belum cukup buat bilang seri atau langka.\"",
+          "status": "context",
+          "finding": "Mekanisme tua dan dapat diperiksa, tetapi cap belum cukup untuk menentukan identitas atau kelangkaan."
+        },
+        "adapter": {
+          "text": "Yanto melihat konektornya lalu menyerahkannya kembali. \"Ini listrik, bukan mekanisme. Saya bisa bongkar casing, tapi itu nggak bikin saya tahu perangkat asalnya.\"",
+          "status": "outside_field",
+          "referral": ""
+        }
+      }
+    }
+  }
+}
