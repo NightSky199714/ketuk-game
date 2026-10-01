@@ -260,7 +260,6 @@ func _show_location(location_id: String, moved: bool) -> void:
 
 	poster_button.visible = current_location_id == "papan_pengumuman" and _poster_available()
 	wait_button.visible = current_location_id in ["pintu_pasar", "kedai_pojok"]
-	wait_button.visible = current_location_id in ["pintu_pasar", "kedai_pojok"]
 
 	_refresh_map_buttons()
 	_refresh_travel()
@@ -350,6 +349,7 @@ func _refresh_location_controls() -> void:
 		and AuctionState.has_inventory_item(AuctionState.selected_inventory_item)
 	)
 	poster_button.visible = current_location_id == "papan_pengumuman" and _poster_available()
+	wait_button.visible = current_location_id in ["pintu_pasar", "kedai_pojok"]
 
 func _poster_available() -> bool:
 	if AuctionState.chapter3_poster_photographed:
