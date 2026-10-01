@@ -52,7 +52,7 @@ func _build_ui() -> void:
 	margin.add_child(root)
 
 	title_label = Label.new()
-	title_label.text = "MEJA PEMERIKSAAN"
+	title_label.text = "MEJA RUMAH — LOT 02"
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.add_theme_font_size_override("font_size", 30)
 	root.add_child(title_label)
@@ -130,7 +130,7 @@ func _build_ui() -> void:
 	end_panel.add_child(end_title)
 
 	network_button = Button.new()
-	network_button.text = "CARI ORANG YANG TAHU"
+	network_button.text = "PERGI KE PASAR TUA"
 	network_button.custom_minimum_size = Vector2(280, 66)
 	network_button.visible = false
 	network_button.pressed.connect(_go_to_network)
@@ -161,8 +161,8 @@ func _show_entry() -> void:
 		note_label.text = "Tekan BUKA KOTAK untuk menguji Discovery Loop."
 	else:
 		intro_label.text = str(lot_data.get("intro", "Kotak Campuran ada di depanmu."))
-		observation_label.text = "Di ruang lelang kamu hanya melihat permukaannya."
-		note_label.text = "Belum ada catatan baru."
+		observation_label.text = str(lot_data.get("source_story", "Kotak ini berasal dari Lot 02 yang kamu menangkan."))
+		note_label.text = "Di ruang lelang kamu belum boleh membongkar isinya."
 
 func _open_box() -> void:
 	open_button.visible = false
@@ -181,8 +181,8 @@ func _open_box() -> void:
 		button.pressed.connect(func(): _inspect_object(object_id))
 		object_row.add_child(button)
 
-	observation_label.text = "Tiga benda paling jelas bisa diperiksa tanpa alat khusus."
-	note_label.text = "Pilih salah satu."
+	observation_label.text = str(lot_data.get("selection_reason", "Tiga benda paling membuatmu penasaran."))
+	note_label.text = "Kamu tidak sedang memilih barang terbaik. Kamu memilih bagian yang pertanyaannya belum selesai."
 
 func _inspect_object(object_id: String) -> void:
 	var object_data := _get_object(object_id)
@@ -229,6 +229,7 @@ func _choose_target(target_id: String) -> void:
 		]
 
 	intro_label.text = "Kamu sudah punya pertanyaan. Belum punya jawabannya."
+	observation_label.text += "\n\nKamu teringat ucapan Pak Slamet: kalau butuh orang yang tahu orang, cari Pak Wira di Pasar Tua."
 	end_panel.visible = true
 	network_button.visible = true
 
