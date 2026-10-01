@@ -252,7 +252,10 @@ func _route_detail() -> String:
 	return "Kios hilang. Cerita tetap berjalan."
 
 func _refresh_status() -> void:
-	clock_label.text = "Waktu: %s  |  Deadline kios: Minggu 20:00" % AuctionState.chapter2_clock()
+	clock_label.text = "Waktu: %s %s  |  Deadline kios: Minggu 20:00" % [
+		AuctionState.chapter2_day_name(),
+		AuctionState.chapter2_clock()
+	]
 	money_label.text = "Uang: %s  |  Tunggakan: %s" % [
 		_rupiah(AuctionState.money),
 		_rupiah(maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0))
