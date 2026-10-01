@@ -11,6 +11,7 @@ func _ready() -> void:
 	AuctionState.finish_chapter1()
 	_build_ui()
 	_refresh_home()
+	SaveManager.save_game("res://scenes/chapter/chapter1_home.tscn")
 
 func _build_ui() -> void:
 	var background := ColorRect.new()
