@@ -8,6 +8,7 @@ var mc_bid_history: Array[int] = []
 var bid_history: Array[Dictionary] = []
 var lot_results: Dictionary = {}
 var investigation: Dictionary = {}
+var session_memory: Dictionary = {}
 
 func reset_prototype() -> void:
 	money = 430000
@@ -18,6 +19,7 @@ func reset_prototype() -> void:
 	bid_history.clear()
 	lot_results.clear()
 	investigation.clear()
+	session_memory.clear()
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
@@ -44,3 +46,12 @@ func record_result(lot_id: String, winner: String, amount: int) -> void:
 	}
 	if winner == "mc":
 		money -= amount
+
+	if lot_id == "lot02":
+		session_memory["lot02_winner"] = winner
+		if winner == "mc":
+			session_memory["jaka_attitude"] = "stung"
+		elif winner == "jaka":
+			session_memory["jaka_attitude"] = "cocky"
+		else:
+			session_memory["jaka_attitude"] = "neutral"
