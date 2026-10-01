@@ -34,6 +34,13 @@ var kiosk_saved: bool = false
 var kiosk_paid: int = 0
 var camera_sale_status: String = ""
 
+var chapter3_started: bool = false
+var chapter3_complete: bool = false
+var chapter3_people_book: Dictionary = {}
+var chapter3_context_found: bool = false
+var chapter3_poster_seen: bool = false
+var chapter3_poster_photographed: bool = false
+
 func reset_prototype() -> void:
 	money = 430000
 	current_lot_id = ""
@@ -64,6 +71,12 @@ func reset_prototype() -> void:
 	kiosk_saved = false
 	kiosk_paid = 0
 	camera_sale_status = ""
+	chapter3_started = false
+	chapter3_complete = false
+	chapter3_people_book.clear()
+	chapter3_context_found = false
+	chapter3_poster_seen = false
+	chapter3_poster_photographed = false
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
@@ -146,3 +159,25 @@ func pay_kiosk(amount: int) -> void:
 func finish_chapter2(route_id: String) -> void:
 	chapter2_route = route_id
 	chapter2_complete = true
+
+
+func start_chapter3() -> void:
+	chapter_mode = true
+	chapter_id = "chapter3"
+	chapter3_started = true
+	chapter3_complete = false
+	chapter3_people_book.clear()
+	chapter3_context_found = false
+	chapter3_poster_seen = false
+	chapter3_poster_photographed = false
+	network_history.clear()
+	network_finding = ""
+	network_known_contacts.clear()
+	network_visited_locations.clear()
+	network_travel_steps = 0
+
+func record_chapter3_person(person_id: String, note: String) -> void:
+	chapter3_people_book[person_id] = note
+
+func finish_chapter3() -> void:
+	chapter3_complete = true
