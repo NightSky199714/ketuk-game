@@ -3,6 +3,12 @@ extends Control
 const LOT_DATA_PATH := "res://data/lots/prototype_lots.json"
 const BidLogic = preload("res://scripts/auction/bid_logic.gd")
 
+const DRAMA_CHAR_SECONDS := 0.012
+const DRAMA_DIALOGUE_BASE := 1.6
+const DRAMA_ACTION_BASE := 1.3
+const DRAMA_SILENCE_BASE := 1.5
+const DRAMA_PAUSE_SCALE := 1.55
+
 var lots: Array = []
 var lot_index: int = -1
 var current_lot: Dictionary = {}
@@ -243,6 +249,7 @@ func _start_next_lot() -> void:
 	_refresh_state()
 	_clear_log()
 	_add_log("Barang diperlihatkan. Harga pembuka: %s." % _rupiah(opening_bid))
+	_apply_session_memory_on_lot_start(lot_id)
 
 	_show_investigation()
 
@@ -440,15 +447,15 @@ func _finalize_lot() -> void:
 	AuctionState.record_result(AuctionState.current_lot_id, winner, amount)
 	_refresh_state()
 
-	await get_tree().create_timer(0.55).timeout
+	await get_tree().create_timer(1.0).timeout
 	await _run_post_lot_drama(winner)
 
 	if AuctionState.current_lot_id == "lot03":
-		await get_tree().create_timer(0.9).timeout
+		await get_tree().create_timer(1.25).timeout
 		get_tree().change_scene_to_file("res://scenes/reveal/reveal_camera.tscn")
 		return
 
-	await get_tree().create_timer(0.9).timeout
+	await get_tree().create_timer(1.2).timeout
 	_start_next_lot()
 
 func _run_post_lot_drama(winner: String) -> void:
@@ -488,16 +495,45 @@ func _run_post_lot_drama(winner: String) -> void:
 		if kind == "silence":
 			if not line.is_empty():
 				instruction_label.text = line
-			await get_tree().create_timer(maxf(pause, 0.1)).timeout
+			await get_tree().create_timer(_drama_hold_time(kind, line, pause)).timeout
 			continue
 
 		if not line.is_empty():
 			instruction_label.text = line
 			_add_log(_format_drama_line(kind, line))
 
-		await get_tree().create_timer(maxf(pause, 0.1)).timeout
+		await get_tree().create_timer(_drama_hold_time(kind, line, pause)).timeout
 
 	instruction_label.text = "Pak Lurah bersiap ke lot berikutnya."
+
+func _drama_hold_time(kind: String, line: String, authored_pause: float) -> float:
+	var base := DRAMA_DIALOGUE_BASE
+	match kind:
+		"silence":
+			base = DRAMA_SILENCE_BASE
+		"action", "crowd":
+			base = DRAMA_ACTION_BASE
+		"interrupt":
+			base = DRAMA_DIALOGUE_BASE
+
+	var reading_time := base + (float(line.length()) * DRAMA_CHAR_SECONDS)
+	var authored_time := authored_pause * DRAMA_PAUSE_SCALE
+	return maxf(reading_time, authored_time)
+
+func _apply_session_memory_on_lot_start(lot_id: String) -> void:
+	if lot_id != "lot03":
+		return
+
+	var attitude := str(AuctionState.session_memory.get("jaka_attitude", "neutral"))
+	match attitude:
+		"stung":
+			_set_expression("jaka", "SUSPICIOUS")
+			_add_log("Jaka sempat melirik ke arahmu saat kamera dibawa masuk.")
+		"cocky":
+			_set_expression("jaka", "CONFIDENT")
+			_add_log("Jaka bersandar santai ketika kamera dibawa masuk.")
+		_:
+			pass
 
 func _format_drama_line(kind: String, line: String) -> String:
 	match kind:
