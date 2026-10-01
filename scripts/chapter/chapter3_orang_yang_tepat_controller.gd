@@ -19,6 +19,7 @@ var travel_label: Label
 var contact_button: Button
 var show_item_button: Button
 var poster_button: Button
+var wait_button: Button
 var exit_button: Button
 var location_buttons: Dictionary = {}
 
@@ -167,6 +168,13 @@ func _build_ui() -> void:
 	poster_button.pressed.connect(_inspect_notice_board)
 	root.add_child(poster_button)
 
+	wait_button = Button.new()
+	wait_button.text = "DUDUK SEBENTAR"
+	wait_button.custom_minimum_size = Vector2(0, 50)
+	wait_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	wait_button.pressed.connect(_wait_market)
+	root.add_child(wait_button)
+
 	exit_button = Button.new()
 	exit_button.text = "KELUAR PASAR"
 	exit_button.custom_minimum_size = Vector2(0, 56)
@@ -211,7 +219,9 @@ func _show_location(location_id: String, moved: bool) -> void:
 
 	current_location_id = location_id
 	AuctionState.network_visited_locations[location_id] = true
-	current_contact_id = str(location.get("contact", ""))
+
+	var scheduled_contact := str(location.get("contact", ""))
+	current_contact_id = scheduled_contact if _is_contact_present(scheduled_contact) else ""
 
 	location_label.text = str(location.get("label", location_id)).to_upper()
 	location_description.text = str(location.get("description", ""))
@@ -222,8 +232,16 @@ func _show_location(location_id: String, moved: bool) -> void:
 		else:
 			location_description.text = "Papan pengumuman berisi iklan servis, kehilangan barang, dan kertas lama."
 
+	var absent_text := ""
+	if not scheduled_contact.is_empty() and current_contact_id.is_empty():
+		absent_text = _contact_absent_text(scheduled_contact)
+
 	if moved:
 		response_label.text = "Kamu berjalan ke %s." % str(location.get("label", location_id))
+		if not absent_text.is_empty():
+			response_label.text += "\n\n" + absent_text
+	elif not absent_text.is_empty():
+		response_label.text = absent_text
 	else:
 		response_label.text = ""
 
@@ -241,6 +259,8 @@ func _show_location(location_id: String, moved: bool) -> void:
 	)
 
 	poster_button.visible = current_location_id == "papan_pengumuman" and _poster_available()
+	wait_button.visible = current_location_id in ["pintu_pasar", "kedai_pojok"]
+	wait_button.visible = current_location_id in ["pintu_pasar", "kedai_pojok"]
 
 	_refresh_map_buttons()
 	_refresh_travel()
@@ -438,6 +458,52 @@ func _check_world_deadline() -> void:
 		return
 	response_label.text += "\n\nDi luar pasar, batas pembayaran kios lewat. Pak Arman menutup kios."
 	subtitle_label.text = "Kios sudah ditutup. Kamu tetap bisa melanjutkan aktivitas."
+
+func _wait_market() -> void:
+	AuctionState.advance_chapter2_time(30)
+	response_label.text = "Kamu menghabiskan sekitar setengah jam tanpa melakukan banyak hal."
+	_show_location(current_location_id, false)
+	_check_world_deadline()
+
+func _is_contact_present(person_id: String) -> bool:
+	if person_id.is_empty():
+		return false
+
+	var people: Dictionary = data.get("people", {})
+	var person: Dictionary = people.get(person_id, {})
+	if person.is_empty():
+		return false
+
+	var schedule: Dictionary = person.get("schedule", {})
+	var windows: Array = schedule.get("windows", [])
+	if windows.is_empty():
+		return true
+
+	var day := AuctionState.chapter2_day_name()
+	var minute_of_day := AuctionState.chapter2_time_minutes % (24 * 60)
+
+	for raw_window in windows:
+		if typeof(raw_window) != TYPE_DICTIONARY:
+			continue
+		var window: Dictionary = raw_window
+		if str(window.get("day", "")) != day:
+			continue
+
+		var start_minute := int(window.get("start", 0))
+		var end_minute := int(window.get("end", 24 * 60))
+		if minute_of_day >= start_minute and minute_of_day < end_minute:
+			return true
+
+	return false
+
+func _contact_absent_text(person_id: String) -> String:
+	var people: Dictionary = data.get("people", {})
+	var person: Dictionary = people.get(person_id, {})
+	if person.is_empty():
+		return ""
+
+	var schedule: Dictionary = person.get("schedule", {})
+	return str(schedule.get("absent_text", ""))
 
 func _exit_market() -> void:
 	get_tree().change_scene_to_file("res://scenes/chapter/chapter2_batas.tscn")
