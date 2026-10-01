@@ -219,6 +219,11 @@ func _refresh_actions() -> void:
 		"toko_kamera":
 			_add_action("BICARA DENGAN PAK HARUN", _talk_harun)
 			_add_show_item_action()
+			if AuctionState.chapter2_pending_offer > 0 and AuctionState.has_inventory_item("camera"):
+				_add_action(
+					"TERIMA %s" % _rupiah(AuctionState.chapter2_pending_offer),
+					_accept_harun_offer
+				)
 		"warung_ratna":
 			_add_action("BICARA DENGAN BU RATNA", _talk_ratna)
 			_add_show_item_action()
