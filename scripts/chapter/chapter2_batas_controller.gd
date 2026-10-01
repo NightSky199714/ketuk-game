@@ -247,6 +247,7 @@ func _refresh_actions() -> void:
 			_add_show_item_action()
 		"pak_arman":
 			_add_action("BICARA DENGAN PAK ARMAN", _talk_arman)
+			_add_show_item_action()
 			var remaining := maxi(AuctionState.kiosk_arrears - AuctionState.kiosk_paid, 0)
 			if remaining > 0 and AuctionState.money >= remaining:
 				_add_action("BAYAR %s" % _rupiah(remaining), _pay_arman)
@@ -257,8 +258,10 @@ func _refresh_actions() -> void:
 			_add_action("MASUK PASAR", _enter_old_market)
 		"kedai_foto":
 			_build_adi_actions()
+			_add_show_item_action()
 		"terminal_kota":
 			_build_terminal_actions()
+			_add_show_item_action()
 		"alamat_sentana":
 			_build_sentana_actions()
 
@@ -287,11 +290,60 @@ func _show_selected_item_here() -> void:
 			_show_item_to_ratna(item_id)
 		"bengkel_umum":
 			_show_item_to_craftsman(item_id)
+		"pak_arman":
+			_show_item_to_arman(item_id)
+		"kedai_foto":
+			_show_item_to_photo_shop(item_id)
+		"terminal_kota":
+			_show_item_to_terminal(item_id)
 		_:
 			response_label.text = "Tidak ada reaksi khusus terhadap barang itu di sini."
 
 	_refresh_inventory()
 	_refresh_actions()
+
+func _show_item_to_arman(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(5)
+	if item_id == "camera":
+		response_label.text = "Pak Arman melihat kamera itu sekilas. \"Saya bukan pedagang kamera. Kalau ada uang untuk kios, saya terima uangnya.\""
+	elif item_id == "mixed_box":
+		response_label.text = "Pak Arman menggeleng. \"Saya nggak tahu isi kotakmu. Itu bukan urusan sewa kios.\""
+	else:
+		response_label.text = "Pak Arman tidak punya komentar yang berguna soal barang itu."
+	_refresh_status()
+
+func _talk_photo_shop() -> void:
+	AuctionState.advance_chapter2_time(5)
+	response_label.text = "Penjaga kedai sedang merapikan amplop foto dan baterai lama di belakang etalase."
+	_refresh_status()
+
+func _show_item_to_photo_shop(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(10)
+
+	if item_id == "camera" and AuctionState.has_inventory_item("camera"):
+		AuctionState.chapter2_leads["adi"] = true
+		response_label.text = "Penjaga melihat kameramu lebih lama pada bagian lensa.\n\n\"Ada orang namanya Adi yang kadang cari lensa lama. Nggak tentu datang. Kalau muncul, biasanya pagi.\""
+		clue_label.text = "Nama Adi terdengar di Kedai Foto."
+	elif item_id == "sentana_photo":
+		response_label.text = "Penjaga melihat foto poster itu. \"Nama Sentana pernah saya dengar, tapi bukan dari pelanggan tetap sini.\""
+	else:
+		response_label.text = "Penjaga kedai mengembalikan barangmu. \"Kalau bukan urusan kamera atau foto, saya nggak berani komentar.\""
+
+	_refresh_status()
+
+func _show_item_to_terminal(item_id: String) -> void:
+	AuctionState.advance_chapter2_time(10)
+
+	if item_id == "sentana_photo":
+		AuctionState.chapter2_leads["sentana"] = true
+		response_label.text = "Seorang sopir menatap foto posternya. \"Sentana... kayak pernah dengar. Coba duduk dulu, mungkin ada yang ingat alamatnya.\""
+		clue_label.text = "Beberapa orang terminal mengenali nama Sentana, belum alamatnya."
+	elif item_id == "camera":
+		response_label.text = "Beberapa orang melihat kamera itu, lalu kembali ke urusan masing-masing. Tidak ada yang memberi informasi berguna."
+	else:
+		response_label.text = "Barang itu tidak memicu percakapan yang berarti di terminal."
+
+	_refresh_status()
 
 func _show_item_to_harun(item_id: String) -> void:
 	AuctionState.advance_chapter2_time(10)
@@ -397,18 +449,14 @@ func _pay_arman() -> void:
 	_refresh_actions()
 
 func _build_adi_actions() -> void:
-	if not AuctionState.chapter2_leads.has("adi"):
-		response_label.text = "Kedai foto buka, tetapi tidak ada alasan khusus yang membuatmu mencari seseorang di sini."
-		return
+	_add_action("BICARA DENGAN PENJAGA", _talk_photo_shop)
 
-	if not AuctionState.has_inventory_item("camera"):
-		response_label.text = "Lead tentang pembeli lensa masih ada, tapi kameranya sudah tidak ada di inventory."
-		return
-
-	if AuctionState.chapter2_day_name() == "Minggu":
-		_add_action("LIHAT- LIHAT", _check_adi_sunday)
-	else:
-		_add_action("BICARA DENGAN ADI", _meet_adi)
+	if (
+		AuctionState.chapter2_leads.has("adi")
+		and AuctionState.has_inventory_item("camera")
+		and _adi_present()
+	):
+		_add_action("BICARA DENGAN PRIA DI DEKAT ETALASE", _meet_adi)
 
 func _check_adi_sunday() -> void:
 	if AuctionState.chapter2_time_minutes < 18 * 60:
@@ -451,20 +499,25 @@ func _meet_adi() -> void:
 	_refresh_actions()
 
 func _build_terminal_actions() -> void:
-	if not AuctionState.chapter2_leads.has("sentana"):
-		response_label.text = "Terminal ramai. Tanpa nama tertentu, tidak banyak yang bisa ditanyakan."
-		return
-	if not AuctionState.chapter2_leads.has("sentana_address"):
-		_add_action("DUDUK DAN MENDENGAR", _ask_terminal)
-	else:
-		response_label.text = "Satu alamat yang mungkin terkait Sentana sudah kamu catat."
+	_add_action("DUDUK DAN MENDENGAR", _ask_terminal)
 
 func _ask_terminal() -> void:
-	AuctionState.advance_chapter2_time(55)
-	AuctionState.chapter2_leads["sentana_address"] = true
-	AuctionState.chapter2_known_places["alamat_sentana"] = true
-	response_label.text = "Seorang sopir mengenali nama Sentana dan memberi patokan sebuah alamat. Ia sendiri tidak yakin itu orang yang sama."
-	clue_label.text = "Ada satu alamat yang belum terverifikasi."
+	AuctionState.advance_chapter2_time(35)
+
+	if not AuctionState.chapter2_leads.has("sentana"):
+		response_label.text = "Kamu duduk cukup lama. Obrolannya berpindah dari trayek, harga bensin, sampai penumpang yang tertinggal barang. Tidak ada sesuatu yang jelas berguna."
+		_refresh_status()
+		_check_deadline_event()
+		return
+
+	if not AuctionState.chapter2_leads.has("sentana_address"):
+		AuctionState.chapter2_leads["sentana_address"] = true
+		AuctionState.chapter2_known_places["alamat_sentana"] = true
+		response_label.text = "Setelah beberapa percakapan, seorang sopir akhirnya memberi patokan sebuah alamat yang mungkin terkait nama Sentana. Ia sendiri tidak yakin."
+		clue_label.text = "Satu alamat belum terverifikasi dicatat."
+	else:
+		response_label.text = "Kamu tidak mendapat tambahan yang lebih pasti dari alamat yang sudah dicatat."
+
 	_refresh_status()
 	_refresh_map()
 	_refresh_actions()
@@ -534,6 +587,13 @@ func _refresh_inventory() -> void:
 		str(item.get("name", selected.to_upper())),
 		str(item.get("description", "Belum diketahui."))
 	]
+
+func _adi_present() -> bool:
+	if AuctionState.chapter2_day_name() != "Senin":
+		return false
+
+	var minute_of_day := AuctionState.chapter2_time_minutes % (24 * 60)
+	return minute_of_day >= 8 * 60 + 30 and minute_of_day < 10 * 60
 
 func _location_is_open(location_id: String) -> bool:
 	var locations: Dictionary = map_data.get("locations", {})
