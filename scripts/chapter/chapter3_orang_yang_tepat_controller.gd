@@ -143,9 +143,9 @@ func _show_intro() -> void:
 	else:
 		subtitle_label.text = "Kamu tidak membawa Kotak Campuran pulang. Yang bisa dibangun sekarang bukan appraisal palsu, tetapi jaringan orang yang mungkin berguna nanti."
 
+	_show_location("pintu_pasar", false)
 	response_label.text = "Pak Slamet pernah menyebut satu nama: Pak Wira. Katanya ia sering ada di deretan kios tengah Pasar Tua."
 	book_label.text = "BUKU — belum ada orang baru dicatat."
-	_show_location("pintu_pasar", false)
 
 func _travel_to(location_id: String) -> void:
 	if location_id == current_location_id:
@@ -265,8 +265,11 @@ func _show_poster() -> void:
 	finish_button.visible = true
 
 func _finish_chapter() -> void:
+	if AuctionState.chapter3_complete:
+		get_tree().change_scene_to_file("res://scenes/chapter/chapter1_intro.tscn")
+		return
+
 	AuctionState.finish_chapter3()
-	finish_button.visible = false
 	title_label.text = "BAB 3 SELESAI"
 	subtitle_label.text = "ORANG YANG TEPAT"
 	location_label.text = ""
@@ -278,6 +281,9 @@ func _finish_chapter() -> void:
 Poster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
 	else:
 		book_label.text = "BUKU — jaringan bertambah. Poster: SENTANA PRIVATE AUCTION — INVITE REQUIRED."
+
+	finish_button.text = "MAIN DARI AWAL"
+	finish_button.visible = true
 
 func _refresh_map_buttons() -> void:
 	var locations: Dictionary = data.get("locations", {})
