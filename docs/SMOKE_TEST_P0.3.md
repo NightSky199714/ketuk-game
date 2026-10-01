@@ -47,3 +47,11 @@ Perbaiki sebelum sistem map jika:
 - game otomatis memilih specialist yang benar;
 - target ADAPTOR tetap mendapat jawaban sempurna;
 - NPC memberi harga kolektor tanpa dasar.
+
+
+### Continuation from P0.1
+- End panel P0.1 selalu punya jalur lanjut.
+- Jika MC memiliki Lot 02: tombol `LANJUT KE TEMUAN`.
+- Jika MC tidak memiliki Lot 02: tombol `UJI DISCOVERY P0.2`.
+- Fallback prototype tidak mengubah pemenang Lot 02; hanya menyediakan sampel agar P0.2/P0.3 dapat diuji.
+- Setelah memilih target di Discovery, tombol `CARI ORANG YANG TAHU` harus membawa pemain ke P0.3.
