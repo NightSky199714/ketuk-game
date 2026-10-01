@@ -155,6 +155,7 @@ func _show_box() -> void:
 	book_label.text = "Pilih benda yang ingin kamu lihat lebih dekat."
 
 func _inspect_object(object_id: String) -> void:
+	AuctionState.discovery_target = object_id
 	var object_data := _get_object_data(object_id)
 	if object_data.is_empty():
 		return
@@ -178,6 +179,7 @@ func _inspect_object(object_id: String) -> void:
 	}
 
 	finish_inspect_button.disabled = false
+	finish_inspect_button.text = "DALAMI %s" % _object_label(object_id)
 
 func _finish_inspection() -> void:
 	_show_book()
