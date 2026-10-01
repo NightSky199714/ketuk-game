@@ -11,6 +11,14 @@
 
 ## Expected Flow
 
+### Investigation — semua lot
+Setiap lot harus masuk layar investigasi sebelum bidding.
+- Lot 01: LUAR / TUTUP / PANEL
+- Lot 02: ATAS / SAMPING / ANGKAT
+- Lot 03: BODY / LENSA / TAS
+- Pemain boleh memeriksa satu, beberapa, semua, atau langsung menekan MULAI BIDDING.
+- Investigasi tidak boleh langsung memberi label "langka", "mahal", atau jawaban nilai final.
+
 ### Lot 01
 - Opening bid Rp40.000.
 - BID path lets Bu Ratna counter up to Rp130.000.
@@ -24,7 +32,7 @@
 
 ### Lot 03 — Investigation
 - Buttons BODY / LENSA / TAS are visible.
-- At least one inspection is required before continuing.
+- Investigation remains optional.
 - LENSA clue must mention:
   - number format differs from body;
   - engraving appears only on lens.
