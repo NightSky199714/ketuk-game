@@ -1,17 +1,18 @@
 ; Engine configuration file.
-; KETUK. — Complete Vertical Slice Chapters 1–3
+; KETUK. — Release Candidate
 
 config_version=5
 
 [application]
 
 config/name="KETUK. — Di Balik Harga"
-run/main_scene="res://scenes/chapter/chapter1_intro.tscn"
+run/main_scene="res://scenes/system/main_menu.tscn"
 
 [autoload]
 
 AuctionState="*res://scripts/auction/auction_state.gd"
 NPCRegistry="*res://scripts/npc/npc_registry.gd"
+SaveManager="*res://scripts/system/save_manager.gd"
 
 [display]
 
