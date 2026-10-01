@@ -221,18 +221,24 @@ func _on_continue() -> void:
 		return
 
 	if phase == "sentana_after":
-		phase = "end"
-		continue_button.visible = false
+		phase = "chapter2_done"
 		title_label.text = "BAB 2 — BATAS"
 		main_label.text = "Rp3.800.000 tidak bisa membeli kembali jam 20:00 kemarin."
-		detail_label.text = "Nilai tinggi dan keputusan tepat waktu bukan hal yang sama."
+		detail_label.text = "Nilai tinggi dan keputusan tepat waktu bukan hal yang sama. Kios tetap sudah hilang."
+		continue_button.text = "LANJUT BAB 3"
+		continue_button.visible = true
 		return
 
-	phase = "end"
-	continue_button.visible = false
+	if phase == "chapter2_done":
+		get_tree().change_scene_to_file("res://scenes/chapter/chapter3_orang_yang_tepat.tscn")
+		return
+
+	phase = "chapter2_done"
 	title_label.text = "BAB 2 — BATAS"
 	main_label.text = _route_summary()
 	detail_label.text = _route_detail()
+	continue_button.text = "LANJUT BAB 3"
+	continue_button.visible = true
 
 func _route_summary() -> String:
 	match AuctionState.chapter2_route:
