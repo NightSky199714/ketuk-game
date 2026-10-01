@@ -1,12 +1,12 @@
 ; Engine configuration file.
-; KETUK. — Prototype 0.3 Human Network
+; KETUK. — Vertical Slice Chapter 1
 
 config_version=5
 
 [application]
 
-config/name="KETUK. P0.3"
-run/main_scene="res://scenes/auction/auction_room.tscn"
+config/name="KETUK. — Di Balik Harga"
+run/main_scene="res://scenes/chapter/chapter1_intro.tscn"
 
 [autoload]
 
