@@ -54,11 +54,10 @@ Perbaiki sebelum sistem map jika:
 
 
 ### Continuation from P0.1
-- End panel P0.1 selalu punya jalur lanjut.
-- Jika MC memiliki Lot 02: tombol `LANJUT KE TEMUAN`.
-- Jika MC tidak memiliki Lot 02: tombol `UJI DISCOVERY P0.2`.
-- Fallback prototype tidak mengubah pemenang Lot 02; hanya menyediakan sampel agar P0.2/P0.3 dapat diuji.
-- Setelah memilih target di Discovery, tombol `CARI ORANG YANG TAHU` harus membawa pemain ke P0.3.
+- Jika MC memiliki Lot 02: tombol `LANJUT KE TEMUAN` tersedia.
+- Jika MC kalah/STOP di Lot 02: Kotak Campuran tidak boleh muncul di rumah dan tidak boleh bisa diperiksa.
+- Tidak ada fallback yang memberi barang milik NPC kepada MC.
+- Setelah memilih target di Discovery, tombol `PERGI KE PASAR TUA` membawa pemain ke P0.3.
 
 
 ### Referral + Travel
