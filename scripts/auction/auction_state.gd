@@ -130,8 +130,8 @@ func advance_chapter2_time(minutes: int) -> void:
 
 func chapter2_clock() -> String:
 	var day_minutes := chapter2_time_minutes % (24 * 60)
-	var hour := day_minutes / 60
-	var minute := day_minutes % 60
+	var hour := int(day_minutes / 60)
+	var minute := int(day_minutes % 60)
 	return "%02d:%02d" % [hour, minute]
 
 func chapter2_day_name() -> String:
