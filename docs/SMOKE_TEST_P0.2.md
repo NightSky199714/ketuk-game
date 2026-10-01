@@ -36,3 +36,10 @@ Perbaiki sebelum P0.3 jika:
 - pilihan target aktif sebelum pemain melakukan pemeriksaan;
 - state kepemilikan tidak sesuai hasil auction;
 - P0.2 membutuhkan peta atau specialist system supaya bisa dipahami.
+
+
+### Provenance
+- Lot 02 harus sudah menjelaskan bahwa kotak berasal dari bersih-bersih gudang rumah toko lama.
+- Sebagian isi harus sudah terlihat saat investigasi auction.
+- Setelah kotak dibuka, teks harus menjelaskan seluruh isi sebelum tiga objek fokus muncul.
+- TATAKAN / KOREK / ADAPTOR dipilih sebagai fokus karena menimbulkan pertanyaan, bukan karena UI menyatakan ketiganya paling bernilai.
