@@ -21,6 +21,7 @@ window/size/window_width_override=540
 window/size/window_height_override=960
 window/size/resizable=true
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
 
 [rendering]
 
