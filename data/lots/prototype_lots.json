@@ -4,7 +4,14 @@
     "title": "Lot 01 — Rice Cooker Bekas",
     "description": "Terpakai, masih panas, tutup agak miring.",
     "opening_bid": 40000,
-    "mc_bid_steps": [50000, 90000, 110000, 125000, 140000, 160000],
+    "mc_bid_steps": [
+      50000,
+      90000,
+      110000,
+      125000,
+      140000,
+      160000
+    ],
     "investigation": [
       {
         "id": "luar",
@@ -101,24 +108,29 @@
   {
     "id": "lot02",
     "title": "Lot 02 — Kotak Campuran",
-    "description": "Isi belum diperiksa sepenuhnya. Ada logam dan kabel terlihat dari sisi kotak.",
+    "description": "Kotak campuran dari bersih-bersih gudang rumah toko lama. Dijual apa adanya; isi tidak disortir satu per satu.",
     "opening_bid": 50000,
-    "mc_bid_steps": [60000, 85000, 95000, 110000],
+    "mc_bid_steps": [
+      60000,
+      85000,
+      95000,
+      110000
+    ],
     "investigation": [
       {
         "id": "atas",
         "label": "ATAS",
-        "text": "Dua tatakan berwarna kuning, sendok kecil, kabel, dan kotak tembakau retak terlihat dari atas. Warna logamnya mirip, tapi tingkat kusamnya berbeda."
+        "text": "Dari atas terlihat dua tatakan logam kuning, sendok kecil, gulungan kabel, dan kotak tembakau retak. Semuanya tampak berasal dari barang rumah tangga yang berbeda."
       },
       {
-        "id": "tepi",
-        "label": "TEPI",
-        "text": "Di salah satu tatakan ada bagian tepi yang warnanya sedikit lebih pucat. Bisa karena kotoran terkelupas, aus, atau bahan di bawah permukaannya berbeda."
+        "id": "celah",
+        "label": "CELAH",
+        "text": "Di sela barang terlihat sudut korek meja lama dan sebuah adaptor. Keduanya tertutup sebagian, jadi detailnya belum bisa diperiksa tanpa membuka kotak."
       },
       {
         "id": "angkat",
         "label": "ANGKAT",
-        "text": "Kotaknya terasa lebih berat daripada isi yang terlihat. Saat digeser, ada benda kecil bergerak di dasar. Kotak tidak boleh dibongkar sebelum lot dimenangkan."
+        "text": "Kotaknya terasa lebih berat daripada isi yang terlihat. Ada benda kecil bergeser di dasar. Pak Lurah mengingatkan: isi tidak boleh dibongkar sebelum lot dimenangkan."
       }
     ],
     "post_lot_drama": {
@@ -207,7 +219,12 @@
     "title": "Lot 03 — Kamera Analog",
     "description": "Body lecet, shutter tidak normal, lensa dan tas ikut.",
     "opening_bid": 80000,
-    "mc_bid_steps": [150000, 200000, 260000, 300000],
+    "mc_bid_steps": [
+      150000,
+      200000,
+      260000,
+      300000
+    ],
     "investigation": [
       {
         "id": "body",
@@ -247,7 +264,7 @@
           "expression": "SUSPICIOUS",
           "delay_before": 0.2,
           "text": "Jaka tidak membalas. Untuk pertama kalinya, ia melihat kameranya lebih lama daripada melihatmu.",
-          "pause": 1.0
+          "pause": 1
         }
       ],
       "mc": [
