@@ -17,6 +17,14 @@ var network_known_contacts: Dictionary = {}
 var network_visited_locations: Dictionary = {}
 var network_travel_steps: int = 0
 
+var chapter_mode: bool = false
+var chapter_id: String = ""
+var chapter1_started: bool = false
+var chapter1_complete: bool = false
+var kiosk_arrears: int = 1200000
+var kiosk_deadline: String = "Minggu 20:00"
+var book_margin_line_seen: bool = false
+
 func reset_prototype() -> void:
 	money = 430000
 	current_lot_id = ""
@@ -34,6 +42,11 @@ func reset_prototype() -> void:
 	network_known_contacts.clear()
 	network_visited_locations.clear()
 	network_travel_steps = 0
+	chapter_mode = false
+	chapter_id = ""
+	chapter1_started = false
+	chapter1_complete = false
+	book_margin_line_seen = false
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
@@ -69,3 +82,16 @@ func record_result(lot_id: String, winner: String, amount: int) -> void:
 			session_memory["jaka_attitude"] = "cocky"
 		else:
 			session_memory["jaka_attitude"] = "neutral"
+
+
+func start_chapter1() -> void:
+	reset_prototype()
+	chapter_mode = true
+	chapter_id = "chapter1"
+	chapter1_started = true
+	kiosk_arrears = 1200000
+	kiosk_deadline = "Minggu 20:00"
+	money = 430000
+
+func finish_chapter1() -> void:
+	chapter1_complete = true
