@@ -307,6 +307,13 @@ func _show_item_here() -> void:
 	if person.is_empty():
 		return
 
+	var memory_id := "shown_%s" % item_id
+	if AuctionState.npc_remembers(current_contact_id, memory_id):
+		response_label.text = "%s sudah pernah melihat barang itu. Ia memeriksanya sekilas lagi, tapi tidak menambahkan sesuatu yang baru." % str(person.get("name", "Orang itu"))
+		_refresh_location_controls()
+		_check_world_deadline()
+		return
+
 	var responses: Dictionary = person.get("responses", {})
 	var response: Dictionary = responses.get(item_id, {})
 
@@ -316,6 +323,7 @@ func _show_item_here() -> void:
 		return
 
 	response_label.text = str(response.get("text", ""))
+	AuctionState.remember_npc_event(current_contact_id, memory_id)
 
 	var finding := str(response.get("finding", ""))
 	if not finding.is_empty():
@@ -371,6 +379,14 @@ func _inspect_notice_board() -> void:
 
 	var poster: Dictionary = data.get("poster", {})
 	AuctionState.chapter3_poster_seen = true
+	AuctionState.verify_rumor(
+		"sentana_name",
+		"Nama Sentana benar tercetak pada poster sebuah private auction."
+	)
+	AuctionState.verify_rumor(
+		"sentana_private_auction",
+		"SENTANA PRIVATE AUCTION tercantum sebagai acara by invitation only."
+	)
 
 	if not AuctionState.chapter3_poster_photographed:
 		AuctionState.chapter3_poster_photographed = true
@@ -419,7 +435,11 @@ func _refresh_inventory() -> void:
 	]
 
 func _refresh_book() -> void:
-	if AuctionState.chapter3_people_book.is_empty() and AuctionState.discovery_notes.is_empty():
+	if (
+		AuctionState.chapter3_people_book.is_empty()
+		and AuctionState.discovery_notes.is_empty()
+		and AuctionState.rumors.is_empty()
+	):
 		book_label.text = "BUKU — belum ada catatan baru."
 		return
 
@@ -435,6 +455,14 @@ func _refresh_book() -> void:
 				AuctionState.inventory_item_name(str(item_id)),
 				text
 			])
+
+	for rumor_id in AuctionState.rumors.keys():
+		var rumor: Dictionary = AuctionState.rumors[rumor_id]
+		var status := str(rumor.get("status", "heard"))
+		var prefix := "DENGAR" if status != "verified" else "TERVERIFIKASI"
+		var rumor_text := str(rumor.get("text", ""))
+		if not rumor_text.is_empty():
+			lines.append("• %s — %s" % [prefix, rumor_text])
 
 	if AuctionState.chapter3_poster_photographed:
 		lines.append("• Poster Sentana difoto.")
