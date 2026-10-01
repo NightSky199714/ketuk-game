@@ -1,0 +1,30 @@
+{
+  "lot02": {
+    "title": "Kotak Campuran",
+    "intro": "Kotaknya sekarang milikmu. Di ruang lelang kamu hanya sempat melihat sebagian isinya.",
+    "open_text": "Kamu membuka kotak sepenuhnya dan memisahkan barang yang paling mudah diperiksa.",
+    "objects": [
+      {
+        "id": "coaster",
+        "label": "TATAKAN",
+        "observation": "Permukaannya kuning kusam. Di bagian tepi ada warna yang sedikit berbeda. Bobotnya juga tidak seberat yang kamu bayangkan untuk logam padat.",
+        "note": "Logam kuning. Bagian tepi berbeda warna. Belum tahu bahan sebenarnya.",
+        "next_question": "Butuh konteks material dan cara pembuatannya."
+      },
+      {
+        "id": "lighter",
+        "label": "KOREK MEJA",
+        "observation": "Pemantik tidak bergerak mulus. Di bawahnya ada cap kecil yang sebagian aus, tapi tulisannya belum cukup jelas untuk dikenali.",
+        "note": "Mekanisme lama. Cap belum terbaca jelas.",
+        "next_question": "Butuh orang yang paham mekanisme kecil."
+      },
+      {
+        "id": "adapter",
+        "label": "ADAPTOR",
+        "observation": "Konektornya model lama. Kabel tampak pernah diganti. Tidak ada petunjuk langsung perangkat apa yang dulu memakainya.",
+        "note": "Barang lama, belum tentu bernilai. Perangkat asal belum diketahui.",
+        "next_question": "Butuh konteks perangkat atau elektronik lama."
+      }
+    ]
+  }
+}
