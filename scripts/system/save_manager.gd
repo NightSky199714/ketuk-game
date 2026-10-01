@@ -7,6 +7,26 @@ const DEFAULT_RESUME_SCENE := "res://scenes/chapter/chapter2_batas.tscn"
 func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
 
+func has_valid_save() -> bool:
+	if not has_save():
+		return false
+
+	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file == null:
+		return false
+
+	var parsed = JSON.parse_string(file.get_as_text())
+	file.close()
+
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return false
+
+	var payload: Dictionary = parsed
+	if int(payload.get("version", 0)) != SAVE_VERSION:
+		return false
+
+	return typeof(payload.get("state", null)) == TYPE_DICTIONARY
+
 func save_game(scene_path: String = "") -> bool:
 	if _release_check_mode():
 		return true
