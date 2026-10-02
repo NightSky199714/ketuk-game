@@ -102,7 +102,7 @@ alignment = 1
 
 [node name="BrandPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="BrandMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BrandPanel"]
 layout_mode = 2
@@ -118,7 +118,7 @@ theme_override_constants/separation = 2
 [node name="Title" type="Label" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin/BrandStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.972549, 0.913725, 0.811765, 1)
-theme_override_font_sizes/font_size = 58
+theme_override_font_sizes/font_size = 64
 text = "KETUK."
 horizontal_alignment = 1
 
@@ -153,7 +153,7 @@ text = "BALAI LELANG SUKAMAJU"
 horizontal_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="Margin/Root"]
-custom_minimum_size = Vector2(0, 86)
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 icon = ExtResource("4")
@@ -171,6 +171,7 @@ text = "GAME BARU  ›"
 
 [node name="SaveStatusPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"AccentCard"
 
 [node name="SaveStatusMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/SaveStatusPanel"]
 layout_mode = 2
@@ -201,6 +202,7 @@ layout_mode = 2
 
 [node name="BottomCard" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="BottomMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BottomCard"]
 layout_mode = 2
