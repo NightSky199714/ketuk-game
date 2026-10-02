@@ -1,6 +1,13 @@
 extends Control
 
 const DATA_PATH := "res://data/chapter/chapter3_orang_yang_tepat.json"
+const ICON_MARKET = preload("res://assets/ui/icons/market.svg")
+const ICON_SHOP = preload("res://assets/ui/icons/shop.svg")
+const ICON_NOTICE = preload("res://assets/ui/icons/notice.svg")
+const ICON_PIN = preload("res://assets/ui/icons/pin.svg")
+const ICON_BOOK = preload("res://assets/ui/icons/book.svg")
+const ICON_CAMERA = preload("res://assets/ui/icons/camera.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
 var data: Dictionary = {}
 var current_location_id: String = "pintu_pasar"
@@ -43,8 +50,20 @@ func _wire_ui() -> void:
 		"papan_pengumuman": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PapanButton
 	}
 
+	var location_icons := {
+		"pintu_pasar": ICON_MARKET,
+		"kios_tengah": ICON_SHOP,
+		"kedai_pojok": ICON_SHOP,
+		"gang_timur": ICON_PIN,
+		"lorong_belakang": ICON_PIN,
+		"papan_pengumuman": ICON_NOTICE
+	}
+
 	for location_id in location_buttons.keys():
 		var button: Button = location_buttons[location_id]
+		button.icon = location_icons.get(str(location_id), ICON_PIN)
+		button.icon_max_width = 22
+		button.expand_icon = true
 		var captured_id := str(location_id)
 		button.pressed.connect(func(): _travel_to(captured_id))
 
@@ -279,6 +298,15 @@ func _inspect_notice_board() -> void:
 	_refresh_book()
 	_autosave()
 
+func _inventory_icon(item_id: String) -> Texture2D:
+	match item_id:
+		"book":
+			return ICON_BOOK
+		"camera":
+			return ICON_CAMERA
+		_:
+			return ICON_BOX
+
 func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
 	_refresh_inventory()
@@ -294,6 +322,9 @@ func _refresh_inventory() -> void:
 		button.text = str(item.get("name", str(item_id).to_upper()))
 		button.custom_minimum_size = Vector2(0, 46)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.icon = _inventory_icon(str(item_id))
+		button.icon_max_width = 24
+		button.expand_icon = true
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_inventory_item(captured_id))
 		inventory_grid.add_child(button)
