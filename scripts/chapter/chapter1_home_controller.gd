@@ -1,5 +1,9 @@
 extends Control
 
+const ICON_BOOK = preload("res://assets/ui/icons/book.svg")
+const ICON_CAMERA = preload("res://assets/ui/icons/camera.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
+
 @onready var title_label: Label = $Margin/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
 @onready var main_label: Label = $Margin/Root/NarrativePanel/NarrativeMargin/MainLabel
 @onready var detail_label: Label = $Margin/Root/HeaderPanel/HeaderMargin/HeaderStack/DetailLabel
@@ -33,6 +37,9 @@ func _refresh_inventory() -> void:
 		button.text = str(item.get("name", str(item_id).to_upper()))
 		button.custom_minimum_size = Vector2(0, 62)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.icon = _inventory_icon(str(item_id))
+		button.icon_max_width = 26
+		button.expand_icon = true
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_item(captured_id))
 		inventory_grid.add_child(button)
@@ -41,6 +48,15 @@ func _refresh_inventory() -> void:
 		item_detail_label.text = "Belum ada barang yang dipilih."
 	else:
 		_show_selected_item()
+
+func _inventory_icon(item_id: String) -> Texture2D:
+	match item_id:
+		"book":
+			return ICON_BOOK
+		"camera":
+			return ICON_CAMERA
+		_:
+			return ICON_BOX
 
 func _select_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
