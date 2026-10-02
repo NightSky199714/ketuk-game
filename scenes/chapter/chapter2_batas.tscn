@@ -44,22 +44,6 @@ texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 0
 
-[node name="MenuButton" type="Button" parent="."]
-z_index = 50
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -124.0
-offset_top = 18.0
-offset_right = -18.0
-offset_bottom = 64.0
-grow_horizontal = 0
-theme_type_variation = &"DarkButton"
-focus_mode = 0
-text = "MENU"
-tooltip_text = "Kembali ke menu utama"
-
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -298,3 +282,19 @@ autowrap_mode = 2
 [node name="ActionRow" type="VBoxContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
 theme_override_constants/separation = 7
+
+[node name="MenuButton" type="Button" parent="."]
+z_index = 50
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -124.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_type_variation = &"DarkButton"
+focus_mode = 0
+text = "MENU"
+tooltip_text = "Kembali ke menu utama"
