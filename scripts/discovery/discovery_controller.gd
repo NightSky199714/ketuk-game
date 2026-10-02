@@ -1,6 +1,10 @@
 extends Control
 
 const DISCOVERY_DATA_PATH := "res://data/discovery/prototype_discovery.json"
+const ICON_COASTER = preload("res://assets/ui/icons/coaster.svg")
+const ICON_LIGHTER = preload("res://assets/ui/icons/lighter.svg")
+const ICON_ADAPTER = preload("res://assets/ui/icons/adapter.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
 var data: Dictionary = {}
 var inspected: Dictionary = {}
@@ -77,14 +81,29 @@ func _open_box() -> void:
 		var object_data: Dictionary = objects[i]
 		var button := Button.new()
 		button.text = str(object_data.get("label", "OBJEK"))
-		button.custom_minimum_size = Vector2(175, 68)
+		button.custom_minimum_size = Vector2(0, 68)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var object_id := str(object_data.get("id", "object_%d" % i))
+		button.icon = _object_icon(object_id)
+		button.add_theme_constant_override("icon_max_width", 24)
+		button.expand_icon = true
 		button.pressed.connect(func(): _inspect_object(object_id))
 		object_row.add_child(button)
 		object_buttons[object_id] = button
 
 	observation_label.text = str(lot_data.get("selection_reason", "Tiga benda paling membuatmu penasaran."))
 	note_label.text = "Kamu tidak sedang memilih barang terbaik. Kamu memilih bagian yang pertanyaannya belum selesai."
+
+func _object_icon(object_id: String) -> Texture2D:
+	match object_id:
+		"coaster":
+			return ICON_COASTER
+		"lighter":
+			return ICON_LIGHTER
+		"adapter":
+			return ICON_ADAPTER
+		_:
+			return ICON_BOX
 
 func _inspect_object(object_id: String) -> void:
 	var object_data := _get_object(object_id)
