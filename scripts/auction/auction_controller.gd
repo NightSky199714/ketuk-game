@@ -458,5 +458,9 @@ func _rupiah(value: int) -> String:
 func _show_end_without_reveal() -> void:
 	lot_label.text = "Sesi lelang selesai"
 	description_label.text = "Tidak ada tindak lanjut untuk sesi ini."
-	instruction_label.text = "Restart project untuk mencoba lagi."
+	instruction_label.text = "Sesi selesai. Kembali ke menu utama..."
 	action_row.visible = false
+	get_tree().create_timer(1.5).timeout.connect(_return_to_main_menu)
+
+func _return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://scenes/system/main_menu.tscn")
