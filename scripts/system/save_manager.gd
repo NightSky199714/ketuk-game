@@ -56,7 +56,10 @@ func save_game(scene_path: String = "") -> bool:
 	if FileAccess.file_exists(SAVE_PATH):
 		if primary_was_valid:
 			_remove_file_if_present(SAVE_BACKUP_PATH)
-			var backup_error := DirAccess.rename_absolute(SAVE_PATH, SAVE_BACKUP_PATH)
+			var backup_error := _rename_user_file(
+				SAVE_PATH.get_file(),
+				SAVE_BACKUP_PATH.get_file()
+			)
 			if backup_error != OK:
 				push_error("Unable to rotate current save into backup.")
 				_remove_file_if_present(SAVE_TMP_PATH)
@@ -64,11 +67,17 @@ func save_game(scene_path: String = "") -> bool:
 		else:
 			_remove_file_if_present(SAVE_PATH)
 
-	var promote_error := DirAccess.rename_absolute(SAVE_TMP_PATH, SAVE_PATH)
+	var promote_error := _rename_user_file(
+		SAVE_TMP_PATH.get_file(),
+		SAVE_PATH.get_file()
+	)
 	if promote_error != OK:
 		push_error("Unable to promote temporary save.")
 		if primary_was_valid and FileAccess.file_exists(SAVE_BACKUP_PATH):
-			DirAccess.rename_absolute(SAVE_BACKUP_PATH, SAVE_PATH)
+			_rename_user_file(
+				SAVE_BACKUP_PATH.get_file(),
+				SAVE_PATH.get_file()
+			)
 		_remove_file_if_present(SAVE_TMP_PATH)
 		return false
 
@@ -143,7 +152,16 @@ func _write_text_file(path: String, text: String) -> bool:
 func _remove_file_if_present(path: String) -> bool:
 	if not FileAccess.file_exists(path):
 		return true
-	return DirAccess.remove_absolute(path) == OK
+	var dir := DirAccess.open("user://")
+	if dir == null:
+		return false
+	return dir.remove(path.get_file()) == OK
+
+func _rename_user_file(from_name: String, to_name: String) -> Error:
+	var dir := DirAccess.open("user://")
+	if dir == null:
+		return ERR_CANT_OPEN
+	return dir.rename(from_name, to_name)
 
 func _is_safe_resume_scene(scene_path: String) -> bool:
 	return scene_path in [
