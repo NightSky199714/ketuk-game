@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource path="res://scripts/auction/auction_controller.gd" type="Script" id="1"]
+[ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
+[ext_resource path="res://assets/ui/textures/worn_overlay.svg" type="Texture2D" id="3"]
+[ext_resource path="res://assets/ui/icons/gavel.svg" type="Texture2D" id="4"]
+[ext_resource path="res://assets/ui/icons/hourglass.svg" type="Texture2D" id="5"]
+[ext_resource path="res://assets/ui/icons/stop.svg" type="Texture2D" id="6"]
 
 [node name="AuctionRoom" type="Control"]
 layout_mode = 3
@@ -9,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2")
 script = ExtResource("1")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -18,7 +24,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.129412, 0.101961, 0.0901961, 1)
+color = Color(0.0901961, 0.0627451, 0.0509804, 1)
+
+[node name="WarmGlow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 430.0
+grow_horizontal = 2
+color = Color(0.423529, 0.211765, 0.105882, 0.22)
+mouse_filter = 2
+
+[node name="TextureOverlay" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="AccentRule" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 23.0
+grow_horizontal = 2
+color = Color(0.541176, 0.2, 0.145098, 1)
+mouse_filter = 2
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -27,154 +64,286 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 28
-theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 34
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
 [node name="Root" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="PanelContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="HeaderMargin" type="MarginContainer" parent="Margin/Root/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="HeaderRow" type="HBoxContainer" parent="Margin/Root/HeaderPanel/HeaderMargin"]
+layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Brand" type="Label" parent="Margin/Root"]
+[node name="Brand" type="Label" parent="Margin/Root/HeaderPanel/HeaderMargin/HeaderRow"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "KETUK. — DI BALIK HARGA"
-horizontal_alignment = 1
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
+theme_override_font_sizes/font_size = 29
+text = "KETUK."
+vertical_alignment = 1
 
-[node name="MoneyLabel" type="Label" parent="Margin/Root"]
+[node name="MoneyLabel" type="Label" parent="Margin/Root/HeaderPanel/HeaderMargin/HeaderRow"]
+custom_minimum_size = Vector2(245, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.964706, 0.862745, 0.686275, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="Divider" type="HSeparator" parent="Margin/Root"]
+[node name="LotPanel" type="PanelContainer" parent="Margin/Root"]
 layout_mode = 2
 
-[node name="LotLabel" type="Label" parent="Margin/Root"]
+[node name="LotMargin" type="MarginContainer" parent="Margin/Root/LotPanel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="LotStack" type="VBoxContainer" parent="Margin/Root/LotPanel/LotMargin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LotLabel" type="Label" parent="Margin/Root/LotPanel/LotMargin/LotStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.337255, 0.113725, 0.0823529, 1)
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="Margin/Root"]
+[node name="DescriptionLabel" type="Label" parent="Margin/Root/LotPanel/LotMargin/LotStack"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 17
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="NpcRow" type="HBoxContainer" parent="Margin/Root"]
-layout_mode = 2
-theme_override_constants/separation = 18
-alignment = 1
-
-[node name="RatnaLabel" type="Label" parent="Margin/Root/NpcRow"]
-custom_minimum_size = Vector2(180, 70)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Bu Ratna\n[NEUTRAL]"
-horizontal_alignment = 1
-
-[node name="JakaLabel" type="Label" parent="Margin/Root/NpcRow"]
-custom_minimum_size = Vector2(180, 70)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Jaka\n[NEUTRAL]"
-horizontal_alignment = 1
-
-[node name="SlametLabel" type="Label" parent="Margin/Root/NpcRow"]
-custom_minimum_size = Vector2(180, 70)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Pak Slamet\n[NEUTRAL]"
-horizontal_alignment = 1
-
-[node name="BidPanel" type="VBoxContainer" parent="Margin/Root"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="CurrentCaption" type="Label" parent="Margin/Root/BidPanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "TAWARAN SAAT INI"
-horizontal_alignment = 1
-
-[node name="BidLabel" type="Label" parent="Margin/Root/BidPanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 42
-horizontal_alignment = 1
-
-[node name="BidderLabel" type="Label" parent="Margin/Root/BidPanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 17
-horizontal_alignment = 1
-
-[node name="InstructionLabel" type="Label" parent="Margin/Root"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 19
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="InvestigatePanel" type="VBoxContainer" parent="Margin/Root"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="InvestigationTitle" type="Label" parent="Margin/Root/InvestigatePanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 19
-text = "INVESTIGATE — periksa sebelum menawar"
-horizontal_alignment = 1
-
-[node name="HotspotRow" type="HBoxContainer" parent="Margin/Root/InvestigatePanel"]
+custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="InspectButton1" type="Button" parent="Margin/Root/InvestigatePanel/HotspotRow"]
+[node name="RatnaCard" type="PanelContainer" parent="Margin/Root/NpcRow"]
+custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
-text = "PERIKSA"
+size_flags_horizontal = 3
+theme_type_variation = &"NpcPanel"
 
-[node name="InspectButton2" type="Button" parent="Margin/Root/InvestigatePanel/HotspotRow"]
+[node name="RatnaLabel" type="Label" parent="Margin/Root/NpcRow/RatnaCard"]
 layout_mode = 2
-text = "PERIKSA"
-
-[node name="InspectButton3" type="Button" parent="Margin/Root/InvestigatePanel/HotspotRow"]
-layout_mode = 2
-text = "PERIKSA"
-
-[node name="InvestigationText" type="Label" parent="Margin/Root/InvestigatePanel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Pilih bagian yang ingin diperiksa, atau langsung mulai bidding."
+theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
+theme_override_font_sizes/font_size = 15
+text = "Bu Ratna\nNEUTRAL"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JakaCard" type="PanelContainer" parent="Margin/Root/NpcRow"]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"NpcPanel"
+
+[node name="JakaLabel" type="Label" parent="Margin/Root/NpcRow/JakaCard"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
+theme_override_font_sizes/font_size = 15
+text = "Jaka\nNEUTRAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlametCard" type="PanelContainer" parent="Margin/Root/NpcRow"]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"NpcPanel"
+
+[node name="SlametLabel" type="Label" parent="Margin/Root/NpcRow/SlametCard"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
+theme_override_font_sizes/font_size = 15
+text = "Pak Slamet\nNEUTRAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InstructionPanel" type="PanelContainer" parent="Margin/Root"]
+layout_mode = 2
+
+[node name="InstructionMargin" type="MarginContainer" parent="Margin/Root/InstructionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="InstructionLabel" type="Label" parent="Margin/Root/InstructionPanel/InstructionMargin"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.137255, 0.101961, 1)
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ContinueBidButton" type="Button" parent="Margin/Root/InvestigatePanel"]
+[node name="InvestigateFrame" type="PanelContainer" parent="Margin/Root"]
+visible = false
 layout_mode = 2
+
+[node name="InvestigateMargin" type="MarginContainer" parent="Margin/Root/InvestigateFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="InvestigatePanel" type="VBoxContainer" parent="Margin/Root/InvestigateFrame/InvestigateMargin"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="InvestigationTitle" type="Label" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.337255, 0.113725, 0.0823529, 1)
+theme_override_font_sizes/font_size = 17
+text = "PERIKSA BARANG"
+horizontal_alignment = 1
+
+[node name="HotspotRow" type="HBoxContainer" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="InspectButton1" type="Button" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PERIKSA"
+
+[node name="InspectButton2" type="Button" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PERIKSA"
+
+[node name="InspectButton3" type="Button" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PERIKSA"
+
+[node name="InvestigationText" type="Label" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 15
+text = "Pilih bagian yang ingin diperiksa, atau langsung mulai bidding."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueBidButton" type="Button" parent="Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
 text = "MULAI BIDDING"
+
+[node name="BidFrame" type="PanelContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="BidMargin" type="MarginContainer" parent="Margin/Root/BidFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 10
+
+[node name="BidPanel" type="VBoxContainer" parent="Margin/Root/BidFrame/BidMargin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CurrentCaption" type="Label" parent="Margin/Root/BidFrame/BidMargin/BidPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
+theme_override_font_sizes/font_size = 14
+text = "TAWARAN SAAT INI"
+horizontal_alignment = 1
+
+[node name="BidLabel" type="Label" parent="Margin/Root/BidFrame/BidMargin/BidPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.980392, 0.913725, 0.8, 1)
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="BidderLabel" type="Label" parent="Margin/Root/BidFrame/BidMargin/BidPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
 
 [node name="ActionRow" type="HBoxContainer" parent="Margin/Root"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="BidButton" type="Button" parent="Margin/Root/ActionRow"]
-custom_minimum_size = Vector2(190, 72)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryButton"
+icon = ExtResource("4")
+theme_override_constants/icon_max_width = 28
+expand_icon = true
 
 [node name="WaitButton" type="Button" parent="Margin/Root/ActionRow"]
-custom_minimum_size = Vector2(150, 72)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5")
+theme_override_constants/icon_max_width = 26
+expand_icon = true
 text = "WAIT"
 
 [node name="StopButton" type="Button" parent="Margin/Root/ActionRow"]
-custom_minimum_size = Vector2(150, 72)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DarkButton"
+icon = ExtResource("6")
+theme_override_constants/icon_max_width = 26
+expand_icon = true
 text = "STOP"
 
-[node name="LogLabel" type="RichTextLabel" parent="Margin/Root"]
-custom_minimum_size = Vector2(0, 280)
+[node name="LogFrame" type="PanelContainer" parent="Margin/Root"]
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 17
+
+[node name="LogMargin" type="MarginContainer" parent="Margin/Root/LogFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="LogLabel" type="RichTextLabel" parent="Margin/Root/LogFrame/LogMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.188235, 0.129412, 0.0941176, 1)
+theme_override_font_sizes/normal_font_size = 15
 fit_content = false
+scroll_active = true
+scroll_following = true

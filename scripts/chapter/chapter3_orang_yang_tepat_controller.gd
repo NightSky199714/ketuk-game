@@ -1,37 +1,81 @@
 extends Control
 
 const DATA_PATH := "res://data/chapter/chapter3_orang_yang_tepat.json"
+const ICON_MARKET = preload("res://assets/ui/icons/market.svg")
+const ICON_SHOP = preload("res://assets/ui/icons/shop.svg")
+const ICON_NOTICE = preload("res://assets/ui/icons/notice.svg")
+const ICON_PIN = preload("res://assets/ui/icons/pin.svg")
+const ICON_BOOK = preload("res://assets/ui/icons/book.svg")
+const ICON_CAMERA = preload("res://assets/ui/icons/camera.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
 var data: Dictionary = {}
 var current_location_id: String = "pintu_pasar"
 var current_contact_id: String = ""
 
-var title_label: Label
-var subtitle_label: Label
-var inventory_grid: GridContainer
-var inventory_detail: Label
-var map_row: GridContainer
-var location_label: Label
-var location_description: Label
-var response_label: Label
-var book_label: Label
-var travel_label: Label
-var contact_button: Button
-var show_item_button: Button
-var poster_button: Button
-var wait_button: Button
-var exit_button: Button
-var menu_button: Button
+@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var subtitle_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/SubtitleLabel
+@onready var inventory_grid: GridContainer = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
+@onready var inventory_detail: Label = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
+@onready var map_row: GridContainer = $Margin/Scroll/Root/MapPanel/MapMargin/MapRow
+@onready var location_label: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationLabel
+@onready var location_description: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationDescription
+@onready var response_label: Label = $Margin/Scroll/Root/ResponsePanel/ResponseMargin/ResponseLabel
+@onready var book_label: Label = $Margin/Scroll/Root/BookPanel/BookMargin/BookLabel
+@onready var travel_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TravelLabel
+@onready var contact_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ContactButton
+@onready var show_item_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ShowItemButton
+@onready var poster_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/PosterButton
+@onready var wait_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/WaitButton
+@onready var exit_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ExitButton
+@onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
 	AuctionState.start_chapter3()
 	_load_data()
-	_build_ui()
+	_wire_ui()
 	_show_location("pintu_pasar", false)
 	response_label.text = "Pasar ramai. Suara pedagang, alat kerja, dan orang lewat bercampur dari beberapa lorong."
 	_refresh_inventory()
 	_refresh_book()
+
+func _wire_ui() -> void:
+	location_buttons = {
+		"pintu_pasar": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PintuPasarButton,
+		"kios_tengah": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KiosTengahButton,
+		"kedai_pojok": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KedaiPojokButton,
+		"gang_timur": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/GangTimurButton,
+		"lorong_belakang": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/LorongBelakangButton,
+		"papan_pengumuman": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PapanButton
+	}
+
+	var location_icons := {
+		"pintu_pasar": ICON_MARKET,
+		"kios_tengah": ICON_SHOP,
+		"kedai_pojok": ICON_SHOP,
+		"gang_timur": ICON_PIN,
+		"lorong_belakang": ICON_PIN,
+		"papan_pengumuman": ICON_NOTICE
+	}
+
+	for location_id in location_buttons.keys():
+		var button: Button = location_buttons[location_id]
+		button.icon = location_icons.get(str(location_id), ICON_PIN)
+		button.add_theme_constant_override("icon_max_width", 22)
+		button.expand_icon = true
+		var captured_id := str(location_id)
+		button.pressed.connect(func(): _travel_to(captured_id))
+
+	contact_button.pressed.connect(_talk_here)
+	show_item_button.pressed.connect(_show_item_here)
+	poster_button.pressed.connect(_inspect_notice_board)
+	wait_button.pressed.connect(_wait_market)
+	exit_button.pressed.connect(_exit_market)
+	menu_button.pressed.connect(_return_to_menu)
+
+	_refresh_map_buttons()
+	_refresh_travel()
 
 func _load_data() -> void:
 	if not FileAccess.file_exists(DATA_PATH):
@@ -44,183 +88,6 @@ func _load_data() -> void:
 		data = parsed
 	else:
 		push_error("Pasar Tua data invalid.")
-
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#1b1714")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_top", 24)
-	margin.add_theme_constant_override("margin_bottom", 24)
-	add_child(margin)
-
-	var scroll := ScrollContainer.new()
-	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	margin.add_child(scroll)
-
-	var root := VBoxContainer.new()
-	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	root.add_theme_constant_override("separation", 8)
-	scroll.add_child(root)
-
-	title_label = Label.new()
-	title_label.text = "PASAR TUA"
-	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 27)
-	root.add_child(title_label)
-
-	subtitle_label = Label.new()
-	subtitle_label.text = ""
-	subtitle_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	subtitle_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	subtitle_label.add_theme_font_size_override("font_size", 15)
-	root.add_child(subtitle_label)
-
-	travel_label = Label.new()
-	travel_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	travel_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	travel_label.add_theme_font_size_override("font_size", 14)
-	root.add_child(travel_label)
-
-	var inv_title := Label.new()
-	inv_title.text = "INVENTORY"
-	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inv_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inv_title.add_theme_font_size_override("font_size", 16)
-	root.add_child(inv_title)
-
-	inventory_grid = GridContainer.new()
-	inventory_grid.columns = 2
-	inventory_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inventory_grid.add_theme_constant_override("h_separation", 7)
-	inventory_grid.add_theme_constant_override("v_separation", 7)
-	root.add_child(inventory_grid)
-
-	inventory_detail = Label.new()
-	inventory_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inventory_detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inventory_detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	inventory_detail.custom_minimum_size = Vector2(0, 95)
-	inventory_detail.add_theme_font_size_override("font_size", 15)
-	root.add_child(inventory_detail)
-
-	map_row = GridContainer.new()
-	map_row.columns = 2
-	map_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	map_row.add_theme_constant_override("h_separation", 8)
-	map_row.add_theme_constant_override("v_separation", 8)
-	root.add_child(map_row)
-
-	var order := [
-		"pintu_pasar",
-		"kios_tengah",
-		"kedai_pojok",
-		"gang_timur",
-		"lorong_belakang",
-		"papan_pengumuman"
-	]
-
-	for location_id in order:
-		var button := Button.new()
-		button.custom_minimum_size = Vector2(0, 56)
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var captured_id: String = location_id
-		button.pressed.connect(func(): _travel_to(captured_id))
-		map_row.add_child(button)
-		location_buttons[location_id] = button
-
-	location_label = Label.new()
-	location_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_label.add_theme_font_size_override("font_size", 21)
-	root.add_child(location_label)
-
-	location_description = Label.new()
-	location_description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	location_description.custom_minimum_size = Vector2(0, 90)
-	location_description.add_theme_font_size_override("font_size", 16)
-	root.add_child(location_description)
-
-	contact_button = Button.new()
-	contact_button.visible = false
-	contact_button.custom_minimum_size = Vector2(0, 56)
-	contact_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	contact_button.pressed.connect(_talk_here)
-	root.add_child(contact_button)
-
-	show_item_button = Button.new()
-	show_item_button.text = "TUNJUKKAN BARANG"
-	show_item_button.visible = false
-	show_item_button.custom_minimum_size = Vector2(0, 56)
-	show_item_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	show_item_button.pressed.connect(_show_item_here)
-	root.add_child(show_item_button)
-
-	poster_button = Button.new()
-	poster_button.text = "PERIKSA PAPAN"
-	poster_button.visible = false
-	poster_button.custom_minimum_size = Vector2(0, 56)
-	poster_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	poster_button.pressed.connect(_inspect_notice_board)
-	root.add_child(poster_button)
-
-	wait_button = Button.new()
-	wait_button.text = "DUDUK SEBENTAR"
-	wait_button.custom_minimum_size = Vector2(0, 50)
-	wait_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	wait_button.pressed.connect(_wait_market)
-	root.add_child(wait_button)
-
-	exit_button = Button.new()
-	exit_button.text = "KELUAR PASAR"
-	exit_button.custom_minimum_size = Vector2(0, 56)
-	exit_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	exit_button.pressed.connect(_exit_market)
-	root.add_child(exit_button)
-
-	menu_button = Button.new()
-	menu_button.text = "MENU"
-	menu_button.tooltip_text = "Kembali ke menu utama"
-	menu_button.custom_minimum_size = Vector2(112, 44)
-	menu_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	menu_button.offset_left = -132
-	menu_button.offset_top = 16
-	menu_button.offset_right = -16
-	menu_button.offset_bottom = 60
-	menu_button.focus_mode = Control.FOCUS_NONE
-	menu_button.pressed.connect(_return_to_menu)
-	add_child(menu_button)
-
-	response_label = Label.new()
-	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	response_label.custom_minimum_size = Vector2(0, 145)
-	response_label.add_theme_font_size_override("font_size", 17)
-	root.add_child(response_label)
-
-	book_label = Label.new()
-	book_label.visible = false
-	book_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	book_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	book_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	book_label.custom_minimum_size = Vector2(0, 110)
-	book_label.add_theme_font_size_override("font_size", 15)
-	root.add_child(book_label)
-
-	_refresh_map_buttons()
-	_refresh_travel()
 
 func _travel_to(location_id: String) -> void:
 	if location_id == current_location_id:
@@ -431,6 +298,15 @@ func _inspect_notice_board() -> void:
 	_refresh_book()
 	_autosave()
 
+func _inventory_icon(item_id: String) -> Texture2D:
+	match item_id:
+		"book":
+			return ICON_BOOK
+		"camera":
+			return ICON_CAMERA
+		_:
+			return ICON_BOX
+
 func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
 	_refresh_inventory()
@@ -446,6 +322,10 @@ func _refresh_inventory() -> void:
 		button.text = str(item.get("name", str(item_id).to_upper()))
 		button.custom_minimum_size = Vector2(0, 46)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.icon = _inventory_icon(str(item_id))
+		button.add_theme_constant_override("icon_max_width", 24)
+		button.expand_icon = true
+		button.theme_type_variation = &"SelectedButton" if AuctionState.selected_inventory_item == str(item_id) else &""
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_inventory_item(captured_id))
 		inventory_grid.add_child(button)
@@ -476,6 +356,9 @@ func _refresh_map_buttons() -> void:
 		var label := str(location.get("label", location_id)).to_upper()
 		if location_id == current_location_id:
 			label = "• " + label
+			button.theme_type_variation = &"SelectedButton"
+		else:
+			button.theme_type_variation = &""
 		button.text = label
 
 func _refresh_travel() -> void:
