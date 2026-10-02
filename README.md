@@ -84,7 +84,8 @@ Export templates Godot harus sudah terpasang.
 
 ```
 build/windows/KETUK.exe
-build/web/index.html
+build/web/KETUK-web.zip
+build/web/site/index.html
 ```
 
 Folder `build/` tidak masuk Git.
