@@ -75,6 +75,11 @@ theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="QuitButton" type="Button" parent="Margin/Root"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+text = "KELUAR"
+
 [node name="FooterSpacer" type="Control" parent="Margin/Root"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -85,8 +90,13 @@ theme_override_font_sizes/font_size = 13
 text = "KETUK. — Di Balik Harga"
 horizontal_alignment = 1
 
+[node name="Version" type="Label" parent="Margin/Root"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+
 [node name="OverwriteDialog" type="ConfirmationDialog" parent="."]
 title = "Mulai game baru?"
-dialog_text = "Progress yang tersimpan akan diganti ketika autosave berikutnya dibuat."
+dialog_text = "Progress yang tersimpan akan dihapus dan game dimulai dari awal."
 ok_button_text = "GAME BARU"
 cancel_button_text = "BATAL"
