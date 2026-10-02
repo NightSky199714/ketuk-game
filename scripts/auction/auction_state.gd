@@ -52,6 +52,13 @@ var chapter3_context_found: bool = false
 var chapter3_poster_seen: bool = false
 var chapter3_poster_photographed: bool = false
 
+# v0.1.4 — Sentana invitation/access investigation.
+# These fields default safely when importing v0.1.3 saves.
+var sentana_access_started: bool = false
+var sentana_access_status: String = "not_started"
+var sentana_invitation_leads: Dictionary = {}
+var sentana_invitation_source: String = ""
+
 func reset_prototype() -> void:
 	money = 430000
 	current_lot_id = ""
@@ -99,6 +106,10 @@ func reset_prototype() -> void:
 	chapter3_context_found = false
 	chapter3_poster_seen = false
 	chapter3_poster_photographed = false
+	sentana_access_started = false
+	sentana_access_status = "not_started"
+	sentana_invitation_leads.clear()
+	sentana_invitation_source = ""
 
 func set_lot(lot_id: String, opening_bid: int) -> void:
 	current_lot_id = lot_id
@@ -253,6 +264,58 @@ func record_chapter3_person(person_id: String, note: String) -> void:
 
 func finish_chapter3() -> void:
 	chapter3_complete = true
+
+
+func start_sentana_access() -> bool:
+	if sentana_access_started:
+		return true
+	if not chapter3_poster_photographed:
+		return false
+	if not has_inventory_item("sentana_photo"):
+		return false
+
+	sentana_access_started = true
+	sentana_access_status = "investigating"
+	return true
+
+func record_sentana_invitation_lead(lead_id: String, note: String) -> bool:
+	if lead_id.is_empty() or not sentana_access_started:
+		return false
+	if sentana_access_status == "invited":
+		return false
+	if sentana_invitation_leads.has(lead_id):
+		return false
+
+	sentana_invitation_leads[lead_id] = {
+		"note": note
+	}
+	return true
+
+func grant_sentana_invitation(source: String) -> bool:
+	if not sentana_access_started:
+		return false
+	if sentana_access_status == "invited":
+		return false
+
+	sentana_access_status = "invited"
+	sentana_invitation_source = source
+	add_inventory_item("sentana_invitation", {
+		"name": "UNDANGAN SENTANA",
+		"state": "valid",
+		"description": "Undangan untuk menghadiri SENTANA PRIVATE AUCTION.",
+		"source": source
+	})
+	verify_rumor(
+		"sentana_invitation_required",
+		"Akses ke SENTANA PRIVATE AUCTION memang memerlukan undangan."
+	)
+	return true
+
+func has_sentana_invitation() -> bool:
+	return (
+		sentana_access_status == "invited"
+		and has_inventory_item("sentana_invitation")
+	)
 
 
 func add_inventory_item(item_id: String, item_data: Dictionary) -> void:
@@ -453,7 +516,11 @@ func export_save_data() -> Dictionary:
 		"chapter3_people_book": chapter3_people_book.duplicate(true),
 		"chapter3_context_found": chapter3_context_found,
 		"chapter3_poster_seen": chapter3_poster_seen,
-		"chapter3_poster_photographed": chapter3_poster_photographed
+		"chapter3_poster_photographed": chapter3_poster_photographed,
+		"sentana_access_started": sentana_access_started,
+		"sentana_access_status": sentana_access_status,
+		"sentana_invitation_leads": sentana_invitation_leads.duplicate(true),
+		"sentana_invitation_source": sentana_invitation_source
 	}
 
 func import_save_data(data: Dictionary) -> void:
@@ -523,6 +590,16 @@ func import_save_data(data: Dictionary) -> void:
 	chapter3_context_found = bool(data.get("chapter3_context_found", false))
 	chapter3_poster_seen = bool(data.get("chapter3_poster_seen", false))
 	chapter3_poster_photographed = bool(data.get("chapter3_poster_photographed", false))
+
+	sentana_access_started = bool(data.get("sentana_access_started", false))
+	sentana_access_status = str(data.get("sentana_access_status", "not_started"))
+	sentana_invitation_leads = _dict_from_save(data.get("sentana_invitation_leads", {}))
+	sentana_invitation_source = str(data.get("sentana_invitation_source", ""))
+
+	# Defensive recovery for future saves: inventory is canonical evidence of access.
+	if inventory.has("sentana_invitation"):
+		sentana_access_started = true
+		sentana_access_status = "invited"
 
 	if not inventory.has("book") and chapter1_started:
 		add_inventory_item("book", {
