@@ -89,7 +89,7 @@ theme_override_constants/separation = 10
 
 [node name="HeaderPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="HeaderMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/HeaderPanel"]
 layout_mode = 2
@@ -121,6 +121,7 @@ vertical_alignment = 1
 
 [node name="LotPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="LotMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/LotPanel"]
 layout_mode = 2
@@ -148,13 +149,13 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="NpcRow" type="HBoxContainer" parent="Margin/Root/Scroll/Content"]
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
 [node name="RatnaCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
-custom_minimum_size = Vector2(0, 108)
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
@@ -168,7 +169,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="JakaCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
-custom_minimum_size = Vector2(0, 108)
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
@@ -182,7 +183,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SlametCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
-custom_minimum_size = Vector2(0, 108)
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
@@ -197,6 +198,7 @@ vertical_alignment = 1
 
 [node name="InstructionPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"AccentCard"
 
 [node name="InstructionMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InstructionPanel"]
 layout_mode = 2
@@ -217,6 +219,7 @@ autowrap_mode = 2
 [node name="InvestigateFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 visible = false
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="InvestigateMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InvestigateFrame"]
 layout_mode = 2
@@ -277,7 +280,7 @@ text = "MULAI BIDDING"
 
 [node name="BidFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="BidMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BidFrame"]
 layout_mode = 2
@@ -309,12 +312,23 @@ theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 
-[node name="ActionRow" type="HBoxContainer" parent="Margin/Root"]
+[node name="ActionDock" type="PanelContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_type_variation = &"ActionDock"
+
+[node name="ActionMargin" type="MarginContainer" parent="Margin/Root/ActionDock"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ActionRow" type="HBoxContainer" parent="Margin/Root/ActionDock/ActionMargin"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="BidButton" type="Button" parent="Margin/Root/ActionRow"]
+[node name="BidButton" type="Button" parent="Margin/Root/ActionDock/ActionMargin/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -323,7 +337,7 @@ icon = ExtResource("4")
 theme_override_constants/icon_max_width = 28
 expand_icon = true
 
-[node name="WaitButton" type="Button" parent="Margin/Root/ActionRow"]
+[node name="WaitButton" type="Button" parent="Margin/Root/ActionDock/ActionMargin/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -332,7 +346,7 @@ theme_override_constants/icon_max_width = 26
 expand_icon = true
 text = "WAIT"
 
-[node name="StopButton" type="Button" parent="Margin/Root/ActionRow"]
+[node name="StopButton" type="Button" parent="Margin/Root/ActionDock/ActionMargin/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -343,8 +357,9 @@ expand_icon = true
 text = "STOP"
 
 [node name="LogFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
-custom_minimum_size = Vector2(0, 140)
+custom_minimum_size = Vector2(0, 104)
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 size_flags_vertical = 3
 
 [node name="LogMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/LogFrame"]
