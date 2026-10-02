@@ -6,7 +6,7 @@
 
 ## Status
 
-**0.1.3 — Responsive & Readability Release**
+**0.1.3 — Internal UI-Complete Candidate (QA)**
 
 Build ini bukan lagi prototype P0.1 terpisah. Flow utama sekarang menghubungkan:
 - pembuka dan lelang;
@@ -78,7 +78,7 @@ Primary Windows release build:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target windows
 ```
 
-Web export remains optional for 0.1.3 and can be attempted separately with `-Target web` after matching Web templates are installed.
+Web export remains optional for the 0.1.3 candidate and can be attempted separately with `-Target web` after matching Web templates are installed.
 
 Export templates Godot harus sudah terpasang.
 
@@ -97,11 +97,14 @@ Folder `build/` tidak masuk Git.
 
 ## Branch
 
-Release branch:
-- `ui/0.1.3-responsive-readability`
+Current QA branch:
+- `qa/final-release-readiness`
 
-Release integration PR:
-- PR #10
+UI completion merged:
+- PR #11
+
+Publication status:
+- tag/release deferred until final QA is accepted
 
 ## Design Rule
 
