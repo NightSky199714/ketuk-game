@@ -69,33 +69,40 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Scroll" type="ScrollContainer" parent="Margin"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-follow_focus = true
-
-[node name="Root" type="VBoxContainer" parent="Margin/Scroll"]
+[node name="Root" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="Scroll" type="ScrollContainer" parent="Margin/Root"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_type_variation = &"DarkPanel"
 
-[node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
+[node name="HeaderMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/HeaderPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 12
 
-[node name="HeaderRow" type="HBoxContainer" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin"]
+[node name="HeaderRow" type="HBoxContainer" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin"]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Brand" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderRow"]
+[node name="Brand" type="Label" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
@@ -103,7 +110,7 @@ theme_override_font_sizes/font_size = 29
 text = "KETUK."
 vertical_alignment = 1
 
-[node name="MoneyLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderRow"]
+[node name="MoneyLabel" type="Label" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderRow"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -112,47 +119,47 @@ theme_override_font_sizes/font_size = 18
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LotPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="LotPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="LotMargin" type="MarginContainer" parent="Margin/Scroll/Root/LotPanel"]
+[node name="LotMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/LotPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 22
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 16
 
-[node name="LotStack" type="VBoxContainer" parent="Margin/Scroll/Root/LotPanel/LotMargin"]
+[node name="LotStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/LotPanel/LotMargin"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="LotLabel" type="Label" parent="Margin/Scroll/Root/LotPanel/LotMargin/LotStack"]
+[node name="LotLabel" type="Label" parent="Margin/Root/Scroll/Content/LotPanel/LotMargin/LotStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.337255, 0.113725, 0.0823529, 1)
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="Margin/Scroll/Root/LotPanel/LotMargin/LotStack"]
+[node name="DescriptionLabel" type="Label" parent="Margin/Root/Scroll/Content/LotPanel/LotMargin/LotStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 17
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="NpcRow" type="HBoxContainer" parent="Margin/Scroll/Root"]
+[node name="NpcRow" type="HBoxContainer" parent="Margin/Root/Scroll/Content"]
 custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="RatnaCard" type="PanelContainer" parent="Margin/Scroll/Root/NpcRow"]
+[node name="RatnaCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
 
-[node name="RatnaLabel" type="Label" parent="Margin/Scroll/Root/NpcRow/RatnaCard"]
+[node name="RatnaLabel" type="Label" parent="Margin/Root/Scroll/Content/NpcRow/RatnaCard"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 15
@@ -160,13 +167,13 @@ text = "Bu Ratna\nNEUTRAL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="JakaCard" type="PanelContainer" parent="Margin/Scroll/Root/NpcRow"]
+[node name="JakaCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
 
-[node name="JakaLabel" type="Label" parent="Margin/Scroll/Root/NpcRow/JakaCard"]
+[node name="JakaLabel" type="Label" parent="Margin/Root/Scroll/Content/NpcRow/JakaCard"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 15
@@ -174,13 +181,13 @@ text = "Jaka\nNEUTRAL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SlametCard" type="PanelContainer" parent="Margin/Scroll/Root/NpcRow"]
+[node name="SlametCard" type="PanelContainer" parent="Margin/Root/Scroll/Content/NpcRow"]
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"NpcPanel"
 
-[node name="SlametLabel" type="Label" parent="Margin/Scroll/Root/NpcRow/SlametCard"]
+[node name="SlametLabel" type="Label" parent="Margin/Root/Scroll/Content/NpcRow/SlametCard"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 15
@@ -188,17 +195,17 @@ text = "Pak Slamet\nNEUTRAL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InstructionPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="InstructionPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="InstructionMargin" type="MarginContainer" parent="Margin/Scroll/Root/InstructionPanel"]
+[node name="InstructionMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InstructionPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 12
 
-[node name="InstructionLabel" type="Label" parent="Margin/Scroll/Root/InstructionPanel/InstructionMargin"]
+[node name="InstructionLabel" type="Label" parent="Margin/Root/Scroll/Content/InstructionPanel/InstructionMargin"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 0.137255, 0.101961, 1)
@@ -207,52 +214,52 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="InvestigateFrame" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="InvestigateFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 visible = false
 layout_mode = 2
 
-[node name="InvestigateMargin" type="MarginContainer" parent="Margin/Scroll/Root/InvestigateFrame"]
+[node name="InvestigateMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InvestigateFrame"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 12
 
-[node name="InvestigatePanel" type="VBoxContainer" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin"]
+[node name="InvestigatePanel" type="VBoxContainer" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin"]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="InvestigationTitle" type="Label" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+[node name="InvestigationTitle" type="Label" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.337255, 0.113725, 0.0823529, 1)
 theme_override_font_sizes/font_size = 17
 text = "PERIKSA BARANG"
 horizontal_alignment = 1
 
-[node name="HotspotRow" type="HBoxContainer" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+[node name="HotspotRow" type="HBoxContainer" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="InspectButton1" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+[node name="InspectButton1" type="Button" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
 
-[node name="InspectButton2" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+[node name="InspectButton2" type="Button" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
 
-[node name="InspectButton3" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
+[node name="InspectButton3" type="Button" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
 
-[node name="InvestigationText" type="Label" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+[node name="InvestigationText" type="Label" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
 custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
@@ -262,52 +269,52 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ContinueBidButton" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
+[node name="ContinueBidButton" type="Button" parent="Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "MULAI BIDDING"
 
-[node name="BidFrame" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="BidFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_type_variation = &"DarkPanel"
 
-[node name="BidMargin" type="MarginContainer" parent="Margin/Scroll/Root/BidFrame"]
+[node name="BidMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BidFrame"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 10
 
-[node name="BidPanel" type="VBoxContainer" parent="Margin/Scroll/Root/BidFrame/BidMargin"]
+[node name="BidPanel" type="VBoxContainer" parent="Margin/Root/Scroll/Content/BidFrame/BidMargin"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="CurrentCaption" type="Label" parent="Margin/Scroll/Root/BidFrame/BidMargin/BidPanel"]
+[node name="CurrentCaption" type="Label" parent="Margin/Root/Scroll/Content/BidFrame/BidMargin/BidPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
 theme_override_font_sizes/font_size = 14
 text = "TAWARAN SAAT INI"
 horizontal_alignment = 1
 
-[node name="BidLabel" type="Label" parent="Margin/Scroll/Root/BidFrame/BidMargin/BidPanel"]
+[node name="BidLabel" type="Label" parent="Margin/Root/Scroll/Content/BidFrame/BidMargin/BidPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.980392, 0.913725, 0.8, 1)
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 
-[node name="BidderLabel" type="Label" parent="Margin/Scroll/Root/BidFrame/BidMargin/BidPanel"]
+[node name="BidderLabel" type="Label" parent="Margin/Root/Scroll/Content/BidFrame/BidMargin/BidPanel"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 
-[node name="ActionRow" type="HBoxContainer" parent="Margin/Scroll/Root"]
+[node name="ActionRow" type="HBoxContainer" parent="Margin/Root"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="BidButton" type="Button" parent="Margin/Scroll/Root/ActionRow"]
+[node name="BidButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -316,7 +323,7 @@ icon = ExtResource("4")
 theme_override_constants/icon_max_width = 28
 expand_icon = true
 
-[node name="WaitButton" type="Button" parent="Margin/Scroll/Root/ActionRow"]
+[node name="WaitButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -325,7 +332,7 @@ theme_override_constants/icon_max_width = 26
 expand_icon = true
 text = "WAIT"
 
-[node name="StopButton" type="Button" parent="Margin/Scroll/Root/ActionRow"]
+[node name="StopButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -335,19 +342,19 @@ theme_override_constants/icon_max_width = 26
 expand_icon = true
 text = "STOP"
 
-[node name="LogFrame" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="LogFrame" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LogMargin" type="MarginContainer" parent="Margin/Scroll/Root/LogFrame"]
+[node name="LogMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/LogFrame"]
 layout_mode = 2
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 10
 
-[node name="LogLabel" type="RichTextLabel" parent="Margin/Scroll/Root/LogFrame/LogMargin"]
+[node name="LogLabel" type="RichTextLabel" parent="Margin/Root/Scroll/Content/LogFrame/LogMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.188235, 0.129412, 0.0941176, 1)
