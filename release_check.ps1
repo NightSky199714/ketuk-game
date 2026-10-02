@@ -69,7 +69,8 @@ $Scenes = @(
     "res://scenes/reveal/reveal_camera.tscn",
     "res://scenes/chapter/chapter1_home.tscn",
     "res://scenes/chapter/chapter2_batas.tscn",
-    "res://scenes/chapter/chapter3_orang_yang_tepat.tscn"
+    "res://scenes/chapter/chapter3_orang_yang_tepat.tscn",
+    "res://scenes/system/release_state_test.tscn"
 )
 
 foreach ($Scene in $Scenes) {
