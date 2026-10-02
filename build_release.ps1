@@ -56,6 +56,12 @@ if ($Target -eq "windows" -or $Target -eq "all") {
 
     Compress-Archive -Path (Join-Path $Build "windows\*") -DestinationPath $WindowsZip -Force
     Write-Host "WINDOWS_PACKAGE_OK=$WindowsZip"
+
+    $Hash = Get-FileHash -Algorithm SHA256 -Path $WindowsZip
+    $HashPath = $WindowsZip + ".sha256"
+    ($Hash.Hash + "  " + [IO.Path]::GetFileName($WindowsZip)) | Set-Content -Encoding ascii $HashPath
+    Write-Host "WINDOWS_SHA256=$($Hash.Hash)"
+    Write-Host "WINDOWS_SHA256_FILE=$HashPath"
 }
 
 if ($Target -eq "web" -or $Target -eq "all") {
