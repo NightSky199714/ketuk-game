@@ -70,7 +70,7 @@ func _ready() -> void:
 	)
 
 	var inventory_count := AuctionState.inventory.size()
-	world._present_sentana_photo_at_address()
+	world.call("_present_sentana_photo_at_address")
 	_expect(
 		AuctionState.inventory.size() == inventory_count,
 		"no_duplicate_invitation_item",
