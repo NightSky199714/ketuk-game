@@ -529,6 +529,18 @@ func _ask_terminal() -> void:
 	else:
 		response_label.text = "Kamu tidak mendapat tambahan yang lebih pasti dari alamat yang sudah dicatat."
 
+		if (
+			AuctionState.sentana_access_started
+			and AuctionState.has_inventory_item("sentana_photo")
+			and AuctionState.sentana_invitation_leads.has("terminal_poster")
+			and not AuctionState.sentana_invitation_leads.has("terminal_address")
+		):
+			AuctionState.record_sentana_invitation_lead(
+				"terminal_address",
+				"Alamat kota yang disebut sopir terkait dengan jalur distribusi undangan Sentana."
+			)
+			response_label.text = "Kamu menyebut alamat yang sudah pernah dicatat. Seorang sopir melihat foto poster itu, lalu mengangguk.\n\n\"Iya. Kalau poster ini asli, alamat itu bukan rumah orangnya. Dulu saya pernah antar amplop acara ke sana.\""
+
 	_refresh_status()
 	_autosave()
 	_refresh_map()
