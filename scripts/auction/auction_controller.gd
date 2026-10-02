@@ -29,9 +29,9 @@ var wait_count: int = 0
 @onready var slamet_label: Label = $Margin/Root/Scroll/Content/NpcRow/SlametCard/SlametLabel
 
 @onready var action_row: HBoxContainer = $Margin/Root/ActionRow
-@onready var bid_button: Button = $Margin/Root/Scroll/Content/ActionRow/BidButton
-@onready var wait_button: Button = $Margin/Root/Scroll/Content/ActionRow/WaitButton
-@onready var stop_button: Button = $Margin/Root/Scroll/Content/ActionRow/StopButton
+@onready var bid_button: Button = $Margin/Root/ActionRow/BidButton
+@onready var wait_button: Button = $Margin/Root/ActionRow/WaitButton
+@onready var stop_button: Button = $Margin/Root/ActionRow/StopButton
 
 @onready var investigate_frame: PanelContainer = $Margin/Root/Scroll/Content/InvestigateFrame
 @onready var investigate_panel: VBoxContainer = $Margin/Root/Scroll/Content/InvestigateFrame/InvestigateMargin/InvestigatePanel
