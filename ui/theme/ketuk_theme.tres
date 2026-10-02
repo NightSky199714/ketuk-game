@@ -1,32 +1,32 @@
-[gd_resource type="Theme" load_steps=16 format=3]
+[gd_resource type="Theme" load_steps=20 format=3]
 
 [sub_resource type="StyleBoxFlat" id="StylePanelPaper"]
-bg_color = Color(0.886275, 0.807843, 0.67451, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.321569, 0.227451, 0.172549, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.28)
-shadow_size = 8
+bg_color = Color(0.905882, 0.827451, 0.694118, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.286275, 0.184314, 0.12549, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.38)
+shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StylePanelDark"]
-bg_color = Color(0.117647, 0.0823529, 0.0666667, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.356863, 0.243137, 0.180392, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.35)
-shadow_size = 8
+bg_color = Color(0.105882, 0.0705882, 0.054902, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.513725, 0.313725, 0.196078, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.48)
+shadow_size = 11
 
 [sub_resource type="StyleBoxFlat" id="StyleNpc"]
 bg_color = Color(0.145098, 0.101961, 0.0784314, 0.97)
@@ -224,6 +224,62 @@ content_margin_top = 12.0
 content_margin_right = 20.0
 content_margin_bottom = 12.0
 
+[sub_resource type="StyleBoxFlat" id="StylePaperCard"]
+bg_color = Color(0.941176, 0.87451, 0.752941, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.333333, 0.211765, 0.141176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.34)
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleSignPanel"]
+bg_color = Color(0.121569, 0.0745098, 0.054902, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.713725, 0.560784, 0.376471, 0.92)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleActionDock"]
+bg_color = Color(0.0823529, 0.0509804, 0.0392157, 0.98)
+border_width_left = 3
+border_width_top = 4
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.443137, 0.278431, 0.176471, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleAccentCard"]
+bg_color = Color(0.917647, 0.839216, 0.709804, 0.99)
+border_width_left = 6
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.541176, 0.2, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.34)
+shadow_size = 8
+
 [resource]
 default_font_size = 18
 default_base_scale = 1.0
@@ -276,3 +332,15 @@ SelectedButton/styles/normal = SubResource("StyleSelected")
 SelectedButton/styles/hover = SubResource("StyleButtonPaperHover")
 SelectedButton/styles/pressed = SubResource("StyleButtonPaperPressed")
 SelectedButton/styles/focus = SubResource("StyleFocus")
+
+PaperCard/base_type = &"PanelContainer"
+PaperCard/styles/panel = SubResource("StylePaperCard")
+
+SignPanel/base_type = &"PanelContainer"
+SignPanel/styles/panel = SubResource("StyleSignPanel")
+
+ActionDock/base_type = &"PanelContainer"
+ActionDock/styles/panel = SubResource("StyleActionDock")
+
+AccentCard/base_type = &"PanelContainer"
+AccentCard/styles/panel = SubResource("StyleAccentCard")
