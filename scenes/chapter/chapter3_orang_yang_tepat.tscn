@@ -60,7 +60,30 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
+
+[node name="ViewBar" type="HBoxContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LocationViewButton" type="Button" parent="Margin/Root/ViewBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryButton"
+text = "LOKASI"
+
+[node name="BagViewButton" type="Button" parent="Margin/Root/ViewBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TAS"
+
+[node name="BookViewButton" type="Button" parent="Margin/Root/ViewBar"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CATATAN"
 
 [node name="Scroll" type="ScrollContainer" parent="Margin/Root"]
 layout_mode = 2
@@ -138,7 +161,7 @@ theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
 
 [node name="InventoryDetail" type="Label" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack"]
-custom_minimum_size = Vector2(0, 72)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 14
@@ -168,40 +191,40 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 columns = 2
 theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 6
 
 [node name="PintuPasarButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PINTU PASAR"
 
 [node name="KiosTengahButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "KIOS TENGAH"
 
 [node name="KedaiPojokButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "KEDAI POJOK"
 
 [node name="GangTimurButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "GANG TIMUR"
 
 [node name="LorongBelakangButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LORONG BELAKANG"
 
 [node name="PapanButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PAPAN PENGUMUMAN"
@@ -228,7 +251,7 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 
 [node name="LocationDescription" type="Label" parent="Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
 theme_override_font_sizes/font_size = 15
@@ -247,35 +270,37 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="ActionStack" type="VBoxContainer" parent="Margin/Root/ActionPanel/ActionMargin"]
+[node name="ActionStack" type="GridContainer" parent="Margin/Root/ActionPanel/ActionMargin"]
 layout_mode = 2
-theme_override_constants/separation = 7
+columns = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 7
 
 [node name="ContactButton" type="Button" parent="Margin/Root/ActionPanel/ActionMargin/ActionStack"]
 visible = false
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 
 [node name="ShowItemButton" type="Button" parent="Margin/Root/ActionPanel/ActionMargin/ActionStack"]
 visible = false
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "TUNJUKKAN BARANG"
 
 [node name="PosterButton" type="Button" parent="Margin/Root/ActionPanel/ActionMargin/ActionStack"]
 visible = false
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "PERIKSA PAPAN"
 
 [node name="WaitButton" type="Button" parent="Margin/Root/ActionPanel/ActionMargin/ActionStack"]
-custom_minimum_size = Vector2(0, 58)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "DUDUK SEBENTAR"
 
 [node name="ExitButton" type="Button" parent="Margin/Root/ActionPanel/ActionMargin/ActionStack"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_type_variation = &"DarkButton"
 text = "KELUAR PASAR"
@@ -292,7 +317,7 @@ theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
 [node name="ResponseLabel" type="Label" parent="Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin"]
-custom_minimum_size = Vector2(0, 105)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 16
@@ -313,7 +338,7 @@ theme_override_constants/margin_bottom = 12
 
 [node name="BookLabel" type="Label" parent="Margin/Root/Scroll/Content/BookPanel/BookMargin"]
 visible = false
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 14
