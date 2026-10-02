@@ -22,7 +22,16 @@ var current_location_id: String = "rumah"
 @onready var location_label: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationLabel
 @onready var location_description: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationDescription
 @onready var response_label: Label = $Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin/ResponseLabel
-@onready var action_row: VBoxContainer = $Margin/Root/ActionDock/ActionMargin/ActionRow
+@onready var action_row: GridContainer = $Margin/Root/ActionDock/ActionMargin/ActionRow
+@onready var map_view_button: Button = $Margin/Root/ViewBar/MapViewButton
+@onready var bag_view_button: Button = $Margin/Root/ViewBar/BagViewButton
+@onready var clue_panel: PanelContainer = $Margin/Root/Scroll/Content/CluePanel
+@onready var inventory_caption: Label = $Margin/Root/Scroll/Content/InventoryCaption
+@onready var inventory_panel: PanelContainer = $Margin/Root/Scroll/Content/InventoryPanel
+@onready var map_caption: Label = $Margin/Root/Scroll/Content/MapCaption
+@onready var map_panel: PanelContainer = $Margin/Root/Scroll/Content/MapPanel
+@onready var location_panel: PanelContainer = $Margin/Root/Scroll/Content/LocationPanel
+@onready var response_panel: PanelContainer = $Margin/Root/Scroll/Content/ResponsePanel
 @onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
@@ -72,11 +81,36 @@ func _wire_ui() -> void:
 		var captured_id := str(location_id)
 		button.pressed.connect(func(): _travel_to(captured_id))
 
+	map_view_button.pressed.connect(_show_map_view)
+	bag_view_button.pressed.connect(_show_bag_view)
 	menu_button.pressed.connect(_return_to_menu)
+	_show_map_view()
 	_refresh_status()
 	_autosave()
 	_refresh_inventory()
 	_refresh_map()
+
+func _show_map_view() -> void:
+	clue_panel.visible = false
+	inventory_caption.visible = false
+	inventory_panel.visible = false
+	map_caption.visible = true
+	map_panel.visible = true
+	location_panel.visible = true
+	response_panel.visible = true
+	map_view_button.theme_type_variation = &"PrimaryButton"
+	bag_view_button.theme_type_variation = &""
+
+func _show_bag_view() -> void:
+	clue_panel.visible = true
+	inventory_caption.visible = true
+	inventory_panel.visible = true
+	map_caption.visible = false
+	map_panel.visible = false
+	location_panel.visible = false
+	response_panel.visible = false
+	map_view_button.theme_type_variation = &""
+	bag_view_button.theme_type_variation = &"PrimaryButton"
 
 func _load_map() -> void:
 	if not FileAccess.file_exists(MAP_DATA_PATH):
@@ -645,6 +679,7 @@ func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
 	_refresh_inventory()
 	_refresh_actions()
+	_show_bag_view()
 
 func _refresh_inventory() -> void:
 	for child in inventory_grid.get_children():
