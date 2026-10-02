@@ -17,7 +17,29 @@ func _ready() -> void:
 	AuctionState.chapter2_known_places["alamat_sentana"] = true
 	AuctionState.chapter2_visited["terminal_kota"] = true
 	AuctionState.chapter2_extension_granted = true
-	AuctionState.camera_sale_status = "owned_for_test"
+
+	var money_before_adi := AuctionState.money
+	var first_adi_sale := AuctionState.sell_camera_lens_to_adi()
+	var money_after_first_adi := AuctionState.money
+	var second_adi_sale := AuctionState.sell_camera_lens_to_adi()
+
+	_expect(first_adi_sale, "adi_first_sale_succeeds", failures)
+	_expect(not second_adi_sale, "adi_second_sale_rejected", failures)
+	_expect(
+		money_after_first_adi == money_before_adi + 2100000,
+		"adi_first_sale_payout",
+		failures
+	)
+	_expect(
+		AuctionState.money == money_after_first_adi,
+		"adi_no_duplicate_payout",
+		failures
+	)
+	_expect(
+		not AuctionState.camera_lens_available(),
+		"adi_lens_consumed_after_sale",
+		failures
+	)
 
 	AuctionState.open_mixed_box()
 	AuctionState.hear_rumor(
@@ -37,7 +59,7 @@ func _ready() -> void:
 	AuctionState.reset_prototype()
 	AuctionState.import_save_data(before)
 
-	_expect(AuctionState.money == 75000, "money", failures)
+	_expect(AuctionState.money == 2175000, "money", failures)
 	_expect(AuctionState.chapter1_complete, "chapter1_complete", failures)
 	_expect(AuctionState.chapter2_started, "chapter2_started", failures)
 	_expect(AuctionState.chapter2_time_minutes == 18 * 60 + 35, "world_time", failures)
@@ -56,6 +78,27 @@ func _ready() -> void:
 	_expect(AuctionState.has_inventory_item("book"), "book_inventory", failures)
 	_expect(AuctionState.has_inventory_item("mixed_box"), "mixed_box_inventory", failures)
 	_expect(AuctionState.has_inventory_item("camera"), "camera_inventory", failures)
+	_expect(
+		str(AuctionState.get_inventory_item("camera").get("state", "")) == "body_only",
+		"camera_body_only_after_adi",
+		failures
+	)
+	_expect(
+		AuctionState.camera_sale_status == "lens_only_2100_body_returned",
+		"camera_sale_status_persisted",
+		failures
+	)
+	var money_before_repeat_after_load := AuctionState.money
+	_expect(
+		not AuctionState.sell_camera_lens_to_adi(),
+		"adi_sale_still_rejected_after_load",
+		failures
+	)
+	_expect(
+		AuctionState.money == money_before_repeat_after_load,
+		"adi_no_duplicate_payout_after_load",
+		failures
+	)
 	_expect(AuctionState.has_inventory_item("coaster"), "coaster_inventory", failures)
 	_expect(AuctionState.has_inventory_item("lighter"), "lighter_inventory", failures)
 	_expect(AuctionState.has_inventory_item("adapter"), "adapter_inventory", failures)
