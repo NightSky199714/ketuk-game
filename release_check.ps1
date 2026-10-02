@@ -38,7 +38,7 @@ function Invoke-GodotChecked {
         if (-not [string]::IsNullOrWhiteSpace($StdErr)) { Write-Host $StdErr.TrimEnd() }
 
         $Combined = $StdOut + "`n" + $StdErr
-        $FatalPattern = "(?m)^\s*(SCRIPT ERROR:|ERROR: Failed to load script|ERROR: Failed loading resource|ERROR: Cannot open file)"
+        $FatalPattern = "(?m)^\s*(SCRIPT ERROR:|ERROR:)"
 
         if ($ExitCode -ne 0 -or $Combined -match $FatalPattern) {
             throw "$FailureMessage Exit code: $ExitCode. Godot reported a fatal script/resource error."
