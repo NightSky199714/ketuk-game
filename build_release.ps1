@@ -45,18 +45,30 @@ $CheckScript = Join-Path $Root "release_check.ps1"
 $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--import") -FailureMessage "Godot import failed."
 
 if ($Target -eq "windows" -or $Target -eq "all") {
-    $WinOut = Join-Path $Build "windows\KETUK.exe"
+    $WinDir = Join-Path $Build "windows"
+    if (Test-Path $WinDir) {
+        Get-ChildItem -Path $WinDir -Force | Remove-Item -Recurse -Force
+    } else {
+        New-Item -ItemType Directory -Force -Path $WinDir | Out-Null
+    }
+
+    $WinOut = Join-Path $WinDir "KETUK.exe"
     $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--export-release", "Windows Desktop", $WinOut) -FailureMessage "Windows export failed. Check export templates."
     Write-Host "WINDOWS_EXPORT_OK=$WinOut"
 
-    $WinDir = Join-Path $Build "windows"
     $PckFiles = @(Get-ChildItem -Path $WinDir -Filter "*.pck" -File)
     if ($PckFiles.Count -lt 1) {
         throw "Windows export completed but no .pck companion file was found."
     }
     Write-Host "WINDOWS_PCK_OK=$($PckFiles[0].FullName)"
 
-    $ArtifactProcess = Start-Process -FilePath $WinOut -ArgumentList "--headless --quit-after 3 -- release-check" -Wait -PassThru -NoNewWindow
+    $ArtifactProcess = Start-Process -FilePath $WinOut -ArgumentList "--headless --quit-after 3 -- release-check" -PassThru -NoNewWindow
+    $ArtifactExited = $ArtifactProcess.WaitForExit(10000)
+    if (-not $ArtifactExited) {
+        try { $ArtifactProcess.Kill() } catch {}
+        throw "Exported Windows artifact did not exit within the 10 second boot-check window."
+    }
+
     $ArtifactExitCode = [int]$ArtifactProcess.ExitCode
     if ($ArtifactExitCode -ne 0) {
         throw "Exported Windows artifact failed boot check. Exit code: $ArtifactExitCode."
