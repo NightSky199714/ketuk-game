@@ -16,30 +16,30 @@ var awaiting_player: bool = false
 var pak_slamet_prompted: bool = false
 var wait_count: int = 0
 
-@onready var money_label: Label = $Margin/Root/HeaderPanel/HeaderMargin/HeaderRow/MoneyLabel
-@onready var lot_label: Label = $Margin/Root/LotPanel/LotMargin/LotStack/LotLabel
-@onready var description_label: Label = $Margin/Root/LotPanel/LotMargin/LotStack/DescriptionLabel
-@onready var bid_label: Label = $Margin/Root/BidFrame/BidMargin/BidPanel/BidLabel
-@onready var bidder_label: Label = $Margin/Root/BidFrame/BidMargin/BidPanel/BidderLabel
-@onready var instruction_label: Label = $Margin/Root/InstructionPanel/InstructionMargin/InstructionLabel
-@onready var log_label: RichTextLabel = $Margin/Root/LogFrame/LogMargin/LogLabel
+@onready var money_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderRow/MoneyLabel
+@onready var lot_label: Label = $Margin/Scroll/Root/LotPanel/LotMargin/LotStack/LotLabel
+@onready var description_label: Label = $Margin/Scroll/Root/LotPanel/LotMargin/LotStack/DescriptionLabel
+@onready var bid_label: Label = $Margin/Scroll/Root/BidFrame/BidMargin/BidPanel/BidLabel
+@onready var bidder_label: Label = $Margin/Scroll/Root/BidFrame/BidMargin/BidPanel/BidderLabel
+@onready var instruction_label: Label = $Margin/Scroll/Root/InstructionPanel/InstructionMargin/InstructionLabel
+@onready var log_label: RichTextLabel = $Margin/Scroll/Root/LogFrame/LogMargin/LogLabel
 
-@onready var jaka_label: Label = $Margin/Root/NpcRow/JakaCard/JakaLabel
-@onready var ratna_label: Label = $Margin/Root/NpcRow/RatnaCard/RatnaLabel
-@onready var slamet_label: Label = $Margin/Root/NpcRow/SlametCard/SlametLabel
+@onready var jaka_label: Label = $Margin/Scroll/Root/NpcRow/JakaCard/JakaLabel
+@onready var ratna_label: Label = $Margin/Scroll/Root/NpcRow/RatnaCard/RatnaLabel
+@onready var slamet_label: Label = $Margin/Scroll/Root/NpcRow/SlametCard/SlametLabel
 
-@onready var action_row: HBoxContainer = $Margin/Root/ActionRow
-@onready var bid_button: Button = $Margin/Root/ActionRow/BidButton
-@onready var wait_button: Button = $Margin/Root/ActionRow/WaitButton
-@onready var stop_button: Button = $Margin/Root/ActionRow/StopButton
+@onready var action_row: HBoxContainer = $Margin/Scroll/Root/ActionRow
+@onready var bid_button: Button = $Margin/Scroll/Root/ActionRow/BidButton
+@onready var wait_button: Button = $Margin/Scroll/Root/ActionRow/WaitButton
+@onready var stop_button: Button = $Margin/Scroll/Root/ActionRow/StopButton
 
-@onready var investigate_frame: PanelContainer = $Margin/Root/InvestigateFrame
-@onready var investigate_panel: VBoxContainer = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel
-@onready var investigation_text: Label = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/InvestigationText
-@onready var continue_bid_button: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/ContinueBidButton
-@onready var inspect_button_1: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton1
-@onready var inspect_button_2: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton2
-@onready var inspect_button_3: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton3
+@onready var investigate_frame: PanelContainer = $Margin/Scroll/Root/InvestigateFrame
+@onready var investigate_panel: VBoxContainer = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel
+@onready var investigation_text: Label = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/InvestigationText
+@onready var continue_bid_button: Button = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/ContinueBidButton
+@onready var inspect_button_1: Button = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton1
+@onready var inspect_button_2: Button = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton2
+@onready var inspect_button_3: Button = $Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton3
 var inspected: Dictionary = {}
 
 func _ready() -> void:
