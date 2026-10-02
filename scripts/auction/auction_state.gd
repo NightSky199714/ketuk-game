@@ -536,3 +536,38 @@ func _dict_from_save(value) -> Dictionary:
 	if typeof(value) != TYPE_DICTIONARY:
 		return {}
 	return value.duplicate(true)
+
+
+func camera_lens_available() -> bool:
+	if not inventory.has("camera"):
+		return false
+
+	if camera_sale_status == "lens_only_2100_body_returned":
+		return false
+
+	if bool(world_flags.get("adi_lens_sold", false)):
+		return false
+
+	var camera: Dictionary = inventory["camera"]
+	return str(camera.get("state", "")) != "body_only"
+
+func sell_camera_lens_to_adi() -> bool:
+	if not camera_lens_available():
+		return false
+
+	world_flags["adi_lens_sold"] = true
+	camera_sale_status = "lens_only_2100_body_returned"
+	money += 2100000
+
+	verify_rumor(
+		"adi_lens_buyer",
+		"Adi memang membeli lensa lama; ia membeli lensamu seharga Rp2.100.000."
+	)
+
+	update_inventory_item("camera", {
+		"name": "BODY KAMERA",
+		"state": "body_only",
+		"description": "Body kamera tanpa lensa. Lensanya sudah dijual kepada Adi."
+	})
+
+	return true
