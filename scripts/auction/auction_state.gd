@@ -461,6 +461,14 @@ func book_text() -> String:
 	if chapter3_poster_photographed:
 		lines.append("• Poster Sentana sudah difoto.")
 
+	if sentana_access_started:
+		if has_sentana_invitation():
+			lines.append("• AKSES SENTANA — Undangan sudah diperoleh.")
+		elif not sentana_invitation_leads.is_empty():
+			lines.append("• AKSES SENTANA — Jalur undangan sedang ditelusuri.")
+		else:
+			lines.append("• AKSES SENTANA — Poster menyebut akses hanya dengan undangan.")
+
 	if lines.is_empty():
 		return "Belum ada catatan baru."
 
