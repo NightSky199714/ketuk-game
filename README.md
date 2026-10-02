@@ -6,7 +6,7 @@
 
 ## Status
 
-**0.1.3 — Internal UI-Complete Candidate (QA)**
+**0.1.3 — Public Windows Release**
 
 Build ini bukan lagi prototype P0.1 terpisah. Flow utama sekarang menghubungkan:
 - pembuka dan lelang;
@@ -78,7 +78,7 @@ Primary Windows release build:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target windows
 ```
 
-Web export remains optional for the 0.1.3 candidate and can be attempted separately with `-Target web` after matching Web templates are installed.
+Web export remains optional after the Windows 0.1.3 release and can be attempted separately with `-Target web` after matching Web templates are installed.
 
 Export templates Godot harus sudah terpasang.
 
@@ -95,16 +95,18 @@ build/web/site/index.html
 
 Folder `build/` tidak masuk Git.
 
-## Branch
+## Release
 
-Current QA branch:
-- `qa/final-release-readiness`
+Current public release:
+- `v0.1.3`
+- Windows x86_64
+- GitHub Release: https://github.com/NightSky199714/ketuk-game/releases/tag/v0.1.3
+- SHA-256: `89981F68A11C52F4D2E45F3213396FEBF508338BAF35C7CE20B4F33AA3D5F119`
 
-UI completion merged:
-- PR #11
+Release head:
+- `55dd77a3646e9560845b679bd89629efe4ed09ff`
 
-Publication status:
-- tag/release deferred until final QA is accepted
+The 0.1.3 release completed automated runtime checks, fresh-clone reproducibility verification, manual portrait-layout acceptance, Windows export, exported-artifact boot verification, packaging, and checksum validation.
 
 ## Design Rule
 

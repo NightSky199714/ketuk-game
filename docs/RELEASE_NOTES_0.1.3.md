@@ -1,6 +1,6 @@
-# KETUK. — 0.1.3 Draft Release Notes
+# KETUK. — 0.1.3 Release Notes
 
-> Internal QA candidate. Belum dipublikasikan sebagai GitHub Release.
+> Published Windows release: `v0.1.3`.
 
 ## Release
 
@@ -10,10 +10,11 @@ Rilis ini tidak menambah cerita atau gameplay baru. Fokusnya adalah membuat surf
 
 ## Responsive / Readability Highlights
 
-- Main Menu mendapat full-page portrait overflow protection.
-- Intro mendapat full-page portrait overflow protection.
-- Home mendapat full-page portrait overflow protection.
-- Auction mendapat full-page portrait overflow protection.
+- Main Menu mendapat portrait overflow protection dan primary actions tetap terlihat.
+- Intro menjaga tombol LANJUT tetap terlihat sementara konten narasi dapat scroll.
+- Home menjaga tombol KELUAR RUMAH tetap terlihat sementara inventory/detail dapat scroll.
+- Auction menjaga BID / WAIT / STOP tetap terlihat sementara informasi lelang/log dapat scroll.
+- World menjaga action lokasi tetap terlihat sementara map, inventory, dan response dapat scroll.
 - Full-page ScrollContainer mengikuti keyboard focus.
 - Content root tetap mengisi viewport ketika kontennya lebih pendek dari layar.
 - Outer margins diperkecil pada empat surface utama agar lebih aman di viewport kecil.
@@ -49,7 +50,7 @@ Save schema tetap v1.
 
 ## Validation
 
-Automated gate mencakup:
+Final validation mencakup:
 - Godot import;
 - Main Menu;
 - Intro;
@@ -62,7 +63,18 @@ Automated gate mencakup:
 - Human Network;
 - state export/reset/import roundtrip;
 - atomic save backup recovery;
-- duplicate Adi-sale regression.
+- duplicate Adi-sale regression;
+- fresh-clone reproducibility;
+- manual portrait-layout acceptance;
+- Windows export;
+- exported executable boot test;
+- ZIP packaging dan SHA-256 verification.
+
+Release head:
+`55dd77a3646e9560845b679bd89629efe4ed09ff`
+
+Windows ZIP SHA-256:
+`89981F68A11C52F4D2E45F3213396FEBF508338BAF35C7CE20B4F33AA3D5F119`
 
 ## Known Scope
 
