@@ -6,7 +6,7 @@
 
 ## Status
 
-**0.1.0-rc1 — Release Candidate**
+**0.1.0 — First Public Playable Demo**
 
 Build ini bukan lagi prototype P0.1 terpisah. Flow utama sekarang menghubungkan:
 - pembuka dan lelang;
@@ -86,7 +86,7 @@ Export templates Godot harus sudah terpasang.
 
 ```
 build/windows/KETUK.exe
-build/KETUK-0.1.0-rc1-windows.zip
+build/KETUK-0.1.0-windows.zip
 
 Optional Web follow-up:
 build/web/KETUK-web.zip
@@ -97,10 +97,10 @@ Folder `build/` tidak masuk Git.
 
 ## Branch
 
-Current release-candidate work:
+Release branch:
 - `release/0.1.0-rc1`
 
-Draft integration PR:
+Release integration PR:
 - PR #7
 
 ## Design Rule
