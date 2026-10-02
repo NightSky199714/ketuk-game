@@ -180,11 +180,17 @@ func _build_ui() -> void:
 	root.add_child(action_row)
 
 	menu_button = Button.new()
-	menu_button.text = "MENU UTAMA"
-	menu_button.custom_minimum_size = Vector2(0, 48)
-	menu_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	menu_button.text = "MENU"
+	menu_button.tooltip_text = "Kembali ke menu utama"
+	menu_button.custom_minimum_size = Vector2(112, 44)
+	menu_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	menu_button.offset_left = -132
+	menu_button.offset_top = 16
+	menu_button.offset_right = -16
+	menu_button.offset_bottom = 60
+	menu_button.focus_mode = Control.FOCUS_NONE
 	menu_button.pressed.connect(_return_to_menu)
-	root.add_child(menu_button)
+	add_child(menu_button)
 
 	_refresh_status()
 	_autosave()
