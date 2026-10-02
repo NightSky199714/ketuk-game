@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3]
+[gd_resource type="Theme" load_steps=14 format=3]
 
 [sub_resource type="StyleBoxFlat" id="StylePanelPaper"]
 bg_color = Color(0.886275, 0.807843, 0.67451, 1)
@@ -27,6 +27,20 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 0.35)
 shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleNpc"]
+bg_color = Color(0.145098, 0.101961, 0.0784314, 0.97)
+border_width_left = 4
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.541176, 0.2, 0.145098, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.32)
+shadow_size = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleButtonPaper"]
 bg_color = Color(0.913725, 0.839216, 0.713725, 1)
@@ -188,6 +202,8 @@ Button/colors/font_disabled_color = Color(0.741176, 0.686275, 0.607843, 0.72)
 Button/colors/font_hover_color = Color(0.117647, 0.0784314, 0.0588235, 1)
 Button/colors/font_pressed_color = Color(0.109804, 0.0745098, 0.0588235, 1)
 Button/font_sizes/font_size = 20
+Button/constants/icon_max_width = 28
+Button/constants/icon_separation = 12
 Button/styles/disabled = SubResource("StyleButtonDisabled")
 Button/styles/hover = SubResource("StyleButtonPaperHover")
 Button/styles/normal = SubResource("StyleButtonPaper")
@@ -217,3 +233,6 @@ DarkButton/styles/disabled = SubResource("StyleButtonDisabled")
 
 DarkPanel/base_type = &"PanelContainer"
 DarkPanel/styles/panel = SubResource("StylePanelDark")
+
+NpcPanel/base_type = &"PanelContainer"
+NpcPanel/styles/panel = SubResource("StyleNpc")
