@@ -72,11 +72,13 @@ Headless smoke gate:
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\release_check.ps1 -GodotPath "PATH_KE_GODOT.exe"
 ```
 
-Release build:
+Primary Windows release build:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target all
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target windows
 ```
+
+Web export remains optional for 0.1.0 and can be attempted separately with `-Target web` after matching Web templates are installed.
 
 Export templates Godot harus sudah terpasang.
 
@@ -84,6 +86,9 @@ Export templates Godot harus sudah terpasang.
 
 ```
 build/windows/KETUK.exe
+build/KETUK-0.1.0-rc1-windows.zip
+
+Optional Web follow-up:
 build/web/KETUK-web.zip
 build/web/site/index.html
 ```
@@ -93,10 +98,10 @@ Folder `build/` tidak masuk Git.
 ## Branch
 
 Current release-candidate work:
-- `vertical-slice/chapter-1-3-complete`
+- `release/0.1.0-rc1`
 
 Draft integration PR:
-- PR #6
+- PR #7
 
 ## Design Rule
 
