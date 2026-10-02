@@ -51,9 +51,29 @@ if ($Target -eq "windows" -or $Target -eq "all") {
 }
 
 if ($Target -eq "web" -or $Target -eq "all") {
-    $WebOut = Join-Path $Build "web\index.html"
-    $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--export-release", "Web", $WebOut) -FailureMessage "Web export failed. Check export templates."
-    Write-Host "WEB_EXPORT_OK=$WebOut"
+    $WebDir = Join-Path $Build "web"
+    $WebZip = Join-Path $WebDir "KETUK-web.zip"
+    $WebSite = Join-Path $WebDir "site"
+
+    if (Test-Path $WebZip) {
+        Remove-Item -Force $WebZip
+    }
+    if (Test-Path $WebSite) {
+        Remove-Item -Recurse -Force $WebSite
+    }
+
+    $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--export-release", "Web", $WebZip) -FailureMessage "Web export failed. Check export templates."
+
+    New-Item -ItemType Directory -Force -Path $WebSite | Out-Null
+    Expand-Archive -Path $WebZip -DestinationPath $WebSite -Force
+
+    $Index = Join-Path $WebSite "index.html"
+    if (-not (Test-Path $Index)) {
+        throw "Web export zip was created, but index.html was not found after extraction."
+    }
+
+    Write-Host "WEB_EXPORT_ZIP_OK=$WebZip"
+    Write-Host "WEB_SITE_OK=$Index"
 }
 
 Write-Host "KETUK_RELEASE_BUILD_COMPLETE"
