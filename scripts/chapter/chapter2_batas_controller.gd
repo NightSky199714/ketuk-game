@@ -1,6 +1,13 @@
 extends Control
 
 const MAP_DATA_PATH := "res://data/chapter/chapter2_batas_map.json"
+const ICON_HOME = preload("res://assets/ui/icons/home.svg")
+const ICON_CAMERA = preload("res://assets/ui/icons/camera.svg")
+const ICON_SHOP = preload("res://assets/ui/icons/shop.svg")
+const ICON_MARKET = preload("res://assets/ui/icons/market.svg")
+const ICON_PIN = preload("res://assets/ui/icons/pin.svg")
+const ICON_BOOK = preload("res://assets/ui/icons/book.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
 var map_data: Dictionary = {}
 var current_location_id: String = "rumah"
@@ -45,8 +52,23 @@ func _wire_ui() -> void:
 		"alamat_sentana": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/SentanaButton
 	}
 
+	var location_icons := {
+		"rumah": ICON_HOME,
+		"toko_kamera": ICON_CAMERA,
+		"warung_ratna": ICON_SHOP,
+		"pak_arman": ICON_SHOP,
+		"bengkel_umum": ICON_SHOP,
+		"pasar_tua": ICON_MARKET,
+		"kedai_foto": ICON_CAMERA,
+		"terminal_kota": ICON_PIN,
+		"alamat_sentana": ICON_PIN
+	}
+
 	for location_id in location_buttons.keys():
 		var button: Button = location_buttons[location_id]
+		button.icon = location_icons.get(str(location_id), ICON_PIN)
+		button.icon_max_width = 22
+		button.expand_icon = true
 		var captured_id := str(location_id)
 		button.pressed.connect(func(): _travel_to(captured_id))
 
@@ -536,6 +558,15 @@ func _check_deadline_event() -> void:
 	_refresh_actions()
 	_autosave()
 
+func _inventory_icon(item_id: String) -> Texture2D:
+	match item_id:
+		"book":
+			return ICON_BOOK
+		"camera":
+			return ICON_CAMERA
+		_:
+			return ICON_BOX
+
 func _select_inventory_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
 	_refresh_inventory()
@@ -551,6 +582,9 @@ func _refresh_inventory() -> void:
 		button.text = str(item.get("name", str(item_id).to_upper()))
 		button.custom_minimum_size = Vector2(0, 48)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.icon = _inventory_icon(str(item_id))
+		button.icon_max_width = 24
+		button.expand_icon = true
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_inventory_item(captured_id))
 		inventory_grid.add_child(button)
