@@ -12,17 +12,17 @@ const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 var map_data: Dictionary = {}
 var current_location_id: String = "rumah"
 
-@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
-@onready var clock_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/ClockLabel
-@onready var money_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/MoneyLabel
-@onready var clue_label: Label = $Margin/Scroll/Root/CluePanel/ClueMargin/ClueLabel
-@onready var inventory_grid: GridContainer = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
-@onready var inventory_detail: Label = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
-@onready var map_row: GridContainer = $Margin/Scroll/Root/MapPanel/MapMargin/MapRow
-@onready var location_label: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationLabel
-@onready var location_description: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationDescription
-@onready var response_label: Label = $Margin/Scroll/Root/ResponsePanel/ResponseMargin/ResponseLabel
-@onready var action_row: VBoxContainer = $Margin/Scroll/Root/ActionRow
+@onready var title_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var clock_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/ClockLabel
+@onready var money_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/MoneyLabel
+@onready var clue_label: Label = $Margin/Root/Scroll/Content/CluePanel/ClueMargin/ClueLabel
+@onready var inventory_grid: GridContainer = $Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
+@onready var inventory_detail: Label = $Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
+@onready var map_row: GridContainer = $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow
+@onready var location_label: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationLabel
+@onready var location_description: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationDescription
+@onready var response_label: Label = $Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin/ResponseLabel
+@onready var action_row: VBoxContainer = $Margin/Root/ActionRow
 @onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
@@ -41,15 +41,15 @@ func _ready() -> void:
 
 func _wire_ui() -> void:
 	location_buttons = {
-		"rumah": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/RumahButton,
-		"toko_kamera": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/TokoKameraButton,
-		"warung_ratna": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/WarungRatnaButton,
-		"pak_arman": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PakArmanButton,
-		"bengkel_umum": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/BengkelButton,
-		"pasar_tua": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PasarTuaButton,
-		"kedai_foto": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KedaiFotoButton,
-		"terminal_kota": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/TerminalButton,
-		"alamat_sentana": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/SentanaButton
+		"rumah": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/RumahButton,
+		"toko_kamera": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/TokoKameraButton,
+		"warung_ratna": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/WarungRatnaButton,
+		"pak_arman": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/PakArmanButton,
+		"bengkel_umum": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/BengkelButton,
+		"pasar_tua": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/PasarTuaButton,
+		"kedai_foto": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/KedaiFotoButton,
+		"terminal_kota": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/TerminalButton,
+		"alamat_sentana": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/SentanaButton
 	}
 
 	var location_icons := {
