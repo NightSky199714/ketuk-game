@@ -83,14 +83,14 @@ if ($Target -eq "windows" -or $Target -eq "all") {
     $BuildInfoPath = Join-Path $WinDir "BUILD_INFO.txt"
     @(
         "KETUK. - Di Balik Harga"
-        "Version=0.1.2"
+        "Version=0.1.3"
         "Commit=$GitCommit"
         "Platform=Windows x86_64"
         "BuiltAtUtc=$([DateTime]::UtcNow.ToString('o'))"
     ) | Set-Content -Encoding utf8 $BuildInfoPath
     Write-Host "WINDOWS_BUILD_INFO_OK=$BuildInfoPath"
 
-    $WindowsZip = Join-Path $Build "KETUK-0.1.2-windows.zip"
+    $WindowsZip = Join-Path $Build "KETUK-0.1.3-windows.zip"
     if (Test-Path $WindowsZip) {
         Remove-Item -Force $WindowsZip
     }
