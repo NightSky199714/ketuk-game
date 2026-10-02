@@ -1,12 +1,310 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource path="res://scripts/chapter/chapter3_orang_yang_tepat_controller.gd" type="Script" id="1"]
+[ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
 
-[node name="Chapter3OrangYangTepat" type="Control"]
+[node name="Chapter3OldMarket" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2")
 script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0627451, 0.0509804, 1)
+
+[node name="WarmGlow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 420.0
+grow_horizontal = 2
+color = Color(0.435294, 0.223529, 0.109804, 0.18)
+mouse_filter = 2
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -124.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_type_variation = &"DarkButton"
+focus_mode = 0
+text = "MENU"
+tooltip_text = "Kembali ke menu utama"
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 78
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Scroll" type="ScrollContainer" parent="Margin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Root" type="VBoxContainer" parent="Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="HeaderStack" type="VBoxContainer" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TitleLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
+theme_override_font_sizes/font_size = 29
+text = "PASAR TUA"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TravelLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="InventoryCaption" type="Label" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.756863, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "BARANG YANG DIBAWA"
+horizontal_alignment = 1
+
+[node name="InventoryPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="InventoryMargin" type="MarginContainer" parent="Margin/Scroll/Root/InventoryPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="InventoryStack" type="VBoxContainer" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="InventoryGrid" type="GridContainer" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
+
+[node name="InventoryDetail" type="Label" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MapCaption" type="Label" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.756863, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "LORONG PASAR"
+horizontal_alignment = 1
+
+[node name="MapPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="MapMargin" type="MarginContainer" parent="Margin/Scroll/Root/MapPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MapRow" type="GridContainer" parent="Margin/Scroll/Root/MapPanel/MapMargin"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="PintuPasarButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PINTU PASAR"
+
+[node name="KiosTengahButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "KIOS TENGAH"
+
+[node name="KedaiPojokButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "KEDAI POJOK"
+
+[node name="GangTimurButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GANG TIMUR"
+
+[node name="LorongBelakangButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LORONG BELAKANG"
+
+[node name="PapanButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PAPAN PENGUMUMAN"
+
+[node name="LocationPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="LocationMargin" type="MarginContainer" parent="Margin/Scroll/Root/LocationPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="LocationStack" type="VBoxContainer" parent="Margin/Scroll/Root/LocationPanel/LocationMargin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LocationLabel" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="LocationDescription" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ActionPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="ActionMargin" type="MarginContainer" parent="Margin/Scroll/Root/ActionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ActionStack" type="VBoxContainer" parent="Margin/Scroll/Root/ActionPanel/ActionMargin"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="ContactButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
+visible = false
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+
+[node name="ShowItemButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
+visible = false
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "TUNJUKKAN BARANG"
+
+[node name="PosterButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
+visible = false
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "PERIKSA PAPAN"
+
+[node name="WaitButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "DUDUK SEBENTAR"
+
+[node name="ExitButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_type_variation = &"DarkButton"
+text = "KELUAR PASAR"
+
+[node name="ResponsePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="ResponseMargin" type="MarginContainer" parent="Margin/Scroll/Root/ResponsePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="ResponseLabel" type="Label" parent="Margin/Scroll/Root/ResponsePanel/ResponseMargin"]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BookPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="BookMargin" type="MarginContainer" parent="Margin/Scroll/Root/BookPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="BookLabel" type="Label" parent="Margin/Scroll/Root/BookPanel/BookMargin"]
+visible = false
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 2
