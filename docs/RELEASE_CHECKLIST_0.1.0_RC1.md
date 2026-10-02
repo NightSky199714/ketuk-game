@@ -38,6 +38,9 @@ This checks startup for:
 - home
 - world exploration
 - Pasar Tua
+- state serialization roundtrip
+
+The state roundtrip verifies that export → reset → import preserves critical gameplay state such as cash, time, inventory, rumors, NPC memory, world location, kiosk payment state, and discovered people.
 
 The check uses `release-check` mode so autosave does not touch player progress.
 
@@ -138,6 +141,14 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -God
 Expected:
 - `build/windows/KETUK.exe`
 - `build/KETUK-0.1.0-rc1-windows.zip`
+- `build/KETUK-0.1.0-rc1-windows.zip.sha256`
+
+Expected markers include:
+- `STATE_ROUNDTRIP_OK`
+- `WINDOWS_EXPORT_OK=...`
+- `WINDOWS_PACKAGE_OK=...`
+- `WINDOWS_SHA256=...`
+- `KETUK_RELEASE_BUILD_COMPLETE`
 
 Optional Web follow-up:
 - `build/web/KETUK-web.zip`
