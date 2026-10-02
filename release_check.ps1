@@ -70,6 +70,8 @@ $Scenes = @(
     "res://scenes/chapter/chapter1_home.tscn",
     "res://scenes/chapter/chapter2_batas.tscn",
     "res://scenes/chapter/chapter3_orang_yang_tepat.tscn",
+    "res://scenes/discovery/discovery_loop.tscn",
+    "res://scenes/network/human_network.tscn",
     "res://scenes/system/release_state_test.tscn",
     "res://scenes/system/release_save_recovery_test.tscn"
 )

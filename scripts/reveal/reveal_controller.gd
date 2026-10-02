@@ -28,7 +28,7 @@ func _ready() -> void:
 	else:
 		ownership_label.text = "Kamera tidak berpindah ke tanganmu."
 
-	end_title.text = "SESUDAH LELANG" if AuctionState.chapter_mode else "P0.1 — AUCTION FEEL SELESAI"
+	end_title.text = "SESUDAH LELANG"
 	discovery_button.text = "PULANG" if AuctionState.chapter_mode else "LANJUT KE TEMUAN"
 	discovery_button.visible = true if AuctionState.chapter_mode else _owns_lot02()
 
@@ -44,7 +44,7 @@ func _show_post_auction_context() -> void:
 	if winner == "mc":
 		main_label.text = "Peserta mulai berdiri dan membereskan barang."
 		detail_label.text = "Pak Slamet melihatmu masih memandangi lensa. \"Kalau benar-benar penasaran, Harun belum pulang. Dia biasa pegang kamera.\""
-		slamet_label.text = "Pak Slamet\n[INTERESTED]"
+		slamet_label.text = "Pak Slamet\nINTERESTED"
 		followup_button.text = "BICARA DENGAN PAK HARUN"
 		leave_button.text = "NANTI SAJA"
 		choice_panel.visible = true
@@ -53,7 +53,7 @@ func _show_post_auction_context() -> void:
 	if winner == "jaka":
 		main_label.text = "Jaka memasukkan kamera ke tasnya, lalu berhenti."
 		detail_label.text = "Setelah sindiran Bu Ratna, ia melirik ke meja samping. Pak Harun, teknisi kamera yang tadi menonton dari belakang, masih membereskan alat."
-		jaka_label.text = "Jaka\n[SUSPICIOUS]"
+		jaka_label.text = "Jaka\nSUSPICIOUS"
 		followup_button.text = "TETAP DI SINI"
 		leave_button.text = "TINGGALKAN BALAI"
 		choice_panel.visible = true
@@ -69,7 +69,7 @@ func _on_followup() -> void:
 	if winner == "jaka":
 		main_label.text = "Jaka: \"Harun, sekalian lihat ini. Biar nggak ada yang ngoceh.\""
 		detail_label.text = "Bu Ratna belum pergi. Pak Slamet tetap duduk. Kamu memilih tetap di dekat meja."
-		jaka_label.text = "Jaka\n[CONFIDENT]"
+		jaka_label.text = "Jaka\nCONFIDENT"
 		await get_tree().create_timer(2.8).timeout
 	else:
 		main_label.text = "Kamu membawa kamera ke meja samping."
@@ -100,7 +100,7 @@ func _run_reveal() -> void:
 
 	main_label.text = "Body: Rp90.000–Rp150.000."
 	detail_label.text = "Bu Ratna menggeleng pelan. Jaka tidak mengatakan apa-apa."
-	ratna_label.text = "Bu Ratna\n[SUSPICIOUS]"
+	ratna_label.text = "Bu Ratna\nSUSPICIOUS"
 	await get_tree().create_timer(2.7).timeout
 
 	main_label.text = "Pak Harun memutar lensa."
@@ -121,7 +121,7 @@ func _run_reveal() -> void:
 
 	main_label.text = "Ia melihat lagi."
 	detail_label.text = ""
-	jaka_label.text = "Jaka\n[SUSPICIOUS]"
+	jaka_label.text = "Jaka\nSUSPICIOUS"
 	await get_tree().create_timer(2.5).timeout
 
 	main_label.text = "Produksi terbatas."
@@ -138,9 +138,9 @@ func _run_reveal() -> void:
 
 	main_label.text = ""
 	detail_label.text = "Meja itu mendadak sunyi."
-	ratna_label.text = "Bu Ratna\n[SURPRISED]"
-	jaka_label.text = "Jaka\n[NEUTRAL]"
-	slamet_label.text = "Pak Slamet\n[INTERESTED]"
+	ratna_label.text = "Bu Ratna\nSURPRISED"
+	jaka_label.text = "Jaka\nNEUTRAL"
+	slamet_label.text = "Pak Slamet\nINTERESTED"
 	await get_tree().create_timer(2.0).timeout
 
 	main_label.text = "Bu Ratna: \"Lho?\""

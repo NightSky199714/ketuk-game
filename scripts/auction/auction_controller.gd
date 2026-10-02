@@ -174,7 +174,7 @@ func _on_bid() -> void:
 
 	var amount := _next_mc_bid()
 	if amount <= AuctionState.current_bid:
-		_add_log("Tidak ada langkah bid berikutnya di prototype ini.")
+		_add_log("Tidak ada langkah bid berikutnya.")
 		return
 	if amount > AuctionState.money:
 		_add_log("Uangmu tidak cukup untuk bid itu.")

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource path="res://scripts/network/human_network_controller.gd" type="Script" id="1"]
+[ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
+[ext_resource path="res://assets/ui/textures/worn_overlay.svg" type="Texture2D" id="3"]
+[ext_resource path="res://assets/ui/icons/market.svg" type="Texture2D" id="4"]
+[ext_resource path="res://assets/ui/icons/shop.svg" type="Texture2D" id="5"]
+[ext_resource path="res://assets/ui/icons/pin.svg" type="Texture2D" id="6"]
 
 [node name="HumanNetwork" type="Control"]
 layout_mode = 3
@@ -9,4 +14,307 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2")
 script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0627451, 0.0509804, 1)
+
+[node name="WarmGlow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 430.0
+grow_horizontal = 2
+color = Color(0.435294, 0.223529, 0.109804, 0.18)
+mouse_filter = 2
+
+[node name="TextureOverlay" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="AccentRule" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 18.0
+offset_bottom = 25.0
+grow_horizontal = 2
+color = Color(0.541176, 0.2, 0.145098, 1)
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 28
+
+[node name="Scroll" type="ScrollContainer" parent="Margin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Root" type="VBoxContainer" parent="Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 15
+
+[node name="HeaderStack" type="VBoxContainer" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="TitleLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
+theme_override_font_sizes/font_size = 28
+text = "PASAR TUA"
+horizontal_alignment = 1
+
+[node name="PrincipleLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+text = "Kamu tahu pertanyaannya. Belum tentu tahu siapa yang punya jawabannya."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TravelLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="TargetPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="TargetMargin" type="MarginContainer" parent="Margin/Scroll/Root/TargetPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="TargetStack" type="VBoxContainer" parent="Margin/Scroll/Root/TargetPanel/TargetMargin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TargetLabel" type="Label" parent="Margin/Scroll/Root/TargetPanel/TargetMargin/TargetStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.337255, 0.113725, 0.0823529, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="NoteLabel" type="Label" parent="Margin/Scroll/Root/TargetPanel/TargetMargin/TargetStack"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MapCaption" type="Label" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.843137, 0.756863, 0.643137, 1)
+theme_override_font_sizes/font_size = 14
+text = "PILIH TEMPAT"
+horizontal_alignment = 1
+
+[node name="MapPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="MapMargin" type="MarginContainer" parent="Margin/Scroll/Root/MapPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MapRow" type="GridContainer" parent="Margin/Scroll/Root/MapPanel/MapMargin"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="PintuPasarButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4")
+theme_override_constants/icon_max_width = 22
+expand_icon = true
+text = "PINTU PASAR"
+
+[node name="KiosTengahButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5")
+theme_override_constants/icon_max_width = 22
+expand_icon = true
+text = "KIOS TENGAH"
+
+[node name="GangTimurButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("6")
+theme_override_constants/icon_max_width = 22
+expand_icon = true
+text = "GANG TIMUR"
+
+[node name="LorongBelakangButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("6")
+theme_override_constants/icon_max_width = 22
+expand_icon = true
+text = "LORONG BELAKANG"
+
+[node name="LocationPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="LocationMargin" type="MarginContainer" parent="Margin/Scroll/Root/LocationPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="LocationStack" type="VBoxContainer" parent="Margin/Scroll/Root/LocationPanel/LocationMargin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LocationLabel" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="LocationDescription" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ContactButton" type="Button" parent="Margin/Scroll/Root"]
+visible = false
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+
+[node name="ResponsePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+
+[node name="ResponseMargin" type="MarginContainer" parent="Margin/Scroll/Root/ResponsePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="ResponseLabel" type="Label" parent="Margin/Scroll/Root/ResponsePanel/ResponseMargin"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StatusPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="StatusMargin" type="MarginContainer" parent="Margin/Scroll/Root/StatusPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="StatusLabel" type="Label" parent="Margin/Scroll/Root/StatusPanel/StatusMargin"]
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="FinishButton" type="Button" parent="Margin/Scroll/Root"]
+visible = false
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "AKHIRI PENCARIAN"
+
+[node name="EndPanel" type="VBoxContainer" parent="Margin/Scroll/Root"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EndTitlePanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
+layout_mode = 2
+theme_type_variation = &"DarkPanel"
+
+[node name="EndTitle" type="Label" parent="Margin/Scroll/Root/EndPanel/EndTitlePanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "HASIL PENCARIAN"
+horizontal_alignment = 1
+
+[node name="EndCopyPanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
+layout_mode = 2
+
+[node name="EndCopy" type="Label" parent="Margin/Scroll/Root/EndPanel/EndCopyPanel"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
+theme_override_font_sizes/font_size = 15
+text = "Nilai jaringan ada pada tempat, orang, batas pengetahuan, dan petunjuk yang kamu kumpulkan."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RestartButton" type="Button" parent="Margin/Scroll/Root/EndPanel"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_type_variation = &"DarkButton"
+text = "MAIN DARI AWAL"

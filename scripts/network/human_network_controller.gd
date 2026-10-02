@@ -7,18 +7,19 @@ var target_id: String = ""
 var current_location_id: String = "pintu_pasar"
 var current_contact_id: String = ""
 
-var target_label: Label
-var note_label: Label
-var map_label: Label
-var location_label: Label
-var location_description: Label
-var response_label: Label
-var status_label: Label
-var travel_label: Label
-var map_row: HBoxContainer
-var contact_button: Button
-var finish_button: Button
-var end_panel: VBoxContainer
+@onready var target_label: Label = $Margin/Scroll/Root/TargetPanel/TargetMargin/TargetStack/TargetLabel
+@onready var note_label: Label = $Margin/Scroll/Root/TargetPanel/TargetMargin/TargetStack/NoteLabel
+@onready var location_label: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationLabel
+@onready var location_description: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationDescription
+@onready var response_label: Label = $Margin/Scroll/Root/ResponsePanel/ResponseMargin/ResponseLabel
+@onready var status_label: Label = $Margin/Scroll/Root/StatusPanel/StatusMargin/StatusLabel
+@onready var travel_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TravelLabel
+@onready var map_row: GridContainer = $Margin/Scroll/Root/MapPanel/MapMargin/MapRow
+@onready var contact_button: Button = $Margin/Scroll/Root/ContactButton
+@onready var finish_button: Button = $Margin/Scroll/Root/FinishButton
+@onready var end_panel: VBoxContainer = $Margin/Scroll/Root/EndPanel
+@onready var restart_button: Button = $Margin/Scroll/Root/EndPanel/RestartButton
+
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
@@ -30,9 +31,28 @@ func _ready() -> void:
 	if AuctionState.network_known_contacts.is_empty():
 		AuctionState.network_known_contacts["pak_wira"] = true
 
-	_build_ui()
+	_wire_ui()
 	_show_target()
 	_show_location("pintu_pasar", false)
+
+func _wire_ui() -> void:
+	location_buttons = {
+		"pintu_pasar": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PintuPasarButton,
+		"kios_tengah": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KiosTengahButton,
+		"gang_timur": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/GangTimurButton,
+		"lorong_belakang": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/LorongBelakangButton
+	}
+
+	for location_id in location_buttons.keys():
+		var button: Button = location_buttons[location_id]
+		var captured_id := str(location_id)
+		button.pressed.connect(func(): _travel_to(captured_id))
+
+	contact_button.pressed.connect(_talk_here)
+	finish_button.pressed.connect(_finish)
+	restart_button.pressed.connect(_restart)
+	_refresh_map_buttons()
+	_refresh_travel_label()
 
 func _load_data() -> void:
 	if not FileAccess.file_exists(NETWORK_DATA_PATH):
@@ -46,142 +66,6 @@ func _load_data() -> void:
 	else:
 		push_error("Network data is invalid JSON.")
 
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#1b1714")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 30)
-	margin.add_theme_constant_override("margin_right", 30)
-	margin.add_theme_constant_override("margin_top", 30)
-	margin.add_theme_constant_override("margin_bottom", 30)
-	add_child(margin)
-
-	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 12)
-	margin.add_child(root)
-
-	var title := Label.new()
-	title.text = "PASAR TUA — PETA PROTOTYPE"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 28)
-	root.add_child(title)
-
-	var principle := Label.new()
-	principle.text = "Kamu tahu pertanyaannya. Belum tentu tahu siapa yang punya jawabannya."
-	principle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	principle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	principle.add_theme_font_size_override("font_size", 17)
-	root.add_child(principle)
-
-	target_label = Label.new()
-	target_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	target_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	target_label.add_theme_font_size_override("font_size", 21)
-	root.add_child(target_label)
-
-	note_label = Label.new()
-	note_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	note_label.custom_minimum_size = Vector2(0, 80)
-	note_label.add_theme_font_size_override("font_size", 16)
-	root.add_child(note_label)
-
-	travel_label = Label.new()
-	travel_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	travel_label.add_theme_font_size_override("font_size", 16)
-	root.add_child(travel_label)
-
-	map_label = Label.new()
-	map_label.text = "PILIH TEMPAT"
-	map_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	map_label.add_theme_font_size_override("font_size", 18)
-	root.add_child(map_label)
-
-	map_row = HBoxContainer.new()
-	map_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	map_row.add_theme_constant_override("separation", 6)
-	root.add_child(map_row)
-
-	var order := ["pintu_pasar", "kios_tengah", "gang_timur", "lorong_belakang"]
-	for location_id in order:
-		var button := Button.new()
-		button.custom_minimum_size = Vector2(150, 68)
-		var captured_id: String = location_id
-		button.pressed.connect(func(): _travel_to(captured_id))
-		map_row.add_child(button)
-		location_buttons[location_id] = button
-
-	location_label = Label.new()
-	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_label.add_theme_font_size_override("font_size", 24)
-	root.add_child(location_label)
-
-	location_description = Label.new()
-	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	location_description.custom_minimum_size = Vector2(0, 115)
-	location_description.add_theme_font_size_override("font_size", 18)
-	root.add_child(location_description)
-
-	contact_button = Button.new()
-	contact_button.visible = false
-	contact_button.custom_minimum_size = Vector2(290, 66)
-	contact_button.pressed.connect(_talk_here)
-	root.add_child(contact_button)
-
-	response_label = Label.new()
-	response_label.text = ""
-	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	response_label.custom_minimum_size = Vector2(0, 175)
-	response_label.add_theme_font_size_override("font_size", 18)
-	root.add_child(response_label)
-
-	status_label = Label.new()
-	status_label.text = ""
-	status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status_label.custom_minimum_size = Vector2(0, 85)
-	status_label.add_theme_font_size_override("font_size", 17)
-	root.add_child(status_label)
-
-	finish_button = Button.new()
-	finish_button.text = "AKHIRI P0.3"
-	finish_button.visible = false
-	finish_button.custom_minimum_size = Vector2(240, 62)
-	finish_button.pressed.connect(_finish)
-	root.add_child(finish_button)
-
-	end_panel = VBoxContainer.new()
-	end_panel.visible = false
-	end_panel.add_theme_constant_override("separation", 10)
-	root.add_child(end_panel)
-
-	var end_title := Label.new()
-	end_title.text = "P0.3 — HUMAN NETWORK"
-	end_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	end_title.add_theme_font_size_override("font_size", 24)
-	end_panel.add_child(end_title)
-
-	var end_copy := Label.new()
-	end_copy.text = "Nilai jaringan ada pada tempat, orang, batas pengetahuan, dan petunjuk yang kamu kumpulkan."
-	end_copy.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	end_copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	end_copy.add_theme_font_size_override("font_size", 17)
-	end_panel.add_child(end_copy)
-
-	var restart := Button.new()
-	restart.text = "MAIN DARI AWAL"
-	restart.custom_minimum_size = Vector2(240, 62)
-	restart.pressed.connect(_restart)
-	end_panel.add_child(restart)
-
-	_refresh_map_buttons()
-	_refresh_travel_label()
 
 func _show_target() -> void:
 	target_label.text = "PERTANYAAN: %s" % _target_name(target_id)
@@ -311,6 +195,9 @@ func _refresh_map_buttons() -> void:
 
 		if location_id == current_location_id:
 			label = "• " + label
+			button.theme_type_variation = &"SelectedButton"
+		else:
+			button.theme_type_variation = &""
 
 		button.text = label
 

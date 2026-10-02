@@ -1,24 +1,41 @@
 extends Control
 
 const DISCOVERY_DATA_PATH := "res://data/discovery/prototype_discovery.json"
+const ICON_COASTER = preload("res://assets/ui/icons/coaster.svg")
+const ICON_LIGHTER = preload("res://assets/ui/icons/lighter.svg")
+const ICON_ADAPTER = preload("res://assets/ui/icons/adapter.svg")
+const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
 var data: Dictionary = {}
 var inspected: Dictionary = {}
 var inspect_count: int = 0
+var object_buttons: Dictionary = {}
 
-var title_label: Label
-var intro_label: Label
-var observation_label: Label
-var note_label: Label
-var object_row: HBoxContainer
-var target_panel: VBoxContainer
-var end_panel: VBoxContainer
-var open_button: Button
-var network_button: Button
+@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var intro_label: Label = $Margin/Scroll/Root/IntroPanel/IntroMargin/IntroLabel
+@onready var observation_label: Label = $Margin/Scroll/Root/ObservationPanel/ObservationMargin/ObservationLabel
+@onready var note_label: Label = $Margin/Scroll/Root/NotePanel/NoteMargin/NoteLabel
+@onready var object_caption: Label = $Margin/Scroll/Root/ObjectCaption
+@onready var object_row: GridContainer = $Margin/Scroll/Root/ObjectRow
+@onready var target_panel: VBoxContainer = $Margin/Scroll/Root/TargetPanel
+@onready var end_panel: VBoxContainer = $Margin/Scroll/Root/EndPanel
+@onready var open_button: Button = $Margin/Scroll/Root/OpenButton
+@onready var network_button: Button = $Margin/Scroll/Root/EndPanel/NetworkButton
+@onready var restart_button: Button = $Margin/Scroll/Root/EndPanel/RestartButton
+@onready var coaster_button: Button = $Margin/Scroll/Root/TargetPanel/TargetGrid/CoasterButton
+@onready var lighter_button: Button = $Margin/Scroll/Root/TargetPanel/TargetGrid/LighterButton
+@onready var adapter_button: Button = $Margin/Scroll/Root/TargetPanel/TargetGrid/AdapterButton
+@onready var unsure_button: Button = $Margin/Scroll/Root/TargetPanel/TargetGrid/UnsureButton
 
 func _ready() -> void:
 	_load_data()
-	_build_ui()
+	open_button.pressed.connect(_open_box)
+	network_button.pressed.connect(_go_to_network)
+	restart_button.pressed.connect(_restart)
+	coaster_button.pressed.connect(func(): _choose_target("coaster"))
+	lighter_button.pressed.connect(func(): _choose_target("lighter"))
+	adapter_button.pressed.connect(func(): _choose_target("adapter"))
+	unsure_button.pressed.connect(func(): _choose_target("unsure"))
 	_show_entry()
 
 func _load_data() -> void:
@@ -33,114 +50,6 @@ func _load_data() -> void:
 	else:
 		push_error("Discovery data is invalid JSON.")
 
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#1d1815")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 34)
-	margin.add_theme_constant_override("margin_right", 34)
-	margin.add_theme_constant_override("margin_top", 38)
-	margin.add_theme_constant_override("margin_bottom", 38)
-	add_child(margin)
-
-	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 16)
-	margin.add_child(root)
-
-	title_label = Label.new()
-	title_label.text = "MEJA RUMAH — LOT 02"
-	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 30)
-	root.add_child(title_label)
-
-	intro_label = Label.new()
-	intro_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	intro_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	intro_label.add_theme_font_size_override("font_size", 19)
-	root.add_child(intro_label)
-
-	open_button = Button.new()
-	open_button.text = "BUKA KOTAK"
-	open_button.custom_minimum_size = Vector2(250, 72)
-	open_button.pressed.connect(_open_box)
-	root.add_child(open_button)
-
-	object_row = HBoxContainer.new()
-	object_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	object_row.add_theme_constant_override("separation", 10)
-	object_row.visible = false
-	root.add_child(object_row)
-
-	observation_label = Label.new()
-	observation_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	observation_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	observation_label.custom_minimum_size = Vector2(0, 150)
-	observation_label.add_theme_font_size_override("font_size", 19)
-	root.add_child(observation_label)
-
-	note_label = Label.new()
-	note_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	note_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	note_label.custom_minimum_size = Vector2(0, 120)
-	note_label.add_theme_font_size_override("font_size", 18)
-	root.add_child(note_label)
-
-	target_panel = VBoxContainer.new()
-	target_panel.visible = false
-	target_panel.add_theme_constant_override("separation", 10)
-	root.add_child(target_panel)
-
-	var target_title := Label.new()
-	target_title.text = "TEMUAN MANA YANG LAYAK DIKEJAR?"
-	target_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	target_title.add_theme_font_size_override("font_size", 20)
-	target_panel.add_child(target_title)
-
-	var target_row := HBoxContainer.new()
-	target_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	target_row.add_theme_constant_override("separation", 8)
-	target_panel.add_child(target_row)
-
-	for target in [
-		{"id":"coaster","label":"TATAKAN"},
-		{"id":"lighter","label":"KOREK"},
-		{"id":"adapter","label":"ADAPTOR"},
-		{"id":"unsure","label":"BELUM YAKIN"}
-	]:
-		var button := Button.new()
-		button.text = target.label
-		button.custom_minimum_size = Vector2(145, 62)
-		var target_id: String = target.id
-		button.pressed.connect(func(): _choose_target(target_id))
-		target_row.add_child(button)
-
-	end_panel = VBoxContainer.new()
-	end_panel.visible = false
-	end_panel.add_theme_constant_override("separation", 12)
-	root.add_child(end_panel)
-
-	var end_title := Label.new()
-	end_title.text = "P0.2 — DISCOVERY LOOP"
-	end_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	end_title.add_theme_font_size_override("font_size", 25)
-	end_panel.add_child(end_title)
-
-	network_button = Button.new()
-	network_button.text = "PERGI KE PASAR TUA"
-	network_button.custom_minimum_size = Vector2(280, 66)
-	network_button.visible = false
-	network_button.pressed.connect(_go_to_network)
-	end_panel.add_child(network_button)
-
-	var restart := Button.new()
-	restart.text = "MAIN DARI AWAL"
-	restart.custom_minimum_size = Vector2(240, 66)
-	restart.pressed.connect(_restart)
-	end_panel.add_child(restart)
 
 func _show_entry() -> void:
 	var result: Dictionary = AuctionState.lot_results.get("lot02", {})
@@ -161,6 +70,7 @@ func _show_entry() -> void:
 
 func _open_box() -> void:
 	open_button.visible = false
+	object_caption.visible = true
 	object_row.visible = true
 
 	var lot_data: Dictionary = data.get("lot02", {})
@@ -171,13 +81,29 @@ func _open_box() -> void:
 		var object_data: Dictionary = objects[i]
 		var button := Button.new()
 		button.text = str(object_data.get("label", "OBJEK"))
-		button.custom_minimum_size = Vector2(175, 68)
+		button.custom_minimum_size = Vector2(0, 68)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var object_id := str(object_data.get("id", "object_%d" % i))
+		button.icon = _object_icon(object_id)
+		button.add_theme_constant_override("icon_max_width", 24)
+		button.expand_icon = true
 		button.pressed.connect(func(): _inspect_object(object_id))
 		object_row.add_child(button)
+		object_buttons[object_id] = button
 
 	observation_label.text = str(lot_data.get("selection_reason", "Tiga benda paling membuatmu penasaran."))
 	note_label.text = "Kamu tidak sedang memilih barang terbaik. Kamu memilih bagian yang pertanyaannya belum selesai."
+
+func _object_icon(object_id: String) -> Texture2D:
+	match object_id:
+		"coaster":
+			return ICON_COASTER
+		"lighter":
+			return ICON_LIGHTER
+		"adapter":
+			return ICON_ADAPTER
+		_:
+			return ICON_BOX
 
 func _inspect_object(object_id: String) -> void:
 	var object_data := _get_object(object_id)
@@ -203,11 +129,19 @@ func _inspect_object(object_id: String) -> void:
 		"status": "unresolved"
 	}
 
+	_refresh_object_states()
+
 	if inspect_count >= 2:
 		target_panel.visible = true
 
+func _refresh_object_states() -> void:
+	for object_id in object_buttons.keys():
+		var button: Button = object_buttons[object_id]
+		button.theme_type_variation = &"SelectedButton" if inspected.has(object_id) else &""
+
 func _choose_target(target_id: String) -> void:
 	target_panel.visible = false
+	object_caption.visible = false
 	object_row.visible = false
 
 	if target_id == "unsure":
