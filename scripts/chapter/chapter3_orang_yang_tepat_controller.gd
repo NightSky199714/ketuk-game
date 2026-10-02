@@ -290,6 +290,8 @@ func _inspect_notice_board() -> void:
 			"source": "Papan Pengumuman Pasar Tua"
 		})
 
+	AuctionState.start_sentana_access()
+
 	response_label.text = "%s\n\n%s" % [
 		str(poster.get("body", "")),
 		str(poster.get("action", "Kamu memotretnya."))
