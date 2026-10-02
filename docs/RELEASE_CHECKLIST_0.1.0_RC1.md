@@ -42,6 +42,8 @@ This checks startup for:
 
 The state roundtrip verifies that export → reset → import preserves critical gameplay state such as cash, time, inventory, rumors, NPC memory, world location, kiosk payment state, and discovered people.
 
+The save recovery test writes isolated test files under `user://`, rotates a valid primary into backup, deliberately corrupts the new primary, and verifies that the backup remains recoverable. It does not touch the player's real save.
+
 The check uses `release-check` mode so autosave does not touch player progress.
 
 ---
@@ -145,7 +147,11 @@ Expected:
 
 Expected markers include:
 - `STATE_ROUNDTRIP_OK`
+- `SAVE_RECOVERY_OK`
 - `WINDOWS_EXPORT_OK=...`
+- `WINDOWS_PCK_OK=...`
+- `WINDOWS_ARTIFACT_BOOT_OK=...`
+- `WINDOWS_BUILD_INFO_OK=...`
 - `WINDOWS_PACKAGE_OK=...`
 - `WINDOWS_SHA256=...`
 - `KETUK_RELEASE_BUILD_COMPLETE`
