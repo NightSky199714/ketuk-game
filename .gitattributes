@@ -1,0 +1,3 @@
+# Godot metadata is written with LF line endings.
+*.import text eol=lf
+*.uid text eol=lf
