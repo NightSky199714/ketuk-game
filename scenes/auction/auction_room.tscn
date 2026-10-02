@@ -314,7 +314,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="BidButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
+[node name="BidButton" type="Button" parent="Margin/Root/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -323,7 +323,7 @@ icon = ExtResource("4")
 theme_override_constants/icon_max_width = 28
 expand_icon = true
 
-[node name="WaitButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
+[node name="WaitButton" type="Button" parent="Margin/Root/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -332,7 +332,7 @@ theme_override_constants/icon_max_width = 26
 expand_icon = true
 text = "WAIT"
 
-[node name="StopButton" type="Button" parent="Margin/Root/Scroll/Content/ActionRow"]
+[node name="StopButton" type="Button" parent="Margin/Root/ActionRow"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
