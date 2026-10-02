@@ -94,7 +94,7 @@ horizontal_alignment = 1
 
 [node name="TitlePanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="TitleMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/TitlePanel"]
 layout_mode = 2
@@ -118,6 +118,7 @@ horizontal_alignment = 1
 
 [node name="MainPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="MainMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/MainPanel"]
 layout_mode = 2
@@ -127,7 +128,7 @@ theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
 [node name="MainLabel" type="Label" parent="Margin/Root/Scroll/Content/MainPanel/MainMargin"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.219608, 0.145098, 0.105882, 1)
 theme_override_font_sizes/font_size = 27
@@ -137,7 +138,7 @@ autowrap_mode = 2
 
 [node name="DetailPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"AccentCard"
 
 [node name="DetailMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/DetailPanel"]
 layout_mode = 2
@@ -147,7 +148,7 @@ theme_override_constants/margin_right = 22
 theme_override_constants/margin_bottom = 20
 
 [node name="DetailLabel" type="Label" parent="Margin/Root/Scroll/Content/DetailPanel/DetailMargin"]
-custom_minimum_size = Vector2(0, 180)
+custom_minimum_size = Vector2(0, 148)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.831373, 0.756863, 0.647059, 1)
 theme_override_font_sizes/font_size = 19
