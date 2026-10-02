@@ -79,7 +79,7 @@ theme_override_constants/separation = 12
 
 [node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
 layout_mode = 2
@@ -108,6 +108,7 @@ autowrap_mode = 2
 
 [node name="NarrativePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="NarrativeMargin" type="MarginContainer" parent="Margin/Scroll/Root/NarrativePanel"]
 layout_mode = 2
@@ -121,7 +122,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="MainLabel" type="Label" parent="Margin/Scroll/Root/NarrativePanel/NarrativeMargin/NarrativeStack"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 25
@@ -130,7 +131,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="DetailLabel" type="Label" parent="Margin/Scroll/Root/NarrativePanel/NarrativeMargin/NarrativeStack"]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 74)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.337255, 0.266667, 0.207843, 1)
 theme_override_font_sizes/font_size = 18
@@ -139,7 +140,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="NpcRow" type="HBoxContainer" parent="Margin/Scroll/Root"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
@@ -205,7 +206,7 @@ theme_override_constants/separation = 10
 
 [node name="EndTitlePanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="EndTitle" type="Label" parent="Margin/Scroll/Root/EndPanel/EndTitlePanel"]
 layout_mode = 2
@@ -215,6 +216,7 @@ horizontal_alignment = 1
 
 [node name="EndCopyPanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="EndCopy" type="Label" parent="Margin/Scroll/Root/EndPanel/EndCopyPanel"]
 custom_minimum_size = Vector2(0, 86)
