@@ -1,10 +1,10 @@
 extends Control
 
-@onready var continue_button: Button = $Margin/Scroll/Root/ContinueButton
-@onready var new_game_button: Button = $Margin/Scroll/Root/NewGameButton
-@onready var save_status: Label = $Margin/Scroll/Root/SaveStatusPanel/SaveStatusMargin/SaveStatus
-@onready var quit_button: Button = $Margin/Scroll/Root/QuitButton
-@onready var version_label: Label = $Margin/Scroll/Root/BottomCard/BottomMargin/BottomStack/Version
+@onready var continue_button: Button = $Margin/Root/ContinueButton
+@onready var new_game_button: Button = $Margin/Root/NewGameButton
+@onready var save_status: Label = $Margin/Root/Scroll/Content/SaveStatusPanel/SaveStatusMargin/SaveStatus
+@onready var quit_button: Button = $Margin/Root/QuitButton
+@onready var version_label: Label = $Margin/Root/Scroll/Content/BottomCard/BottomMargin/BottomStack/Version
 @onready var overwrite_dialog: ConfirmationDialog = $OverwriteDialog
 
 func _ready() -> void:
