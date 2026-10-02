@@ -132,11 +132,14 @@ Install matching Godot export templates first.
 Build:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target all
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -GodotPath "PATH_KE_GODOT.exe" -Target windows
 ```
 
 Expected:
 - `build/windows/KETUK.exe`
+- `build/KETUK-0.1.0-rc1-windows.zip`
+
+Optional Web follow-up:
 - `build/web/KETUK-web.zip`
 - `build/web/site/index.html` and companion Web files
 
@@ -158,7 +161,7 @@ Do not publish if any of these remain:
 - UI controls inaccessible in portrait view;
 - kiosk consequence resets after load;
 - world time resets after load;
-- export fails.
+- Windows release export fails.
 
 ---
 
@@ -181,7 +184,7 @@ Can ship and improve later:
 After:
 1. automated gate passes,
 2. one full manual run passes,
-3. Windows/Web export succeeds,
+3. Windows release export succeeds,
 
 promote:
 - `0.1.0-rc1` → `0.1.0`
