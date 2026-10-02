@@ -142,7 +142,7 @@ alignment = 1
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"NpcPanel"
 
 [node name="RatnaLabel" type="Label" parent="Margin/Root/NpcRow/RatnaCard"]
 layout_mode = 2
@@ -156,7 +156,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"NpcPanel"
 
 [node name="JakaLabel" type="Label" parent="Margin/Root/NpcRow/JakaCard"]
 layout_mode = 2
@@ -170,7 +170,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 108)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"NpcPanel"
 
 [node name="SlametLabel" type="Label" parent="Margin/Root/NpcRow/SlametCard"]
 layout_mode = 2
