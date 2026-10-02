@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource path="res://scripts/system/main_menu_controller.gd" type="Script" id="1"]
 [ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
+[ext_resource path="res://assets/ui/textures/worn_overlay.svg" type="Texture2D" id="3"]
+[ext_resource path="res://assets/ui/icons/continue.svg" type="Texture2D" id="4"]
+[ext_resource path="res://assets/ui/icons/ticket.svg" type="Texture2D" id="5"]
+[ext_resource path="res://assets/ui/icons/exit.svg" type="Texture2D" id="6"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -42,6 +46,18 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.278431, 0.121569, 0.0862745, 0.16)
 mouse_filter = 2
+
+[node name="TextureOverlay" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 0
 
 [node name="TopRule" type="ColorRect" parent="."]
 layout_mode = 1
@@ -126,11 +142,17 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 86)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
+icon = ExtResource("4")
+icon_max_width = 28
+expand_icon = true
 text = "LANJUTKAN  ›"
 
 [node name="NewGameButton" type="Button" parent="Margin/Root"]
 custom_minimum_size = Vector2(0, 78)
 layout_mode = 2
+icon = ExtResource("5")
+icon_max_width = 28
+expand_icon = true
 text = "GAME BARU  ›"
 
 [node name="SaveStatusPanel" type="PanelContainer" parent="Margin/Root"]
@@ -154,6 +176,9 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 2
 theme_type_variation = &"DarkButton"
+icon = ExtResource("6")
+icon_max_width = 26
+expand_icon = true
 text = "KELUAR"
 
 [node name="FooterSpacer" type="Control" parent="Margin/Root"]
