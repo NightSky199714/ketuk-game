@@ -5,25 +5,25 @@ const MAP_DATA_PATH := "res://data/chapter/chapter2_batas_map.json"
 var map_data: Dictionary = {}
 var current_location_id: String = "rumah"
 
-var title_label: Label
-var clock_label: Label
-var money_label: Label
-var clue_label: Label
-var inventory_grid: GridContainer
-var inventory_detail: Label
-var map_row: GridContainer
-var location_label: Label
-var location_description: Label
-var response_label: Label
-var action_row: VBoxContainer
-var menu_button: Button
+@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var clock_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/ClockLabel
+@onready var money_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/MoneyLabel
+@onready var clue_label: Label = $Margin/Scroll/Root/CluePanel/ClueMargin/ClueLabel
+@onready var inventory_grid: GridContainer = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
+@onready var inventory_detail: Label = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
+@onready var map_row: GridContainer = $Margin/Scroll/Root/MapPanel/MapMargin/MapRow
+@onready var location_label: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationLabel
+@onready var location_description: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationDescription
+@onready var response_label: Label = $Margin/Scroll/Root/ResponsePanel/ResponseMargin/ResponseLabel
+@onready var action_row: VBoxContainer = $Margin/Scroll/Root/ActionRow
+@onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
 func _ready() -> void:
 	if not AuctionState.chapter2_started:
 		AuctionState.start_chapter2()
 	_load_map()
-	_build_ui()
+	_wire_ui()
 	current_location_id = str(AuctionState.world_flags.get("world_location", "rumah"))
 	if not AuctionState.chapter2_known_places.has(current_location_id):
 		current_location_id = "rumah"
@@ -31,6 +31,30 @@ func _ready() -> void:
 	if not bool(AuctionState.world_flags.get("world_opening_seen", false)):
 		_show_opening()
 		AuctionState.world_flags["world_opening_seen"] = true
+
+func _wire_ui() -> void:
+	location_buttons = {
+		"rumah": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/RumahButton,
+		"toko_kamera": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/TokoKameraButton,
+		"warung_ratna": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/WarungRatnaButton,
+		"pak_arman": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PakArmanButton,
+		"bengkel_umum": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/BengkelButton,
+		"pasar_tua": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PasarTuaButton,
+		"kedai_foto": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KedaiFotoButton,
+		"terminal_kota": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/TerminalButton,
+		"alamat_sentana": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/SentanaButton
+	}
+
+	for location_id in location_buttons.keys():
+		var button: Button = location_buttons[location_id]
+		var captured_id := str(location_id)
+		button.pressed.connect(func(): _travel_to(captured_id))
+
+	menu_button.pressed.connect(_return_to_menu)
+	_refresh_status()
+	_autosave()
+	_refresh_inventory()
+	_refresh_map()
 
 func _load_map() -> void:
 	if not FileAccess.file_exists(MAP_DATA_PATH):
@@ -43,159 +67,6 @@ func _load_map() -> void:
 		map_data = parsed
 	else:
 		push_error("World map data invalid.")
-
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#1d1815")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_top", 24)
-	margin.add_theme_constant_override("margin_bottom", 24)
-	add_child(margin)
-
-	var scroll := ScrollContainer.new()
-	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	margin.add_child(scroll)
-
-	var root := VBoxContainer.new()
-	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	root.add_theme_constant_override("separation", 8)
-	scroll.add_child(root)
-
-	title_label = Label.new()
-	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 27)
-	root.add_child(title_label)
-
-	clock_label = Label.new()
-	clock_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	clock_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	clock_label.add_theme_font_size_override("font_size", 17)
-	root.add_child(clock_label)
-
-	money_label = Label.new()
-	money_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	money_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	money_label.add_theme_font_size_override("font_size", 16)
-	root.add_child(money_label)
-
-	clue_label = Label.new()
-	clue_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	clue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	clue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	clue_label.custom_minimum_size = Vector2(0, 70)
-	clue_label.add_theme_font_size_override("font_size", 15)
-	root.add_child(clue_label)
-
-	var inv_title := Label.new()
-	inv_title.text = "INVENTORY"
-	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inv_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inv_title.add_theme_font_size_override("font_size", 16)
-	root.add_child(inv_title)
-
-	inventory_grid = GridContainer.new()
-	inventory_grid.columns = 2
-	inventory_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inventory_grid.add_theme_constant_override("h_separation", 7)
-	inventory_grid.add_theme_constant_override("v_separation", 7)
-	root.add_child(inventory_grid)
-
-	inventory_detail = Label.new()
-	inventory_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inventory_detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	inventory_detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	inventory_detail.custom_minimum_size = Vector2(0, 105)
-	inventory_detail.add_theme_font_size_override("font_size", 15)
-	root.add_child(inventory_detail)
-
-	var map_title := Label.new()
-	map_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	map_title.text = "PETA"
-	map_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	map_title.add_theme_font_size_override("font_size", 16)
-	root.add_child(map_title)
-
-	map_row = GridContainer.new()
-	map_row.columns = 2
-	map_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	map_row.add_theme_constant_override("h_separation", 8)
-	map_row.add_theme_constant_override("v_separation", 8)
-	root.add_child(map_row)
-
-	var order := [
-		"rumah",
-		"toko_kamera",
-		"warung_ratna",
-		"pak_arman",
-		"bengkel_umum",
-		"pasar_tua",
-		"kedai_foto",
-		"terminal_kota",
-		"alamat_sentana"
-	]
-
-	for location_id in order:
-		var button := Button.new()
-		button.custom_minimum_size = Vector2(0, 54)
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var captured_id: String = location_id
-		button.pressed.connect(func(): _travel_to(captured_id))
-		map_row.add_child(button)
-		location_buttons[location_id] = button
-
-	location_label = Label.new()
-	location_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	location_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_label.add_theme_font_size_override("font_size", 21)
-	root.add_child(location_label)
-
-	location_description = Label.new()
-	location_description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	location_description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	location_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	location_description.custom_minimum_size = Vector2(0, 85)
-	location_description.add_theme_font_size_override("font_size", 16)
-	root.add_child(location_description)
-
-	response_label = Label.new()
-	response_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	response_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	response_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	response_label.custom_minimum_size = Vector2(0, 135)
-	response_label.add_theme_font_size_override("font_size", 17)
-	root.add_child(response_label)
-
-	action_row = VBoxContainer.new()
-	action_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	action_row.add_theme_constant_override("separation", 7)
-	root.add_child(action_row)
-
-	menu_button = Button.new()
-	menu_button.text = "MENU"
-	menu_button.tooltip_text = "Kembali ke menu utama"
-	menu_button.custom_minimum_size = Vector2(112, 44)
-	menu_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	menu_button.offset_left = -132
-	menu_button.offset_top = 16
-	menu_button.offset_right = -16
-	menu_button.offset_bottom = 60
-	menu_button.focus_mode = Control.FOCUS_NONE
-	menu_button.pressed.connect(_return_to_menu)
-	add_child(menu_button)
-
-	_refresh_status()
-	_autosave()
-	_refresh_inventory()
-	_refresh_map()
 
 func _show_opening() -> void:
 	title_label.text = "MINGGU SORE"
