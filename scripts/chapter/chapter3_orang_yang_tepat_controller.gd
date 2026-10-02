@@ -320,7 +320,7 @@ func _refresh_inventory() -> void:
 		var item: Dictionary = AuctionState.get_inventory_item(str(item_id))
 		var button := Button.new()
 		button.text = str(item.get("name", str(item_id).to_upper()))
-		button.custom_minimum_size = Vector2(0, 46)
+		button.custom_minimum_size = Vector2(0, 58)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.icon = _inventory_icon(str(item_id))
 		button.add_theme_constant_override("icon_max_width", 24)
