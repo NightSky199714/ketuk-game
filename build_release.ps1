@@ -75,6 +75,21 @@ if ($Target -eq "windows" -or $Target -eq "all") {
     }
     Write-Host "WINDOWS_ARTIFACT_BOOT_OK=$WinOut"
 
+    $GitCommit = "unknown"
+    try {
+        $GitCommit = (& git -C $Root rev-parse HEAD).Trim()
+    } catch {}
+
+    $BuildInfoPath = Join-Path $WinDir "BUILD_INFO.txt"
+    @(
+        "KETUK. — Di Balik Harga"
+        "Version=0.1.0-rc1"
+        "Commit=$GitCommit"
+        "Platform=Windows x86_64"
+        "BuiltAtUtc=$([DateTime]::UtcNow.ToString('o'))"
+    ) | Set-Content -Encoding utf8 $BuildInfoPath
+    Write-Host "WINDOWS_BUILD_INFO_OK=$BuildInfoPath"
+
     $WindowsZip = Join-Path $Build "KETUK-0.1.0-rc1-windows.zip"
     if (Test-Path $WindowsZip) {
         Remove-Item -Force $WindowsZip
