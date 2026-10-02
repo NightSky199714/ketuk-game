@@ -33,7 +33,8 @@ var wait_count: int = 0
 @onready var wait_button: Button = $Margin/Root/ActionRow/WaitButton
 @onready var stop_button: Button = $Margin/Root/ActionRow/StopButton
 
-@onready var investigate_frame: PanelContainer = $Margin/Root/InvestigateFrame\n@onready var investigate_panel: VBoxContainer = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel
+@onready var investigate_frame: PanelContainer = $Margin/Root/InvestigateFrame
+@onready var investigate_panel: VBoxContainer = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel
 @onready var investigation_text: Label = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/InvestigationText
 @onready var continue_bid_button: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/ContinueBidButton
 @onready var inspect_button_1: Button = $Margin/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow/InspectButton1
