@@ -30,14 +30,14 @@ func _ready() -> void:
 	add_child(world)
 	await get_tree().process_frame
 
-	world._show_item_to_terminal("sentana_photo")
+	world.call("_show_item_to_terminal", "sentana_photo")
 	_expect(
 		AuctionState.sentana_invitation_leads.has("terminal_poster"),
 		"terminal_recognizes_poster",
 		failures
 	)
 
-	world._ask_terminal()
+	world.call("_ask_terminal")
 	_expect(
 		AuctionState.chapter2_known_places.has("alamat_sentana"),
 		"terminal_unlocks_address",
@@ -50,8 +50,8 @@ func _ready() -> void:
 	)
 
 	AuctionState.selected_inventory_item = "sentana_photo"
-	world.current_location_id = "alamat_sentana"
-	world._present_sentana_photo_at_address()
+	world.set("current_location_id", "alamat_sentana")
+	world.call("_present_sentana_photo_at_address")
 
 	_expect(
 		AuctionState.has_sentana_invitation(),
@@ -77,10 +77,16 @@ func _ready() -> void:
 		failures
 	)
 
-	world._clear_actions()
-	world._build_sentana_actions()
+	world.call("_clear_actions")
+	world.call("_build_sentana_actions")
 	var action_labels: Array[String] = []
-	for child in world.action_row.get_children():
+	var action_row := world.get("action_row") as VBoxContainer
+	_expect(action_row != null, "action_row_available", failures)
+	if action_row == null:
+		_finish(failures)
+		return
+
+	for child in action_row.get_children():
 		if child is Button:
 			action_labels.append(child.text)
 
@@ -95,6 +101,9 @@ func _ready() -> void:
 		failures
 	)
 
+	_finish(failures)
+
+func _finish(failures: Array[String]) -> void:
 	if failures.is_empty():
 		print("SENTANA_FLOW_OK")
 		get_tree().quit(0)
