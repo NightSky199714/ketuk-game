@@ -538,7 +538,7 @@ func _build_adi_actions() -> void:
 
 	if (
 		AuctionState.chapter2_leads.has("adi")
-		and AuctionState.has_inventory_item("camera")
+		and AuctionState.camera_lens_available()
 		and _adi_present()
 	):
 		_add_action("BICARA DENGAN PRIA DI DEKAT ETALASE", _meet_adi)
@@ -566,20 +566,20 @@ func _wait_until_monday() -> void:
 	_check_deadline_event()
 
 func _meet_adi() -> void:
-	if not AuctionState.has_inventory_item("camera"):
+	if not AuctionState.camera_lens_available():
+		response_label.text = "Lensanya sudah tidak ada untuk dijual."
+		_refresh_inventory()
+		_refresh_actions()
 		return
 
 	AuctionState.advance_chapter2_time(20)
-	AuctionState.money += 2100000
-	AuctionState.verify_rumor(
-		"adi_lens_buyer",
-		"Adi memang membeli lensa lama; ia membeli lensamu seharga Rp2.100.000."
-	)
-	AuctionState.camera_sale_status = "lens_only_2100_body_returned"
-	AuctionState.update_inventory_item("camera", {
-		"name": "BODY KAMERA",
-		"description": "Body kamera tanpa lensa. Lensanya sudah dijual kepada Adi."
-	})
+
+	if not AuctionState.sell_camera_lens_to_adi():
+		response_label.text = "Transaksi itu sudah selesai."
+		_refresh_inventory()
+		_refresh_actions()
+		return
+
 	response_label.text = "Adi membeli lensanya seharga Rp2.100.000. Body dikembalikan."
 	clue_label.text = ""
 	_refresh_status()
