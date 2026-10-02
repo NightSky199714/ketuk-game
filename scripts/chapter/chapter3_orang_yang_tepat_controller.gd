@@ -13,21 +13,21 @@ var data: Dictionary = {}
 var current_location_id: String = "pintu_pasar"
 var current_contact_id: String = ""
 
-@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
-@onready var subtitle_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/SubtitleLabel
-@onready var inventory_grid: GridContainer = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
-@onready var inventory_detail: Label = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
-@onready var map_row: GridContainer = $Margin/Scroll/Root/MapPanel/MapMargin/MapRow
-@onready var location_label: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationLabel
-@onready var location_description: Label = $Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack/LocationDescription
-@onready var response_label: Label = $Margin/Scroll/Root/ResponsePanel/ResponseMargin/ResponseLabel
-@onready var book_label: Label = $Margin/Scroll/Root/BookPanel/BookMargin/BookLabel
-@onready var travel_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TravelLabel
-@onready var contact_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ContactButton
-@onready var show_item_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ShowItemButton
-@onready var poster_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/PosterButton
-@onready var wait_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/WaitButton
-@onready var exit_button: Button = $Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack/ExitButton
+@onready var title_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var subtitle_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/SubtitleLabel
+@onready var inventory_grid: GridContainer = $Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
+@onready var inventory_detail: Label = $Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack/InventoryDetail
+@onready var map_row: GridContainer = $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow
+@onready var location_label: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationLabel
+@onready var location_description: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationDescription
+@onready var response_label: Label = $Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin/ResponseLabel
+@onready var book_label: Label = $Margin/Root/Scroll/Content/BookPanel/BookMargin/BookLabel
+@onready var travel_label: Label = $Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack/TravelLabel
+@onready var contact_button: Button = $Margin/Root/ActionPanel/ActionMargin/ActionStack/ContactButton
+@onready var show_item_button: Button = $Margin/Root/ActionPanel/ActionMargin/ActionStack/ShowItemButton
+@onready var poster_button: Button = $Margin/Root/ActionPanel/ActionMargin/ActionStack/PosterButton
+@onready var wait_button: Button = $Margin/Root/ActionPanel/ActionMargin/ActionStack/WaitButton
+@onready var exit_button: Button = $Margin/Root/ActionPanel/ActionMargin/ActionStack/ExitButton
 @onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
@@ -42,12 +42,12 @@ func _ready() -> void:
 
 func _wire_ui() -> void:
 	location_buttons = {
-		"pintu_pasar": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PintuPasarButton,
-		"kios_tengah": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KiosTengahButton,
-		"kedai_pojok": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/KedaiPojokButton,
-		"gang_timur": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/GangTimurButton,
-		"lorong_belakang": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/LorongBelakangButton,
-		"papan_pengumuman": $Margin/Scroll/Root/MapPanel/MapMargin/MapRow/PapanButton
+		"pintu_pasar": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/PintuPasarButton,
+		"kios_tengah": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/KiosTengahButton,
+		"kedai_pojok": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/KedaiPojokButton,
+		"gang_timur": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/GangTimurButton,
+		"lorong_belakang": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/LorongBelakangButton,
+		"papan_pengumuman": $Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow/PapanButton
 	}
 
 	var location_icons := {
