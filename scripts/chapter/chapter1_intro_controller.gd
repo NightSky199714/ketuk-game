@@ -26,7 +26,7 @@ var beats := [
 	{
 		"title": "BALAI LELANG KAMPUNG SUKA JAYA",
 		"main": "Kamu menutup buku, memasukkan uang ke dompet, lalu berangkat.",
-		"detail": "Kamu menutup buku, mengambil dompet, lalu menuju balai."
+		"detail": "Balai lelang tidak jauh dari kios. Siang itu, kamu datang bukan sekadar untuk melihat-lihat."
 	}
 ]
 
