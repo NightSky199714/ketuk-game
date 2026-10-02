@@ -86,7 +86,7 @@ theme_override_constants/separation = 12
 
 [node name="HeaderPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="HeaderMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/HeaderPanel"]
 layout_mode = 2
@@ -113,6 +113,7 @@ horizontal_alignment = 1
 
 [node name="NarrativePanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"AccentCard"
 
 [node name="NarrativeMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/NarrativePanel"]
 layout_mode = 2
@@ -139,6 +140,7 @@ horizontal_alignment = 1
 
 [node name="InventoryPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 size_flags_vertical = 3
 
 [node name="InventoryMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InventoryPanel"]
@@ -162,7 +164,7 @@ theme_override_constants/v_separation = 8
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_vertical = 3
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="ItemDetailMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack/ItemDetailFrame"]
 layout_mode = 2
