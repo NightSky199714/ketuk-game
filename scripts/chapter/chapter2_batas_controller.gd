@@ -22,7 +22,7 @@ var current_location_id: String = "rumah"
 @onready var location_label: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationLabel
 @onready var location_description: Label = $Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack/LocationDescription
 @onready var response_label: Label = $Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin/ResponseLabel
-@onready var action_row: VBoxContainer = $Margin/Root/ActionRow
+@onready var action_row: VBoxContainer = $Margin/Root/ActionDock/ActionMargin/ActionRow
 @onready var menu_button: Button = $MenuButton
 var location_buttons: Dictionary = {}
 
