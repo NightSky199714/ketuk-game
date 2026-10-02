@@ -325,6 +325,7 @@ func _refresh_inventory() -> void:
 		button.icon = _inventory_icon(str(item_id))
 		button.add_theme_constant_override("icon_max_width", 24)
 		button.expand_icon = true
+		button.theme_type_variation = &"SelectedButton" if AuctionState.selected_inventory_item == str(item_id) else &""
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_inventory_item(captured_id))
 		inventory_grid.add_child(button)
@@ -355,6 +356,9 @@ func _refresh_map_buttons() -> void:
 		var label := str(location.get("label", location_id)).to_upper()
 		if location_id == current_location_id:
 			label = "• " + label
+			button.theme_type_variation = &"SelectedButton"
+		else:
+			button.theme_type_variation = &""
 		button.text = label
 
 func _refresh_travel() -> void:
