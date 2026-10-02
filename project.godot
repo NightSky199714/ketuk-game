@@ -1,12 +1,12 @@
 ; Engine configuration file.
-; KETUK. — 0.1.1 UI Polish Release
+; KETUK. — 0.1.2 UI Polish II Release
 
 config_version=5
 
 [application]
 
 config/name="KETUK. — Di Balik Harga"
-config/version="0.1.1"
+config/version="0.1.2"
 run/main_scene="res://scenes/system/main_menu.tscn"
 
 [autoload]
