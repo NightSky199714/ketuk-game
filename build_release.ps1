@@ -82,7 +82,7 @@ if ($Target -eq "windows" -or $Target -eq "all") {
 
     $BuildInfoPath = Join-Path $WinDir "BUILD_INFO.txt"
     @(
-        "KETUK. — Di Balik Harga"
+        "KETUK. - Di Balik Harga"
         "Version=0.1.0-rc1"
         "Commit=$GitCommit"
         "Platform=Windows x86_64"
