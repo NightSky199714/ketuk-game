@@ -8,7 +8,7 @@ func _ready() -> void:
 	AuctionState.start_chapter1()
 	AuctionState.finish_chapter1()
 	AuctionState.start_chapter2()
-	AuctionState.chapter2_time_minutes = 24 * 60 + 9 * 60
+	AuctionState.chapter2_time_minutes = 24 * 60 + 8 * 60
 
 	AuctionState.start_chapter3()
 	AuctionState.chapter3_poster_seen = true
