@@ -25,3 +25,4 @@ Thumbs.db
 # Local environment / debug artifacts
 .env
 *.log
+project.godot.local-backup
