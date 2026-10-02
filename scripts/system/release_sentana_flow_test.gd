@@ -80,7 +80,7 @@ func _ready() -> void:
 	world.call("_clear_actions")
 	world.call("_build_sentana_actions")
 	var action_labels: Array[String] = []
-	var action_row := world.get("action_row") as VBoxContainer
+	var action_row := world.get("action_row") as GridContainer
 	_expect(action_row != null, "action_row_available", failures)
 	if action_row == null:
 		_finish(failures)
