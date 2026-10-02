@@ -1,4 +1,6 @@
-# KETUK. 0.1.3 — Final Release Checklist
+# KETUK. 0.1.3 — Candidate QA Checklist
+
+> Publication remains deferred until final QA acceptance.
 
 ## Definition
 
