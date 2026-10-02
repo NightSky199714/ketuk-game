@@ -56,61 +56,68 @@ theme_override_constants/margin_top = 78
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Scroll" type="ScrollContainer" parent="Margin"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-follow_focus = true
-
-[node name="Root" type="VBoxContainer" parent="Margin/Scroll"]
+[node name="Root" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="Scroll" type="ScrollContainer" parent="Margin/Root"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_type_variation = &"DarkPanel"
 
-[node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
+[node name="HeaderMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/HeaderPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
-[node name="HeaderStack" type="VBoxContainer" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin"]
+[node name="HeaderStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="TitleLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+[node name="TitleLabel" type="Label" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
 theme_override_font_sizes/font_size = 28
 horizontal_alignment = 1
 
-[node name="ClockLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+[node name="ClockLabel" type="Label" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 
-[node name="MoneyLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack"]
+[node name="MoneyLabel" type="Label" parent="Margin/Root/Scroll/Content/HeaderPanel/HeaderMargin/HeaderStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="CluePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="CluePanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="ClueMargin" type="MarginContainer" parent="Margin/Scroll/Root/CluePanel"]
+[node name="ClueMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/CluePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 12
 
-[node name="ClueLabel" type="Label" parent="Margin/Scroll/Root/CluePanel/ClueMargin"]
+[node name="ClueLabel" type="Label" parent="Margin/Root/Scroll/Content/CluePanel/ClueMargin"]
 custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
@@ -119,34 +126,34 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="InventoryCaption" type="Label" parent="Margin/Scroll/Root"]
+[node name="InventoryCaption" type="Label" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.843137, 0.756863, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "TAS"
 horizontal_alignment = 1
 
-[node name="InventoryPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="InventoryPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="InventoryMargin" type="MarginContainer" parent="Margin/Scroll/Root/InventoryPanel"]
+[node name="InventoryMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/InventoryPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="InventoryStack" type="VBoxContainer" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin"]
+[node name="InventoryStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="InventoryGrid" type="GridContainer" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack"]
+[node name="InventoryGrid" type="GridContainer" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack"]
 layout_mode = 2
 columns = 2
 theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
 
-[node name="InventoryDetail" type="Label" parent="Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack"]
+[node name="InventoryDetail" type="Label" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack"]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
@@ -155,105 +162,105 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="MapCaption" type="Label" parent="Margin/Scroll/Root"]
+[node name="MapCaption" type="Label" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.843137, 0.756863, 0.643137, 1)
 theme_override_font_sizes/font_size = 14
 text = "SUKAMAJU — PILIH TEMPAT YANG INGIN DICOBA"
 horizontal_alignment = 1
 
-[node name="MapPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="MapPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="MapMargin" type="MarginContainer" parent="Margin/Scroll/Root/MapPanel"]
+[node name="MapMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/MapPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="MapRow" type="GridContainer" parent="Margin/Scroll/Root/MapPanel/MapMargin"]
+[node name="MapRow" type="GridContainer" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin"]
 layout_mode = 2
 columns = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 
-[node name="RumahButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="RumahButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "RUMAH"
 
-[node name="TokoKameraButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="TokoKameraButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TOKO KAMERA"
 
-[node name="WarungRatnaButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="WarungRatnaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WARUNG RATNA"
 
-[node name="PakArmanButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="PakArmanButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PAK ARMAN"
 
-[node name="BengkelButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="BengkelButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "BENGKEL"
 
-[node name="PasarTuaButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="PasarTuaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PASAR TUA"
 
-[node name="KedaiFotoButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="KedaiFotoButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "KEDAI FOTO"
 
-[node name="TerminalButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="TerminalButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TERMINAL"
 
-[node name="SentanaButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
+[node name="SentanaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ALAMAT SENTANA"
 
-[node name="LocationPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="LocationPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_type_variation = &"DarkPanel"
 
-[node name="LocationMargin" type="MarginContainer" parent="Margin/Scroll/Root/LocationPanel"]
+[node name="LocationMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/LocationPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
-[node name="LocationStack" type="VBoxContainer" parent="Margin/Scroll/Root/LocationPanel/LocationMargin"]
+[node name="LocationStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/LocationPanel/LocationMargin"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="LocationLabel" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+[node name="LocationLabel" type="Label" parent="Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.968627, 0.913725, 0.815686, 1)
 theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 
-[node name="LocationDescription" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
+[node name="LocationDescription" type="Label" parent="Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
@@ -262,17 +269,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ResponsePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="ResponsePanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="ResponseMargin" type="MarginContainer" parent="Margin/Scroll/Root/ResponsePanel"]
+[node name="ResponseMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/ResponsePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
-[node name="ResponseLabel" type="Label" parent="Margin/Scroll/Root/ResponsePanel/ResponseMargin"]
+[node name="ResponseLabel" type="Label" parent="Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin"]
 custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
@@ -281,7 +288,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ActionRow" type="VBoxContainer" parent="Margin/Scroll/Root"]
+[node name="ActionRow" type="VBoxContainer" parent="Margin/Root"]
 layout_mode = 2
 theme_override_constants/separation = 7
 
