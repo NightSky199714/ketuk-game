@@ -81,71 +81,78 @@ theme_override_constants/margin_top = 56
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 28
 
-[node name="Scroll" type="ScrollContainer" parent="Margin"]
+[node name="Root" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Root"]
+layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 follow_focus = true
 
-[node name="Root" type="VBoxContainer" parent="Margin/Scroll"]
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="BrandPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="BrandPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_type_variation = &"DarkPanel"
 
-[node name="BrandMargin" type="MarginContainer" parent="Margin/Scroll/Root/BrandPanel"]
+[node name="BrandMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BrandPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 26
 theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 26
 theme_override_constants/margin_bottom = 24
 
-[node name="BrandStack" type="VBoxContainer" parent="Margin/Scroll/Root/BrandPanel/BrandMargin"]
+[node name="BrandStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Title" type="Label" parent="Margin/Scroll/Root/BrandPanel/BrandMargin/BrandStack"]
+[node name="Title" type="Label" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin/BrandStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.972549, 0.913725, 0.811765, 1)
 theme_override_font_sizes/font_size = 58
 text = "KETUK."
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Margin/Scroll/Root/BrandPanel/BrandMargin/BrandStack"]
+[node name="Subtitle" type="Label" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin/BrandStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.478431, 0.364706, 1)
 theme_override_font_sizes/font_size = 27
 text = "DI BALIK HARGA"
 horizontal_alignment = 1
 
-[node name="Tagline" type="Label" parent="Margin/Scroll/Root/BrandPanel/BrandMargin/BrandStack"]
+[node name="Tagline" type="Label" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin/BrandStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.827451, 0.752941, 0.643137, 1)
 theme_override_font_sizes/font_size = 16
 text = "Setiap tawaran punya harga."
 horizontal_alignment = 1
 
-[node name="BrandRule" type="ColorRect" parent="Margin/Scroll/Root/BrandPanel/BrandMargin/BrandStack"]
+[node name="BrandRule" type="ColorRect" parent="Margin/Root/Scroll/Content/BrandPanel/BrandMargin/BrandStack"]
 custom_minimum_size = Vector2(120, 4)
 layout_mode = 2
 color = Color(0.541176, 0.2, 0.145098, 1)
 
-[node name="Spacer" type="Control" parent="Margin/Scroll/Root"]
+[node name="Spacer" type="Control" parent="Margin/Root/Scroll/Content"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 
-[node name="MenuCaption" type="Label" parent="Margin/Scroll/Root"]
+[node name="MenuCaption" type="Label" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.713725, 0.635294, 0.545098, 1)
 theme_override_font_sizes/font_size = 14
 text = "BALAI LELANG SUKAMAJU"
 horizontal_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="Margin/Scroll/Root"]
+[node name="ContinueButton" type="Button" parent="Margin/Root"]
 custom_minimum_size = Vector2(0, 86)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
@@ -154,7 +161,7 @@ theme_override_constants/icon_max_width = 28
 expand_icon = true
 text = "LANJUTKAN  ›"
 
-[node name="NewGameButton" type="Button" parent="Margin/Scroll/Root"]
+[node name="NewGameButton" type="Button" parent="Margin/Root"]
 custom_minimum_size = Vector2(0, 78)
 layout_mode = 2
 icon = ExtResource("5")
@@ -162,24 +169,24 @@ theme_override_constants/icon_max_width = 28
 expand_icon = true
 text = "GAME BARU  ›"
 
-[node name="SaveStatusPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="SaveStatusPanel" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="SaveStatusMargin" type="MarginContainer" parent="Margin/Scroll/Root/SaveStatusPanel"]
+[node name="SaveStatusMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/SaveStatusPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 12
 
-[node name="SaveStatus" type="Label" parent="Margin/Scroll/Root/SaveStatusPanel/SaveStatusMargin"]
+[node name="SaveStatus" type="Label" parent="Margin/Root/Scroll/Content/SaveStatusPanel/SaveStatusMargin"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.180392, 0.12549, 0.0941176, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="QuitButton" type="Button" parent="Margin/Scroll/Root"]
+[node name="QuitButton" type="Button" parent="Margin/Root"]
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 2
 theme_type_variation = &"DarkButton"
@@ -188,32 +195,32 @@ theme_override_constants/icon_max_width = 26
 expand_icon = true
 text = "KELUAR"
 
-[node name="FooterSpacer" type="Control" parent="Margin/Scroll/Root"]
+[node name="FooterSpacer" type="Control" parent="Margin/Root/Scroll/Content"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="BottomCard" type="PanelContainer" parent="Margin/Scroll/Root"]
+[node name="BottomCard" type="PanelContainer" parent="Margin/Root/Scroll/Content"]
 layout_mode = 2
 
-[node name="BottomMargin" type="MarginContainer" parent="Margin/Scroll/Root/BottomCard"]
+[node name="BottomMargin" type="MarginContainer" parent="Margin/Root/Scroll/Content/BottomCard"]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 13
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 13
 
-[node name="BottomStack" type="VBoxContainer" parent="Margin/Scroll/Root/BottomCard/BottomMargin"]
+[node name="BottomStack" type="VBoxContainer" parent="Margin/Root/Scroll/Content/BottomCard/BottomMargin"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Footer" type="Label" parent="Margin/Scroll/Root/BottomCard/BottomMargin/BottomStack"]
+[node name="Footer" type="Label" parent="Margin/Root/Scroll/Content/BottomCard/BottomMargin/BottomStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 13
 text = "MENANG BELUM TENTU UNTUNG."
 horizontal_alignment = 1
 
-[node name="Version" type="Label" parent="Margin/Scroll/Root/BottomCard/BottomMargin/BottomStack"]
+[node name="Version" type="Label" parent="Margin/Root/Scroll/Content/BottomCard/BottomMargin/BottomStack"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.337255, 0.266667, 0.207843, 1)
 theme_override_font_sizes/font_size = 12
