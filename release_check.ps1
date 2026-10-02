@@ -16,15 +16,39 @@ function Resolve-GodotRunner {
 
 function Invoke-GodotChecked {
     param([string[]]$Arguments, [string]$FailureMessage)
-    $QuotedArgs = @()
-    foreach ($Arg in $Arguments) {
-        if ($Arg -match "[\s`"]") { $QuotedArgs += "`"" + ($Arg -replace "`"", "\`"") + "`"" }
-        else { $QuotedArgs += $Arg }
+
+    $Token = [Guid]::NewGuid().ToString("N")
+    $StdOutPath = Join-Path $env:TEMP ("ketuk_godot_stdout_" + $Token + ".log")
+    $StdErrPath = Join-Path $env:TEMP ("ketuk_godot_stderr_" + $Token + ".log")
+
+    try {
+        $QuotedArgs = @()
+        foreach ($Arg in $Arguments) {
+            if ($Arg -match "[\s`"]") { $QuotedArgs += "`"" + ($Arg -replace "`"", "\`"") + "`"" }
+            else { $QuotedArgs += $Arg }
+        }
+
+        $Process = Start-Process -FilePath $script:GodotRunner -ArgumentList ($QuotedArgs -join " ") -Wait -PassThru -NoNewWindow -RedirectStandardOutput $StdOutPath -RedirectStandardError $StdErrPath
+        $ExitCode = [int]$Process.ExitCode
+
+        $StdOut = if (Test-Path $StdOutPath) { Get-Content -Raw $StdOutPath } else { "" }
+        $StdErr = if (Test-Path $StdErrPath) { Get-Content -Raw $StdErrPath } else { "" }
+
+        if (-not [string]::IsNullOrWhiteSpace($StdOut)) { Write-Host $StdOut.TrimEnd() }
+        if (-not [string]::IsNullOrWhiteSpace($StdErr)) { Write-Host $StdErr.TrimEnd() }
+
+        $Combined = $StdOut + "`n" + $StdErr
+        $FatalPattern = "(?m)^\s*(SCRIPT ERROR:|ERROR: Failed to load script|ERROR: Failed loading resource|ERROR: Cannot open file)"
+
+        if ($ExitCode -ne 0 -or $Combined -match $FatalPattern) {
+            throw "$FailureMessage Exit code: $ExitCode. Godot reported a fatal script/resource error."
+        }
+
+        return $ExitCode
     }
-    $Process = Start-Process -FilePath $script:GodotRunner -ArgumentList ($QuotedArgs -join " ") -Wait -PassThru -NoNewWindow
-    $ExitCode = [int]$Process.ExitCode
-    if ($ExitCode -ne 0) { throw "$FailureMessage Exit code: $ExitCode." }
-    return $ExitCode
+    finally {
+        Remove-Item -Force -ErrorAction SilentlyContinue $StdOutPath, $StdErrPath
+    }
 }
 
 $GodotRunner = Resolve-GodotRunner -Path $GodotPath
