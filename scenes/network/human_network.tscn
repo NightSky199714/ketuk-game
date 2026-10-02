@@ -279,7 +279,7 @@ visible = false
 custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
-text = "AKHIRI P0.3"
+text = "AKHIRI PENCARIAN"
 
 [node name="EndPanel" type="VBoxContainer" parent="Margin/Scroll/Root"]
 visible = false
@@ -293,7 +293,7 @@ theme_type_variation = &"DarkPanel"
 [node name="EndTitle" type="Label" parent="Margin/Scroll/Root/EndPanel/EndTitlePanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "HUMAN NETWORK"
+text = "HASIL PENCARIAN"
 horizontal_alignment = 1
 
 [node name="EndCopyPanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
