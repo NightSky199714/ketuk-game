@@ -1,10 +1,10 @@
 extends Control
 
-@onready var title_label: Label = $Margin/Root/TitlePanel/TitleMargin/TitleLabel
-@onready var main_label: Label = $Margin/Root/MainPanel/MainMargin/MainLabel
-@onready var detail_label: Label = $Margin/Root/DetailPanel/DetailMargin/DetailLabel
-@onready var step_label: Label = $Margin/Root/StepLabel
-@onready var next_button: Button = $Margin/Root/NextButton
+@onready var title_label: Label = $Margin/Scroll/Root/TitlePanel/TitleMargin/TitleLabel
+@onready var main_label: Label = $Margin/Scroll/Root/MainPanel/MainMargin/MainLabel
+@onready var detail_label: Label = $Margin/Scroll/Root/DetailPanel/DetailMargin/DetailLabel
+@onready var step_label: Label = $Margin/Scroll/Root/StepLabel
+@onready var next_button: Button = $Margin/Scroll/Root/NextButton
 var beat_index: int = 0
 
 var beats := [
