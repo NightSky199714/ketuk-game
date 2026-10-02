@@ -1,12 +1,12 @@
 ; Engine configuration file.
-; KETUK. — Release Candidate
+; KETUK. — 0.1.0 Release
 
 config_version=5
 
 [application]
 
 config/name="KETUK. — Di Balik Harga"
-config/version="0.1.0-rc1"
+config/version="0.1.0"
 run/main_scene="res://scenes/system/main_menu.tscn"
 
 [autoload]
