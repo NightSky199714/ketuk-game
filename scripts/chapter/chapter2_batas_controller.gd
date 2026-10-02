@@ -287,7 +287,12 @@ func _show_item_to_terminal(item_id: String) -> void:
 	AuctionState.advance_chapter2_time(10)
 
 	if item_id == "sentana_photo":
+		AuctionState.start_sentana_access()
 		AuctionState.chapter2_leads["sentana"] = true
+		AuctionState.record_sentana_invitation_lead(
+			"terminal_poster",
+			"Seorang sopir Terminal Kota mengenali nama Sentana pada poster."
+		)
 		AuctionState.hear_rumor(
 			"sentana_drivers",
 			"Beberapa orang terminal merasa pernah mendengar nama Sentana.",
@@ -508,6 +513,18 @@ func _ask_terminal() -> void:
 			"Terminal Kota"
 		)
 		response_label.text = "Setelah beberapa percakapan, seorang sopir akhirnya memberi patokan sebuah alamat yang mungkin terkait nama Sentana. Ia sendiri tidak yakin."
+
+		if (
+			AuctionState.sentana_access_started
+			and AuctionState.has_inventory_item("sentana_photo")
+			and AuctionState.sentana_invitation_leads.has("terminal_poster")
+		):
+			AuctionState.record_sentana_invitation_lead(
+				"terminal_address",
+				"Alamat kota yang disebut sopir terkait dengan jalur distribusi undangan Sentana."
+			)
+			response_label.text += "\n\nSopir lain melihat fotonya lagi. \"Kalau poster ini asli, alamat itu bukan rumah orangnya. Dulu saya pernah antar amplop acara ke sana.\""
+
 		clue_label.text = ""
 	else:
 		response_label.text = "Kamu tidak mendapat tambahan yang lebih pasti dari alamat yang sudah dicatat."
@@ -521,7 +538,49 @@ func _ask_terminal() -> void:
 func _build_sentana_actions() -> void:
 	if not AuctionState.chapter2_leads.has("sentana_address"):
 		return
-	_add_action("DATANGI RUMAH", _search_sentana_address)
+
+	if AuctionState.has_sentana_invitation():
+		_add_action("PERIKSA UNDANGAN", _review_sentana_invitation)
+		return
+
+	_add_action("DATANGI ALAMAT", _search_sentana_address)
+
+	if (
+		AuctionState.sentana_access_started
+		and AuctionState.sentana_invitation_leads.has("terminal_address")
+		and AuctionState.selected_inventory_item == "sentana_photo"
+		and AuctionState.has_inventory_item("sentana_photo")
+	):
+		_add_action("TUNJUKKAN FOTO POSTER", _present_sentana_photo_at_address)
+
+func _present_sentana_photo_at_address() -> void:
+	if not AuctionState.sentana_access_started:
+		return
+	if not AuctionState.sentana_invitation_leads.has("terminal_address"):
+		return
+	if not AuctionState.has_inventory_item("sentana_photo"):
+		return
+
+	AuctionState.advance_chapter2_time(20)
+	var granted := AuctionState.grant_sentana_invitation("Meja depan — alamat kota")
+
+	if granted:
+		response_label.text = "Perempuan di meja depan melihat foto poster cukup lama, lalu memeriksa nomor kecil di sudutnya.\n\n\"Poster pasar,\" katanya. \"Undangannya memang diambil lewat sini.\"\n\nIa membuka laci, mencocokkan catatan, lalu menyerahkan satu amplop tebal dengan nama acara yang sama."
+		clue_label.text = ""
+	else:
+		response_label.text = "Tidak ada tambahan baru dari foto itu."
+
+	_refresh_status()
+	_refresh_inventory()
+	_refresh_actions()
+	_autosave()
+	_check_deadline_event()
+
+func _review_sentana_invitation() -> void:
+	response_label.text = "Amplop undangan masih ada di tasmu. Nama acara pada kartu di dalamnya sama dengan poster Pasar Tua."
+	clue_label.text = ""
+	_refresh_inventory()
+	_autosave()
 
 func _search_sentana_address() -> void:
 	AuctionState.advance_chapter2_time(150)
@@ -530,7 +589,10 @@ func _search_sentana_address() -> void:
 		"sentana_address",
 		"Alamat yang diberikan sopir memang ada, tetapi belum membuktikan siapa yang terkait dengannya."
 	)
-	response_label.text = "Alamatnya nyata. Sentana tidak ada di sana."
+	if AuctionState.sentana_access_started:
+		response_label.text = "Alamatnya nyata, tetapi bukan rumah Sentana. Ada meja depan dan beberapa kotak arsip; tanpa petunjuk tambahan, tidak ada yang mau menjelaskan hubungan tempat ini dengan acara di poster."
+	else:
+		response_label.text = "Alamatnya nyata. Sentana tidak ada di sana."
 	clue_label.text = ""
 	_refresh_status()
 	_autosave()
