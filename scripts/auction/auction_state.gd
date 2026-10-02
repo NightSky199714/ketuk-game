@@ -604,6 +604,34 @@ func import_save_data(data: Dictionary) -> void:
 	sentana_invitation_leads = _dict_from_save(data.get("sentana_invitation_leads", {}))
 	sentana_invitation_source = str(data.get("sentana_invitation_source", ""))
 
+	# Migration/recovery: v0.1.3 already allowed players to photograph the
+	# poster and even show that photo at the terminal before access-state
+	# fields existed.
+	if (
+		chapter3_poster_photographed
+		and inventory.has("sentana_photo")
+		and sentana_access_status != "invited"
+	):
+		start_sentana_access()
+
+	if (
+		sentana_access_started
+		and npc_remembers("terminal", "shown_sentana_photo")
+	):
+		record_sentana_invitation_lead(
+			"terminal_poster",
+			"Seorang sopir Terminal Kota mengenali nama Sentana pada poster."
+		)
+
+	if (
+		sentana_invitation_leads.has("terminal_poster")
+		and chapter2_leads.has("sentana_address")
+	):
+		record_sentana_invitation_lead(
+			"terminal_address",
+			"Alamat kota yang disebut sopir terkait dengan jalur distribusi undangan Sentana."
+		)
+
 	# Defensive recovery for future saves: inventory is canonical evidence of access.
 	if inventory.has("sentana_invitation"):
 		sentana_access_started = true
