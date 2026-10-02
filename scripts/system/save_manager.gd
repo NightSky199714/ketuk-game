@@ -142,9 +142,14 @@ func _read_valid_payload(path: String) -> Dictionary:
 	if file == null:
 		return {}
 
-	var parsed = JSON.parse_string(file.get_as_text())
+	var raw_text := file.get_as_text()
 	file.close()
 
+	var json := JSON.new()
+	if json.parse(raw_text) != OK:
+		return {}
+
+	var parsed = json.data
 	if typeof(parsed) != TYPE_DICTIONARY:
 		return {}
 
