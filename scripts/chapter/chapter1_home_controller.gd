@@ -40,6 +40,7 @@ func _refresh_inventory() -> void:
 		button.icon = _inventory_icon(str(item_id))
 		button.add_theme_constant_override("icon_max_width", 26)
 		button.expand_icon = true
+		button.theme_type_variation = &"SelectedButton" if AuctionState.selected_inventory_item == str(item_id) else &""
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_item(captured_id))
 		inventory_grid.add_child(button)
@@ -60,7 +61,7 @@ func _inventory_icon(item_id: String) -> Texture2D:
 
 func _select_item(item_id: String) -> void:
 	AuctionState.selected_inventory_item = item_id
-	_show_selected_item()
+	_refresh_inventory()
 
 func _show_selected_item() -> void:
 	var item_id := AuctionState.selected_inventory_item
