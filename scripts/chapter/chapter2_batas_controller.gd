@@ -67,7 +67,7 @@ func _wire_ui() -> void:
 	for location_id in location_buttons.keys():
 		var button: Button = location_buttons[location_id]
 		button.icon = location_icons.get(str(location_id), ICON_PIN)
-		button.icon_max_width = 22
+		button.add_theme_constant_override("icon_max_width", 22)
 		button.expand_icon = true
 		var captured_id := str(location_id)
 		button.pressed.connect(func(): _travel_to(captured_id))
@@ -583,7 +583,7 @@ func _refresh_inventory() -> void:
 		button.custom_minimum_size = Vector2(0, 48)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.icon = _inventory_icon(str(item_id))
-		button.icon_max_width = 24
+		button.add_theme_constant_override("icon_max_width", 24)
 		button.expand_icon = true
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_inventory_item(captured_id))
