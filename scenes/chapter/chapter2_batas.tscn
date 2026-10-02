@@ -45,6 +45,7 @@ expand_mode = 1
 stretch_mode = 0
 
 [node name="MenuButton" type="Button" parent="."]
+z_index = 50
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
