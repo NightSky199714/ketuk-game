@@ -258,7 +258,7 @@ layout_mode = 2
 text = "PERIKSA PAPAN"
 
 [node name="WaitButton" type="Button" parent="Margin/Scroll/Root/ActionPanel/ActionMargin/ActionStack"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 text = "DUDUK SEBENTAR"
 
