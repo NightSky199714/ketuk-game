@@ -2,9 +2,9 @@ extends Control
 
 @onready var continue_button: Button = $Margin/Root/ContinueButton
 @onready var new_game_button: Button = $Margin/Root/NewGameButton
-@onready var save_status: Label = $Margin/Root/SaveStatus
+@onready var save_status: Label = $Margin/Root/SaveStatusPanel/SaveStatusMargin/SaveStatus
 @onready var quit_button: Button = $Margin/Root/QuitButton
-@onready var version_label: Label = $Margin/Root/Version
+@onready var version_label: Label = $Margin/Root/BottomCard/BottomMargin/BottomStack/Version
 @onready var overwrite_dialog: ConfirmationDialog = $OverwriteDialog
 
 func _ready() -> void:
@@ -44,7 +44,6 @@ func _request_new_game() -> void:
 func _start_new_game() -> void:
 	SaveManager.delete_save()
 	SaveManager.new_game()
-
 
 func _quit_game() -> void:
 	get_tree().quit()
