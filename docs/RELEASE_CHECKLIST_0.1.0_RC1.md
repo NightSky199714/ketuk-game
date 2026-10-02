@@ -137,7 +137,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_release.ps1 -God
 
 Expected:
 - `build/windows/KETUK.exe`
-- `build/web/index.html` and companion Web files
+- `build/web/KETUK-web.zip`
+- `build/web/site/index.html` and companion Web files
 
 The build script automatically runs the release smoke gate before exporting.
 
