@@ -213,20 +213,24 @@ func _ready() -> void:
 	var legacy_rumors: Dictionary = legacy_v013.get("rumors", {}).duplicate(true)
 	legacy_rumors.erase("sentana_invitation_required")
 	legacy_v013["rumors"] = legacy_rumors
+	var legacy_npc_memory: Dictionary = legacy_v013.get("npc_memory", {}).duplicate(true)
+	legacy_npc_memory["terminal"] = {
+		"shown_sentana_photo": true
+	}
+	legacy_v013["npc_memory"] = legacy_npc_memory
+	var legacy_chapter2_leads: Dictionary = legacy_v013.get("chapter2_leads", {}).duplicate(true)
+	legacy_chapter2_leads["sentana"] = true
+	legacy_chapter2_leads["sentana_address"] = true
+	legacy_v013["chapter2_leads"] = legacy_chapter2_leads
 	AuctionState.import_save_data(legacy_v013)
 	_expect(
-		not AuctionState.sentana_access_started,
-		"legacy_v013_sentana_access_defaults_not_started",
+		AuctionState.sentana_access_started,
+		"legacy_v013_sentana_access_migrated",
 		failures
 	)
 	_expect(
-		AuctionState.sentana_access_status == "not_started",
-		"legacy_v013_sentana_status_default",
-		failures
-	)
-	_expect(
-		AuctionState.sentana_invitation_leads.is_empty(),
-		"legacy_v013_sentana_leads_default",
+		AuctionState.sentana_access_status == "investigating",
+		"legacy_v013_sentana_status_migrated",
 		failures
 	)
 	_expect(
@@ -245,13 +249,13 @@ func _ready() -> void:
 		failures
 	)
 	_expect(
-		AuctionState.start_sentana_access(),
-		"legacy_v013_can_start_sentana_access",
+		AuctionState.sentana_invitation_leads.has("terminal_poster"),
+		"legacy_v013_terminal_photo_lead_migrated",
 		failures
 	)
 	_expect(
-		AuctionState.sentana_access_status == "investigating",
-		"legacy_v013_sentana_access_resumes_from_photo",
+		AuctionState.sentana_invitation_leads.has("terminal_address"),
+		"legacy_v013_terminal_address_lead_migrated",
 		failures
 	)
 
