@@ -60,7 +60,24 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
+
+[node name="ViewBar" type="HBoxContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MapViewButton" type="Button" parent="Margin/Root/ViewBar"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryButton"
+text = "PETA"
+
+[node name="BagViewButton" type="Button" parent="Margin/Root/ViewBar"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TAS"
 
 [node name="Scroll" type="ScrollContainer" parent="Margin/Root"]
 layout_mode = 2
@@ -156,7 +173,7 @@ theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
 
 [node name="InventoryDetail" type="Label" parent="Margin/Root/Scroll/Content/InventoryPanel/InventoryMargin/InventoryStack"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 14
@@ -186,58 +203,58 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 columns = 2
 theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 6
 
 [node name="RumahButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "RUMAH"
 
 [node name="TokoKameraButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TOKO KAMERA"
 
 [node name="WarungRatnaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WARUNG RATNA"
 
 [node name="PakArmanButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PAK ARMAN"
 
 [node name="BengkelButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "BENGKEL"
 
 [node name="PasarTuaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PASAR TUA"
 
 [node name="KedaiFotoButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "KEDAI FOTO"
 
 [node name="TerminalButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TERMINAL"
 
 [node name="SentanaButton" type="Button" parent="Margin/Root/Scroll/Content/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ALAMAT SENTANA"
@@ -264,7 +281,7 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 
 [node name="LocationDescription" type="Label" parent="Margin/Root/Scroll/Content/LocationPanel/LocationMargin/LocationStack"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
 theme_override_font_sizes/font_size = 15
@@ -284,7 +301,7 @@ theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
 [node name="ResponseLabel" type="Label" parent="Margin/Root/Scroll/Content/ResponsePanel/ResponseMargin"]
-custom_minimum_size = Vector2(0, 92)
+custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 16
@@ -303,9 +320,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ActionRow" type="VBoxContainer" parent="Margin/Root/ActionDock/ActionMargin"]
+[node name="ActionRow" type="GridContainer" parent="Margin/Root/ActionDock/ActionMargin"]
 layout_mode = 2
-theme_override_constants/separation = 7
+columns = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 7
 
 [node name="MenuButton" type="Button" parent="."]
 z_index = 50
