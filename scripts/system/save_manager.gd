@@ -41,52 +41,15 @@ func save_game(scene_path: String = "") -> bool:
 		"state": AuctionState.export_save_data()
 	}
 
-	if not _write_text_file(SAVE_TMP_PATH, JSON.stringify(payload)):
-		push_error("Unable to write temporary save file.")
-		return false
-
-	if _read_valid_payload(SAVE_TMP_PATH).is_empty():
-		push_error("Temporary save validation failed.")
-		_remove_file_if_present(SAVE_TMP_PATH)
-		return false
-
-	var primary_payload := _read_valid_payload(SAVE_PATH)
-	var primary_was_valid := not primary_payload.is_empty()
-
-	if FileAccess.file_exists(SAVE_PATH):
-		if primary_was_valid:
-			_remove_file_if_present(SAVE_BACKUP_PATH)
-			var backup_error := _rename_user_file(
-				SAVE_PATH.get_file(),
-				SAVE_BACKUP_PATH.get_file()
-			)
-			if backup_error != OK:
-				push_error("Unable to rotate current save into backup.")
-				_remove_file_if_present(SAVE_TMP_PATH)
-				return false
-		else:
-			_remove_file_if_present(SAVE_PATH)
-
-	var promote_error := _rename_user_file(
-		SAVE_TMP_PATH.get_file(),
-		SAVE_PATH.get_file()
+	return _write_payload_atomic(
+		payload,
+		SAVE_PATH,
+		SAVE_TMP_PATH,
+		SAVE_BACKUP_PATH
 	)
-	if promote_error != OK:
-		push_error("Unable to promote temporary save.")
-		if primary_was_valid and FileAccess.file_exists(SAVE_BACKUP_PATH):
-			_rename_user_file(
-				SAVE_BACKUP_PATH.get_file(),
-				SAVE_PATH.get_file()
-			)
-		_remove_file_if_present(SAVE_TMP_PATH)
-		return false
-
-	return true
 
 func load_game() -> bool:
-	var payload := _read_valid_payload(SAVE_PATH)
-	if payload.is_empty():
-		payload = _read_valid_payload(SAVE_BACKUP_PATH)
+	var payload := _best_valid_payload(SAVE_PATH, SAVE_BACKUP_PATH)
 
 	if payload.is_empty():
 		push_error("No valid primary or backup save is available.")
@@ -116,6 +79,60 @@ func delete_save() -> bool:
 		if FileAccess.file_exists(path):
 			ok = _remove_file_if_present(path) and ok
 	return ok
+
+func _write_payload_atomic(
+	payload: Dictionary,
+	primary_path: String,
+	tmp_path: String,
+	backup_path: String
+) -> bool:
+	if not _write_text_file(tmp_path, JSON.stringify(payload)):
+		push_error("Unable to write temporary save file.")
+		return false
+
+	if _read_valid_payload(tmp_path).is_empty():
+		push_error("Temporary save validation failed.")
+		_remove_file_if_present(tmp_path)
+		return false
+
+	var primary_payload := _read_valid_payload(primary_path)
+	var primary_was_valid := not primary_payload.is_empty()
+
+	if FileAccess.file_exists(primary_path):
+		if primary_was_valid:
+			_remove_file_if_present(backup_path)
+			var backup_error := _rename_user_file(
+				primary_path.get_file(),
+				backup_path.get_file()
+			)
+			if backup_error != OK:
+				push_error("Unable to rotate current save into backup.")
+				_remove_file_if_present(tmp_path)
+				return false
+		else:
+			_remove_file_if_present(primary_path)
+
+	var promote_error := _rename_user_file(
+		tmp_path.get_file(),
+		primary_path.get_file()
+	)
+	if promote_error != OK:
+		push_error("Unable to promote temporary save.")
+		if primary_was_valid and FileAccess.file_exists(backup_path):
+			_rename_user_file(
+				backup_path.get_file(),
+				primary_path.get_file()
+			)
+		_remove_file_if_present(tmp_path)
+		return false
+
+	return true
+
+func _best_valid_payload(primary_path: String, backup_path: String) -> Dictionary:
+	var payload := _read_valid_payload(primary_path)
+	if payload.is_empty():
+		payload = _read_valid_payload(backup_path)
+	return payload
 
 func _read_valid_payload(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
