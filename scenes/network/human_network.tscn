@@ -170,6 +170,7 @@ theme_override_constants/v_separation = 8
 [node name="PintuPasarButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("4")
 theme_override_constants/icon_max_width = 22
 expand_icon = true
@@ -178,6 +179,7 @@ text = "PINTU PASAR"
 [node name="KiosTengahButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("5")
 theme_override_constants/icon_max_width = 22
 expand_icon = true
@@ -186,6 +188,7 @@ text = "KIOS TENGAH"
 [node name="GangTimurButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("6")
 theme_override_constants/icon_max_width = 22
 expand_icon = true
@@ -194,6 +197,7 @@ text = "GANG TIMUR"
 [node name="LorongBelakangButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("6")
 theme_override_constants/icon_max_width = 22
 expand_icon = true
