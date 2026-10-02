@@ -214,6 +214,7 @@ theme_override_constants/v_separation = 8
 [node name="CoasterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("5")
 theme_override_constants/icon_max_width = 24
 expand_icon = true
@@ -222,6 +223,7 @@ text = "TATAKAN"
 [node name="LighterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("6")
 theme_override_constants/icon_max_width = 24
 expand_icon = true
@@ -230,6 +232,7 @@ text = "KOREK"
 [node name="AdapterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_horizontal = 3
 icon = ExtResource("7")
 theme_override_constants/icon_max_width = 24
 expand_icon = true
@@ -238,6 +241,7 @@ text = "ADAPTOR"
 [node name="UnsureButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"DarkButton"
 text = "BELUM YAKIN"
 
