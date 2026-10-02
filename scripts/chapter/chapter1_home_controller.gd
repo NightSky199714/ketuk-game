@@ -38,7 +38,7 @@ func _refresh_inventory() -> void:
 		button.custom_minimum_size = Vector2(0, 62)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.icon = _inventory_icon(str(item_id))
-		button.icon_max_width = 26
+		button.add_theme_constant_override("icon_max_width", 26)
 		button.expand_icon = true
 		var captured_id := str(item_id)
 		button.pressed.connect(func(): _select_item(captured_id))
