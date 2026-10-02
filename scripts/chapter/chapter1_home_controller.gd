@@ -18,7 +18,7 @@ func _ready() -> void:
 	SaveManager.save_game("res://scenes/chapter/chapter1_home.tscn")
 
 func _refresh_home() -> void:
-	title_label.text = "MALAM — RUMAH"
+	title_label.text = "SORE — RUMAH"
 	main_label.text = "Kamu menaruh barang hasil lelang di meja. Tidak semuanya langsung memberi jawaban."
 	detail_label.text = "Uang tersisa: %s" % _rupiah(AuctionState.money)
 	_refresh_inventory()
