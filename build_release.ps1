@@ -49,6 +49,20 @@ if ($Target -eq "windows" -or $Target -eq "all") {
     $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--export-release", "Windows Desktop", $WinOut) -FailureMessage "Windows export failed. Check export templates."
     Write-Host "WINDOWS_EXPORT_OK=$WinOut"
 
+    $WinDir = Join-Path $Build "windows"
+    $PckFiles = @(Get-ChildItem -Path $WinDir -Filter "*.pck" -File)
+    if ($PckFiles.Count -lt 1) {
+        throw "Windows export completed but no .pck companion file was found."
+    }
+    Write-Host "WINDOWS_PCK_OK=$($PckFiles[0].FullName)"
+
+    $ArtifactProcess = Start-Process -FilePath $WinOut -ArgumentList "--headless --quit-after 3 -- release-check" -Wait -PassThru -NoNewWindow
+    $ArtifactExitCode = [int]$ArtifactProcess.ExitCode
+    if ($ArtifactExitCode -ne 0) {
+        throw "Exported Windows artifact failed boot check. Exit code: $ArtifactExitCode."
+    }
+    Write-Host "WINDOWS_ARTIFACT_BOOT_OK=$WinOut"
+
     $WindowsZip = Join-Path $Build "KETUK-0.1.0-rc1-windows.zip"
     if (Test-Path $WindowsZip) {
         Remove-Item -Force $WindowsZip
