@@ -111,6 +111,26 @@ func _ready() -> void:
 	)
 	_expect(AuctionState.chapter3_poster_seen, "poster_seen", failures)
 
+	var people_before_restart := AuctionState.chapter3_people_book.duplicate(true)
+	var poster_before_restart := AuctionState.chapter3_poster_seen
+	var network_steps_before_restart := AuctionState.network_travel_steps
+	AuctionState.start_chapter3()
+	_expect(
+		AuctionState.chapter3_people_book == people_before_restart,
+		"chapter3_start_idempotent_people_book",
+		failures
+	)
+	_expect(
+		AuctionState.chapter3_poster_seen == poster_before_restart,
+		"chapter3_start_idempotent_poster",
+		failures
+	)
+	_expect(
+		AuctionState.network_travel_steps == network_steps_before_restart,
+		"chapter3_start_idempotent_network_steps",
+		failures
+	)
+
 	if failures.is_empty():
 		print("STATE_ROUNDTRIP_OK")
 		get_tree().quit(0)
