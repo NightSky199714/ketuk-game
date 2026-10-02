@@ -1,4 +1,6 @@
-# KETUK. — 0.1.3 Release Notes
+# KETUK. — 0.1.3 Draft Release Notes
+
+> Internal QA candidate. Belum dipublikasikan sebagai GitHub Release.
 
 ## Release
 
