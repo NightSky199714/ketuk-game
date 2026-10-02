@@ -596,7 +596,7 @@ func _ask_terminal() -> void:
 	if not AuctionState.chapter2_leads.has("sentana"):
 		response_label.text = "Kamu duduk cukup lama. Obrolannya berpindah dari trayek, harga bensin, sampai penumpang yang tertinggal barang. Tidak ada sesuatu yang jelas berguna."
 		_refresh_status()
-	_autosave()
+		_autosave()
 		_check_deadline_event()
 		return
 
