@@ -1,0 +1,35 @@
+; Engine configuration file.
+; KETUK. — 0.1.0 Release
+
+config_version=5
+
+[application]
+
+config/name="KETUK. — Di Balik Harga"
+config/version="0.1.0"
+run/main_scene="res://scenes/system/main_menu.tscn"
+
+[autoload]
+
+AuctionState="*res://scripts/auction/auction_state.gd"
+NPCRegistry="*res://scripts/npc/npc_registry.gd"
+SaveManager="*res://scripts/system/save_manager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/window_width_override=540
+window/size/window_height_override=960
+window/size/resizable=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true

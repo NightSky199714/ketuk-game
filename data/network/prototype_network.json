@@ -1,0 +1,120 @@
+{
+  "locations": {
+    "pintu_pasar": {
+      "label": "PINTU PASAR",
+      "description": "Pasar Tua membentang ke tiga arah: deretan kios lama di tengah, Gang Timur yang lebih bising oleh bunyi logam, dan Lorong Belakang yang sempit.",
+      "contact": ""
+    },
+    "kios_tengah": {
+      "label": "KIOS TENGAH",
+      "description": "Deretan kios lama berisi koran, buku bekas, perkakas, dan barang campur. Pak Slamet bilang Pak Wira biasanya terlihat di sekitar sini.",
+      "contact": "pak_wira"
+    },
+    "gang_timur": {
+      "label": "GANG TIMUR",
+      "description": "Suara gerinda dan palu terdengar dari beberapa bengkel kecil. Bau logam panas bercampur debu pasar.",
+      "contact": "bu_sari"
+    },
+    "lorong_belakang": {
+      "label": "LORONG BELAKANG",
+      "description": "Lorong sempit di belakang pasar dipenuhi meja servis kecil, jam rusak, engsel, korek, dan komponen mekanis.",
+      "contact": "yanto"
+    }
+  },
+  "contacts": {
+    "pak_wira": {
+      "display_name": "Pak Wira",
+      "location_id": "kios_tengah",
+      "profile": "Pedagang lama Pasar Tua. Lebih sering tahu siapa yang harus ditanya daripada jawaban barang itu sendiri.",
+      "first_meet": "Seorang pria tua sedang melipat koran di samping tumpukan barang campur. Saat kamu menyebut nama Pak Wira, ia mengangkat tangan. \"Saya.\"",
+      "responses": {
+        "coaster": {
+          "text": "Pak Wira membolak-balik tatakan itu sebentar. \"Kalau cuma dari warna, saya nggak mau nebak. Ada Bu Sari di Gang Timur, dekat bengkel las. Dia biasa lihat logam dan lapisan begini.\"",
+          "status": "referral",
+          "referral": "bu_sari",
+          "referral_location": "gang_timur"
+        },
+        "lighter": {
+          "text": "Pak Wira menekan pemantiknya sekali. \"Macetnya saya lihat. Tapi mekanisme kecil begini Yanto lebih telaten. Cari Lorong Belakang. Kalau dia belum tutup meja, biasanya masih di sana.\"",
+          "status": "referral",
+          "referral": "yanto",
+          "referral_location": "lorong_belakang"
+        },
+        "adapter": {
+          "text": "Pak Wira menggeleng. \"Yang lama bukan berarti saya tahu. Elektronik begini kita belum punya orangnya. Saya bisa tanya-tanya siapa yang masih main perangkat lama.\"",
+          "status": "network_gap",
+          "referral": "",
+          "referral_location": ""
+        },
+        "unsure": {
+          "text": "Pak Wira menatap isi kotak. \"Kalau kamu sendiri belum tahu apa yang bikin curiga, jangan mulai dari harga. Pisahkan dulu pertanyaannya: bahan, mekanisme, atau perangkatnya.\"",
+          "status": "framing",
+          "referral": "",
+          "referral_location": ""
+        }
+      }
+    },
+    "bu_sari": {
+      "display_name": "Bu Sari",
+      "location_id": "gang_timur",
+      "profile": "Pekerja logam yang terbiasa melihat lapisan, aus, sambungan, dan bahan secara praktis.",
+      "first_meet": "Di depan salah satu bengkel, seorang perempuan sedang memilah potongan logam. Ia menyeka tangannya sebelum menerima barangmu. \"Sari. Mau lihat apanya?\"",
+      "responses": {
+        "coaster": {
+          "text": "Bu Sari menggosok bagian tepi dengan ibu jari. \"Warna kuningnya lapisan. Lihat bagian aus ini—bahan di bawahnya beda. Jadi jangan hitung ini sebagai kuningan padat.\"",
+          "status": "context",
+          "finding": "Permukaan kuning adalah lapisan; benda bukan kuningan padat."
+        },
+        "lighter": {
+          "text": "Bu Sari melihat casingnya. \"Logam luarnya bisa saya komentari. Tapi mekanismenya bukan kerjaan saya. Kalau mau tahu kenapa macet, cari Yanto di Lorong Belakang.\"",
+          "status": "referral",
+          "referral": "yanto",
+          "referral_location": "lorong_belakang"
+        },
+        "adapter": {
+          "text": "Bu Sari mengembalikan adaptor. \"Ada logam di konektornya, iya. Tapi perangkatnya sendiri bukan bidang saya. Saya nggak akan pura-pura tahu.\"",
+          "status": "outside_field",
+          "referral": "",
+          "referral_location": ""
+        },
+        "unsure": {
+          "text": "Bu Sari mengangkat bahu. \"Kotaknya banyak isi. Kalau yang kamu tanya logam, tunjuk logamnya. Kalau bukan, saya cuma akan bikin kamu tambah bingung.\"",
+          "status": "framing",
+          "referral": "",
+          "referral_location": ""
+        }
+      }
+    },
+    "yanto": {
+      "display_name": "Yanto",
+      "location_id": "lorong_belakang",
+      "profile": "Tukang servis mekanisme kecil dengan meja kerja tidak tetap dan jam buka yang sulit ditebak.",
+      "first_meet": "Di ujung Lorong Belakang, seorang pria membongkar korek di atas kain tua. \"Kalau cari Yanto, ya saya. Tapi cepat, sebentar lagi saya beres-beres.\"",
+      "responses": {
+        "coaster": {
+          "text": "Yanto mengetuk tatakannya pelan. \"Kalau soal mekanisme, ini malah nggak punya. Bahan logamnya cari Bu Sari di Gang Timur, jangan saya.\"",
+          "status": "referral",
+          "referral": "bu_sari",
+          "referral_location": "gang_timur"
+        },
+        "lighter": {
+          "text": "Yanto menggerakkan roda pemantik dengan kuku. \"Pegasnya masih balik. Yang macet bagian roda dan porosnya. Model lama, tapi cap aus ini belum cukup buat bilang seri atau langka.\"",
+          "status": "context",
+          "finding": "Mekanisme tua dapat diperiksa, tetapi cap belum cukup untuk menentukan identitas atau kelangkaan."
+        },
+        "adapter": {
+          "text": "Yanto melihat konektornya lalu menyerahkannya kembali. \"Ini listrik, bukan mekanisme. Saya bisa bongkar casing, tapi itu nggak bikin saya tahu perangkat asalnya.\"",
+          "status": "outside_field",
+          "referral": "",
+          "referral_location": ""
+        },
+        "unsure": {
+          "text": "Yanto: \"Mau tanya bagian mana? Kalau semuanya sekaligus, jawabannya ya: saya juga nggak tahu semuanya.\"",
+          "status": "framing",
+          "referral": "",
+          "referral_location": ""
+        }
+      }
+    }
+  }
+}

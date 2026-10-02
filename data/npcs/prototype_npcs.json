@@ -1,0 +1,44 @@
+{
+  "bu_ratna": {
+    "display_name": "Bu Ratna",
+    "role": "end_user",
+    "aggression": "low",
+    "bid_speed": 2.0,
+    "lots": {
+      "lot01": {
+        "bid_limit": 130000,
+        "bid_steps": [70000, 100000, 120000, 130000]
+      },
+      "lot02": {
+        "bid_limit": 0,
+        "bid_steps": []
+      },
+      "lot03": {
+        "bid_limit": 100000,
+        "bid_steps": [100000]
+      }
+    }
+  },
+  "jaka": {
+    "display_name": "Jaka",
+    "role": "reseller_ego",
+    "aggression": "medium",
+    "bid_speed": 0.5,
+    "bluff_threshold": 230000,
+    "bluff_increment": 30000,
+    "lots": {
+      "lot01": {
+        "bid_limit": 0,
+        "bid_steps": []
+      },
+      "lot02": {
+        "bid_limit": 90000,
+        "bid_steps": [75000, 90000]
+      },
+      "lot03": {
+        "bid_limit": 230000,
+        "bid_steps": []
+      }
+    }
+  }
+}

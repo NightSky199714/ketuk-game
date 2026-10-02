@@ -1,0 +1,315 @@
+[
+  {
+    "id": "lot01",
+    "title": "Lot 01 — Rice Cooker Bekas",
+    "description": "Terpakai, masih panas, tutup agak miring.",
+    "opening_bid": 40000,
+    "mc_bid_steps": [
+      50000,
+      90000,
+      110000,
+      125000,
+      140000,
+      160000
+    ],
+    "investigation": [
+      {
+        "id": "luar",
+        "label": "LUAR",
+        "text": "Bodi penuh goresan ringan. Panci bagian dalam justru terlihat lebih bersih daripada casing luar. Bisa karena sering dibersihkan, bisa juga pernah diganti."
+      },
+      {
+        "id": "bawah",
+        "label": "BAWAH",
+        "text": "Label model masih terbaca. Salah satu kaki karetnya berbeda warna. Ada bekas stiker servis lama, tapi tanggalnya sudah pudar."
+      },
+      {
+        "id": "kabel",
+        "label": "KABEL",
+        "text": "Steker terlihat lebih baru daripada kabelnya. Tidak ada tembaga terbuka. Pernah diperbaiki, tapi belum jelas apakah itu masalah atau justru perawatan."
+      }
+    ],
+    "post_lot_drama": {
+      "bu_ratna": [
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Seseorang di belakang terkekeh. \"Seratus tiga puluh buat rice cooker begini?\"",
+          "pause": 0.7
+        },
+        {
+          "kind": "silence",
+          "actor": "bu_ratna",
+          "expression": "SUSPICIOUS",
+          "text": "Bu Ratna menoleh ke belakang, tidak langsung menjawab.",
+          "pause": 0.6
+        },
+        {
+          "kind": "dialogue",
+          "actor": "bu_ratna",
+          "expression": "CONFIDENT",
+          "text": "Bu Ratna: \"Yang masak nasi di rumah saya, bukan kalian.\"",
+          "pause": 0.9
+        },
+        {
+          "kind": "interrupt",
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "text": "Pak Slamet, tanpa melihat siapa pun: \"Kalau dipakai tiap hari, hitungannya memang beda.\"",
+          "pause": 0.9
+        }
+      ],
+      "mc": [
+        {
+          "kind": "action",
+          "actor": "bu_ratna",
+          "expression": "SUSPICIOUS",
+          "text": "Bu Ratna memandang rice cooker, lalu angka terakhir di papan.",
+          "pause": 0.6
+        },
+        {
+          "kind": "dialogue",
+          "actor": "bu_ratna",
+          "text": "Bu Ratna: \"Kalau mau dijual lagi, semoga hitungannya masuk.\"",
+          "pause": 0.7
+        },
+        {
+          "kind": "interrupt",
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka menyela sambil tersenyum kecil. \"Atau cuma pengin menang?\"",
+          "pause": 0.8
+        },
+        {
+          "kind": "dialogue",
+          "actor": "pak_slamet",
+          "expression": "NEUTRAL",
+          "delay_before": 0.3,
+          "text": "Pak Slamet: \"Menang lot belum tentu menang harga.\"",
+          "pause": 0.9
+        }
+      ],
+      "none": [
+        {
+          "kind": "action",
+          "actor": "room",
+          "text": "Tak ada tangan yang terangkat. Pak Lurah menggeser rice cooker ke samping.",
+          "pause": 0.7
+        },
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Seseorang berbisik, \"Terlalu nanggung.\"",
+          "pause": 0.6
+        }
+      ]
+    }
+  },
+  {
+    "id": "lot02",
+    "title": "Lot 02 — Kotak Campuran",
+    "description": "Kotak campuran dari bersih-bersih gudang rumah toko lama. Dijual apa adanya; isi tidak disortir satu per satu.",
+    "opening_bid": 50000,
+    "mc_bid_steps": [
+      60000,
+      85000,
+      95000,
+      110000
+    ],
+    "investigation": [
+      {
+        "id": "atas",
+        "label": "ATAS",
+        "text": "Dari atas terlihat dua tatakan logam kuning, sendok kecil, gulungan kabel, dan kotak tembakau retak. Semuanya tampak berasal dari barang rumah tangga yang berbeda."
+      },
+      {
+        "id": "celah",
+        "label": "CELAH",
+        "text": "Di sela barang terlihat sudut korek meja lama dan sebuah adaptor. Keduanya tertutup sebagian, jadi detailnya belum bisa diperiksa tanpa membuka kotak."
+      },
+      {
+        "id": "angkat",
+        "label": "ANGKAT",
+        "text": "Kotaknya terasa lebih berat daripada isi yang terlihat. Ada benda kecil bergeser di dasar. Pak Lurah mengingatkan: isi tidak boleh dibongkar sebelum lot dimenangkan."
+      }
+    ],
+    "post_lot_drama": {
+      "mc": [
+        {
+          "kind": "dialogue",
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka: \"Sembilan puluh lima buat kotak begini? Berani juga.\"",
+          "pause": 0.6
+        },
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Dua orang di baris belakang tertawa kecil.",
+          "pause": 0.5
+        },
+        {
+          "kind": "silence",
+          "actor": "jaka",
+          "expression": "INTERESTED",
+          "text": "Jaka ikut melihat isi kotak sekali lagi, seolah memastikan dia tidak melewatkan sesuatu.",
+          "pause": 0.6
+        },
+        {
+          "kind": "dialogue",
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "text": "Pak Slamet: \"Belum dibuka, belum tentu rongsok.\"",
+          "pause": 0.9
+        }
+      ],
+      "jaka": [
+        {
+          "kind": "action",
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka menarik kotaknya mendekat dengan satu tangan.",
+          "pause": 0.5
+        },
+        {
+          "kind": "dialogue",
+          "actor": "jaka",
+          "text": "Jaka: \"Kalau isinya sampah, paling tidak kotaknya masih bisa dipakai.\"",
+          "pause": 0.6
+        },
+        {
+          "kind": "interrupt",
+          "actor": "bu_ratna",
+          "expression": "NEUTRAL",
+          "text": "Bu Ratna langsung menyahut: \"Yang ngomong begitu biasanya sudah mulai menyesal.\"",
+          "pause": 0.6
+        },
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Tawa pendek pecah dari sisi ruangan.",
+          "pause": 0.5
+        },
+        {
+          "kind": "silence",
+          "actor": "jaka",
+          "expression": "SUSPICIOUS",
+          "text": "Jaka pura-pura sibuk merapikan tutup kotak.",
+          "pause": 0.6
+        }
+      ],
+      "none": [
+        {
+          "kind": "action",
+          "actor": "room",
+          "text": "Kotak itu tidak laku. Pak Lurah menandainya dan menggeser ke belakang meja.",
+          "pause": 0.7
+        },
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Seseorang berbisik, \"Besok juga muncul lagi.\"",
+          "pause": 0.6
+        }
+      ]
+    }
+  },
+  {
+    "id": "lot03",
+    "title": "Lot 03 — Kamera Analog",
+    "description": "Body lecet, shutter tidak normal, lensa dan tas ikut.",
+    "opening_bid": 80000,
+    "mc_bid_steps": [
+      150000,
+      200000,
+      260000,
+      300000
+    ],
+    "investigation": [
+      {
+        "id": "body",
+        "label": "BODY",
+        "text": "Model body terlihat umum. Shutter terasa tidak konsisten. Dua sekrup di sekitar mount punya bekas alat, jadi kamera ini pernah dibuka atau diservis."
+      },
+      {
+        "id": "lens",
+        "label": "LENSA",
+        "text": "Mount-nya cocok, tapi sistem nomor di lensa tidak sama dengan body — hal yang bisa saja normal karena keduanya komponen terpisah. Ada ukiran kecil di cincin aperture yang tidak disebut penjual."
+      },
+      {
+        "id": "bag",
+        "label": "TAS",
+        "text": "Tas kulit tampak lebih tua daripada body. Ada inisial kecil di flap dan tali yang lebih baru. Bisa jadi satu set lama, bisa juga aksesori campuran."
+      }
+    ],
+    "post_lot_drama": {
+      "jaka": [
+        {
+          "kind": "dialogue",
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka mengangkat alis. \"Sudah? Kirain masih mau ngejar.\"",
+          "pause": 0.7
+        },
+        {
+          "kind": "interrupt",
+          "actor": "bu_ratna",
+          "expression": "NEUTRAL",
+          "text": "Bu Ratna: \"Yang menang jangan senang dulu. Kameranya saja belum tentu sehat.\"",
+          "pause": 0.7
+        },
+        {
+          "kind": "silence",
+          "actor": "jaka",
+          "expression": "SUSPICIOUS",
+          "delay_before": 0.2,
+          "text": "Jaka tidak membalas. Untuk pertama kalinya, ia melihat kameranya lebih lama daripada melihatmu.",
+          "pause": 1
+        }
+      ],
+      "mc": [
+        {
+          "kind": "dialogue",
+          "actor": "jaka",
+          "expression": "SURPRISED",
+          "text": "Jaka: \"Dua enam puluh? Serius?\"",
+          "pause": 0.5
+        },
+        {
+          "kind": "crowd",
+          "actor": "room",
+          "text": "Seseorang di belakang bersiul pelan. Dua orang lain saling pandang.",
+          "pause": 0.5
+        },
+        {
+          "kind": "silence",
+          "actor": "jaka",
+          "expression": "SUSPICIOUS",
+          "text": "Jaka menatap kamera, lalu kembali menatapmu.",
+          "pause": 0.5
+        },
+        {
+          "kind": "dialogue",
+          "actor": "jaka",
+          "expression": "CONFIDENT",
+          "text": "Jaka: \"Ya sudah. Semoga bukan cuma menang gengsi.\"",
+          "pause": 0.7
+        },
+        {
+          "kind": "silence",
+          "actor": "pak_slamet",
+          "expression": "INTERESTED",
+          "delay_before": 0.3,
+          "text": "Pak Slamet menurunkan kacamatanya sedikit.",
+          "pause": 0.4
+        },
+        {
+          "kind": "dialogue",
+          "actor": "pak_slamet",
+          "text": "Pak Slamet: \"Hm.\"",
+          "pause": 0.7
+        }
+      ]
+    }
+  }
+]
