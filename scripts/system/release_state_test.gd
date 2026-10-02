@@ -210,6 +210,9 @@ func _ready() -> void:
 	var legacy_inventory: Dictionary = legacy_v013.get("inventory", {}).duplicate(true)
 	legacy_inventory.erase("sentana_invitation")
 	legacy_v013["inventory"] = legacy_inventory
+	var legacy_rumors: Dictionary = legacy_v013.get("rumors", {}).duplicate(true)
+	legacy_rumors.erase("sentana_invitation_required")
+	legacy_v013["rumors"] = legacy_rumors
 	AuctionState.import_save_data(legacy_v013)
 	_expect(
 		not AuctionState.sentana_access_started,
@@ -239,6 +242,16 @@ func _ready() -> void:
 	_expect(
 		AuctionState.has_inventory_item("sentana_photo"),
 		"legacy_v013_existing_photo_kept",
+		failures
+	)
+	_expect(
+		AuctionState.start_sentana_access(),
+		"legacy_v013_can_start_sentana_access",
+		failures
+	)
+	_expect(
+		AuctionState.sentana_access_status == "investigating",
+		"legacy_v013_sentana_access_resumes_from_photo",
 		failures
 	)
 
