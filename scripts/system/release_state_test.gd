@@ -54,6 +54,45 @@ func _ready() -> void:
 		"Pak Wira — pedagang tua di Kios Tengah."
 	)
 	AuctionState.chapter3_poster_seen = true
+	AuctionState.chapter3_poster_photographed = true
+	AuctionState.add_inventory_item("sentana_photo", {
+		"name": "FOTO POSTER SENTANA",
+		"state": "photo",
+		"description": "Foto poster bertuliskan SENTANA PRIVATE AUCTION — BY INVITATION ONLY.",
+		"source": "Papan Pengumuman Pasar Tua"
+	})
+
+	_expect(
+		AuctionState.start_sentana_access(),
+		"sentana_access_starts_with_poster",
+		failures
+	)
+	_expect(
+		AuctionState.record_sentana_invitation_lead(
+			"lead_release_test",
+			"Seseorang mengenali poster dan menyebut jalur undangan."
+		),
+		"sentana_first_lead_recorded",
+		failures
+	)
+	_expect(
+		not AuctionState.record_sentana_invitation_lead(
+			"lead_release_test",
+			"Duplikat tidak boleh mengganti lead pertama."
+		),
+		"sentana_duplicate_lead_rejected",
+		failures
+	)
+	_expect(
+		AuctionState.grant_sentana_invitation("Release Test"),
+		"sentana_first_invitation_granted",
+		failures
+	)
+	_expect(
+		not AuctionState.grant_sentana_invitation("Duplicate Release Test"),
+		"sentana_duplicate_invitation_rejected",
+		failures
+	)
 
 	var before := AuctionState.export_save_data()
 	AuctionState.reset_prototype()
@@ -110,6 +149,37 @@ func _ready() -> void:
 		failures
 	)
 	_expect(AuctionState.chapter3_poster_seen, "poster_seen", failures)
+	_expect(AuctionState.chapter3_poster_photographed, "poster_photo_persisted", failures)
+	_expect(AuctionState.has_inventory_item("sentana_photo"), "sentana_photo_inventory", failures)
+	_expect(AuctionState.sentana_access_started, "sentana_access_started", failures)
+	_expect(
+		AuctionState.sentana_access_status == "invited",
+		"sentana_access_status",
+		failures
+	)
+	_expect(
+		AuctionState.sentana_invitation_leads.has("lead_release_test"),
+		"sentana_lead_persisted",
+		failures
+	)
+	_expect(
+		AuctionState.sentana_invitation_source == "Release Test",
+		"sentana_invitation_source",
+		failures
+	)
+	_expect(AuctionState.has_sentana_invitation(), "sentana_invitation_inventory", failures)
+
+	var invitation_count_before_repeat := AuctionState.inventory.size()
+	_expect(
+		not AuctionState.grant_sentana_invitation("After Load Duplicate"),
+		"sentana_duplicate_invitation_rejected_after_load",
+		failures
+	)
+	_expect(
+		AuctionState.inventory.size() == invitation_count_before_repeat,
+		"sentana_no_duplicate_inventory_after_load",
+		failures
+	)
 
 	var people_before_restart := AuctionState.chapter3_people_book.duplicate(true)
 	var poster_before_restart := AuctionState.chapter3_poster_seen
@@ -128,6 +198,47 @@ func _ready() -> void:
 	_expect(
 		AuctionState.network_travel_steps == network_steps_before_restart,
 		"chapter3_start_idempotent_network_steps",
+		failures
+	)
+
+	# Public v0.1.3 saves do not contain any Sentana access keys.
+	var legacy_v013 := before.duplicate(true)
+	legacy_v013.erase("sentana_access_started")
+	legacy_v013.erase("sentana_access_status")
+	legacy_v013.erase("sentana_invitation_leads")
+	legacy_v013.erase("sentana_invitation_source")
+	var legacy_inventory: Dictionary = legacy_v013.get("inventory", {}).duplicate(true)
+	legacy_inventory.erase("sentana_invitation")
+	legacy_v013["inventory"] = legacy_inventory
+	AuctionState.import_save_data(legacy_v013)
+	_expect(
+		not AuctionState.sentana_access_started,
+		"legacy_v013_sentana_access_defaults_not_started",
+		failures
+	)
+	_expect(
+		AuctionState.sentana_access_status == "not_started",
+		"legacy_v013_sentana_status_default",
+		failures
+	)
+	_expect(
+		AuctionState.sentana_invitation_leads.is_empty(),
+		"legacy_v013_sentana_leads_default",
+		failures
+	)
+	_expect(
+		not AuctionState.has_sentana_invitation(),
+		"legacy_v013_no_invitation",
+		failures
+	)
+	_expect(
+		AuctionState.chapter3_poster_photographed,
+		"legacy_v013_existing_poster_progress_kept",
+		failures
+	)
+	_expect(
+		AuctionState.has_inventory_item("sentana_photo"),
+		"legacy_v013_existing_photo_kept",
 		failures
 	)
 
