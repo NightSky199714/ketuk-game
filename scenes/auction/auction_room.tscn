@@ -104,8 +104,9 @@ text = "KETUK."
 vertical_alignment = 1
 
 [node name="MoneyLabel" type="Label" parent="Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderRow"]
-custom_minimum_size = Vector2(245, 64)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.964706, 0.862745, 0.686275, 1)
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 2
@@ -234,19 +235,19 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="InspectButton1" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
 
 [node name="InspectButton2" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
 
 [node name="InspectButton3" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel/HotspotRow"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERIKSA"
@@ -262,7 +263,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="ContinueBidButton" type="Button" parent="Margin/Scroll/Root/InvestigateFrame/InvestigateMargin/InvestigatePanel"]
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "MULAI BIDDING"
