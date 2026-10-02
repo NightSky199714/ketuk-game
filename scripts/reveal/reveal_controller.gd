@@ -1,146 +1,44 @@
 extends Control
 
-var title_label: Label
-var ownership_label: Label
-var main_label: Label
-var detail_label: Label
-var jaka_label: Label
-var ratna_label: Label
-var slamet_label: Label
-var choice_panel: HBoxContainer
-var followup_button: Button
-var leave_button: Button
-var end_panel: VBoxContainer
-var discovery_button: Button
+@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var ownership_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/OwnershipLabel
+@onready var main_label: Label = $Margin/Scroll/Root/NarrativePanel/NarrativeMargin/NarrativeStack/MainLabel
+@onready var detail_label: Label = $Margin/Scroll/Root/NarrativePanel/NarrativeMargin/NarrativeStack/DetailLabel
+@onready var jaka_label: Label = $Margin/Scroll/Root/NpcRow/JakaCard/JakaLabel
+@onready var ratna_label: Label = $Margin/Scroll/Root/NpcRow/RatnaCard/RatnaLabel
+@onready var slamet_label: Label = $Margin/Scroll/Root/NpcRow/SlametCard/SlametLabel
+@onready var choice_panel: HBoxContainer = $Margin/Scroll/Root/ChoicePanel
+@onready var followup_button: Button = $Margin/Scroll/Root/ChoicePanel/FollowupButton
+@onready var leave_button: Button = $Margin/Scroll/Root/ChoicePanel/LeaveButton
+@onready var end_panel: VBoxContainer = $Margin/Scroll/Root/EndPanel
+@onready var end_title: Label = $Margin/Scroll/Root/EndPanel/EndTitlePanel/EndTitle
+@onready var discovery_button: Button = $Margin/Scroll/Root/EndPanel/DiscoveryButton
+@onready var restart_button: Button = $Margin/Scroll/Root/EndPanel/RestartButton
 
 var winner: String = "none"
 
 func _ready() -> void:
-	_build_ui()
-	await get_tree().create_timer(0.45).timeout
-	_show_post_auction_context()
-
-func _build_ui() -> void:
-	var background := ColorRect.new()
-	background.color = Color("#171311")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(background)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 32)
-	margin.add_theme_constant_override("margin_right", 32)
-	margin.add_theme_constant_override("margin_top", 40)
-	margin.add_theme_constant_override("margin_bottom", 40)
-	add_child(margin)
-
-	var root := VBoxContainer.new()
-	root.alignment = BoxContainer.ALIGNMENT_CENTER
-	root.add_theme_constant_override("separation", 22)
-	margin.add_child(root)
-
-	title_label = Label.new()
-	title_label.text = "SESUDAH LELANG"
-	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title_label.add_theme_font_size_override("font_size", 30)
-	root.add_child(title_label)
-
 	var result: Dictionary = AuctionState.lot_results.get("lot03", {})
 	winner = str(result.get("winner", "none"))
 
-	ownership_label = Label.new()
 	if winner == "mc":
 		ownership_label.text = "Kamera ada di tanganmu."
 	elif winner == "jaka":
 		ownership_label.text = "Kamera ada di tangan Jaka."
 	else:
 		ownership_label.text = "Kamera tidak berpindah ke tanganmu."
-	ownership_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ownership_label.add_theme_font_size_override("font_size", 20)
-	root.add_child(ownership_label)
 
-	main_label = Label.new()
-	main_label.text = ""
-	main_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	main_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	main_label.custom_minimum_size = Vector2(0, 180)
-	main_label.add_theme_font_size_override("font_size", 27)
-	root.add_child(main_label)
-
-	detail_label = Label.new()
-	detail_label.text = ""
-	detail_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	detail_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	detail_label.custom_minimum_size = Vector2(0, 145)
-	detail_label.add_theme_font_size_override("font_size", 19)
-	root.add_child(detail_label)
-
-	var npc_row := HBoxContainer.new()
-	npc_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	npc_row.add_theme_constant_override("separation", 16)
-	root.add_child(npc_row)
-
-	ratna_label = _npc_label("Bu Ratna", "NEUTRAL")
-	npc_row.add_child(ratna_label)
-	jaka_label = _npc_label("Jaka", "NEUTRAL")
-	npc_row.add_child(jaka_label)
-	slamet_label = _npc_label("Pak Slamet", "NEUTRAL")
-	npc_row.add_child(slamet_label)
-
-	choice_panel = HBoxContainer.new()
-	choice_panel.alignment = BoxContainer.ALIGNMENT_CENTER
-	choice_panel.add_theme_constant_override("separation", 12)
-	choice_panel.visible = false
-	root.add_child(choice_panel)
-
-	followup_button = Button.new()
-	followup_button.custom_minimum_size = Vector2(260, 70)
-	followup_button.pressed.connect(_on_followup)
-	choice_panel.add_child(followup_button)
-
-	leave_button = Button.new()
-	leave_button.custom_minimum_size = Vector2(210, 70)
-	leave_button.pressed.connect(_on_leave)
-	choice_panel.add_child(leave_button)
-
-	end_panel = VBoxContainer.new()
-	end_panel.visible = false
-	end_panel.add_theme_constant_override("separation", 14)
-	root.add_child(end_panel)
-
-	var end_title := Label.new()
 	end_title.text = "SESUDAH LELANG" if AuctionState.chapter_mode else "P0.1 — AUCTION FEEL SELESAI"
-	end_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	end_title.add_theme_font_size_override("font_size", 28)
-	end_panel.add_child(end_title)
-
-	var end_copy := Label.new()
-	end_copy.text = "Tidak semua barang langsung membuka jawabannya. Kadang kamu harus memilih apakah informasi itu layak dikejar."
-	end_copy.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	end_copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	end_copy.add_theme_font_size_override("font_size", 18)
-	end_panel.add_child(end_copy)
-
-	discovery_button = Button.new()
 	discovery_button.text = "PULANG" if AuctionState.chapter_mode else "LANJUT KE TEMUAN"
-	discovery_button.custom_minimum_size = Vector2(270, 68)
 	discovery_button.visible = true if AuctionState.chapter_mode else _owns_lot02()
+
+	followup_button.pressed.connect(_on_followup)
+	leave_button.pressed.connect(_on_leave)
 	discovery_button.pressed.connect(_continue_after_auction)
-	end_panel.add_child(discovery_button)
+	restart_button.pressed.connect(_restart)
 
-	var restart := Button.new()
-	restart.text = "MAIN LAGI"
-	restart.custom_minimum_size = Vector2(240, 68)
-	restart.pressed.connect(_restart)
-	end_panel.add_child(restart)
-
-func _npc_label(name: String, expression: String) -> Label:
-	var label := Label.new()
-	label.text = "%s\n[%s]" % [name, expression]
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.custom_minimum_size = Vector2(180, 70)
-	label.add_theme_font_size_override("font_size", 16)
-	return label
+	await get_tree().create_timer(0.45).timeout
+	_show_post_auction_context()
 
 func _show_post_auction_context() -> void:
 	if winner == "mc":
