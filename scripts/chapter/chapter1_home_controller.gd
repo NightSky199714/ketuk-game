@@ -4,12 +4,12 @@ const ICON_BOOK = preload("res://assets/ui/icons/book.svg")
 const ICON_CAMERA = preload("res://assets/ui/icons/camera.svg")
 const ICON_BOX = preload("res://assets/ui/icons/box.svg")
 
-@onready var title_label: Label = $Margin/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
-@onready var main_label: Label = $Margin/Root/NarrativePanel/NarrativeMargin/MainLabel
-@onready var detail_label: Label = $Margin/Root/HeaderPanel/HeaderMargin/HeaderStack/DetailLabel
-@onready var inventory_grid: GridContainer = $Margin/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
-@onready var item_detail_label: Label = $Margin/Root/InventoryPanel/InventoryMargin/InventoryStack/ItemDetailFrame/ItemDetailMargin/ItemDetailScroll/ItemDetailLabel
-@onready var next_button: Button = $Margin/Root/NextButton
+@onready var title_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/TitleLabel
+@onready var main_label: Label = $Margin/Scroll/Root/NarrativePanel/NarrativeMargin/MainLabel
+@onready var detail_label: Label = $Margin/Scroll/Root/HeaderPanel/HeaderMargin/HeaderStack/DetailLabel
+@onready var inventory_grid: GridContainer = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/InventoryGrid
+@onready var item_detail_label: Label = $Margin/Scroll/Root/InventoryPanel/InventoryMargin/InventoryStack/ItemDetailFrame/ItemDetailMargin/ItemDetailScroll/ItemDetailLabel
+@onready var next_button: Button = $Margin/Scroll/Root/NextButton
 
 func _ready() -> void:
 	AuctionState.finish_chapter1()
