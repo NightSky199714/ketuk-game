@@ -1,7 +1,7 @@
 param(
     [string]$GodotPath = "godot",
     [ValidateSet("windows","web","all")]
-    [string]$Target = "all"
+    [string]$Target = "windows"
 )
 
 $ErrorActionPreference = "Stop"
@@ -48,6 +48,14 @@ if ($Target -eq "windows" -or $Target -eq "all") {
     $WinOut = Join-Path $Build "windows\KETUK.exe"
     $null = Invoke-GodotChecked -Arguments @("--headless", "--path", $Root, "--export-release", "Windows Desktop", $WinOut) -FailureMessage "Windows export failed. Check export templates."
     Write-Host "WINDOWS_EXPORT_OK=$WinOut"
+
+    $WindowsZip = Join-Path $Build "KETUK-0.1.0-rc1-windows.zip"
+    if (Test-Path $WindowsZip) {
+        Remove-Item -Force $WindowsZip
+    }
+
+    Compress-Archive -Path (Join-Path $Build "windows\*") -DestinationPath $WindowsZip -Force
+    Write-Host "WINDOWS_PACKAGE_OK=$WindowsZip"
 }
 
 if ($Target -eq "web" -or $Target -eq "all") {
