@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource path="res://scripts/chapter/chapter3_orang_yang_tepat_controller.gd" type="Script" id="1"]
 [ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
 [ext_resource path="res://assets/ui/textures/worn_overlay.svg" type="Texture2D" id="3"]
+[ext_resource path="res://assets/ui/backgrounds/pasar_tua.svg" type="Texture2D" id="4"]
 
 [node name="Chapter3OldMarket" type="Control"]
 layout_mode = 3
@@ -22,6 +23,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0862745, 0.0627451, 0.0509804, 1)
+
+[node name="MarketBackdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.7)
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="WarmGlow" type="ColorRect" parent="."]
 layout_mode = 1
