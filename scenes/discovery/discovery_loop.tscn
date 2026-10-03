@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource path="res://scripts/discovery/discovery_controller.gd" type="Script" id="1"]
 [ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/ui/icons/coaster.svg" type="Texture2D" id="5"]
 [ext_resource path="res://assets/ui/icons/lighter.svg" type="Texture2D" id="6"]
 [ext_resource path="res://assets/ui/icons/adapter.svg" type="Texture2D" id="7"]
+[ext_resource path="res://assets/ui/backgrounds/home_table.svg" type="Texture2D" id="8"]
 
 [node name="DiscoveryLoop" type="Control"]
 layout_mode = 3
@@ -26,6 +27,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0901961, 0.0627451, 0.0509804, 1)
+
+[node name="DiscoveryBackdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.62)
+texture = ExtResource("8")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="WarmGlow" type="ColorRect" parent="."]
 layout_mode = 1
@@ -83,7 +97,7 @@ theme_override_constants/separation = 12
 
 [node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
 layout_mode = 2
@@ -112,6 +126,7 @@ horizontal_alignment = 1
 
 [node name="IntroPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="IntroMargin" type="MarginContainer" parent="Margin/Scroll/Root/IntroPanel"]
 layout_mode = 2
@@ -121,7 +136,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 16
 
 [node name="IntroLabel" type="Label" parent="Margin/Scroll/Root/IntroPanel/IntroMargin"]
-custom_minimum_size = Vector2(0, 70)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 18
@@ -165,7 +180,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 16
 
 [node name="ObservationLabel" type="Label" parent="Margin/Scroll/Root/ObservationPanel/ObservationMargin"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 82)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 18
@@ -175,6 +190,7 @@ autowrap_mode = 2
 
 [node name="NotePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="NoteMargin" type="MarginContainer" parent="Margin/Scroll/Root/NotePanel"]
 layout_mode = 2
@@ -184,7 +200,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 16
 
 [node name="NoteLabel" type="Label" parent="Margin/Scroll/Root/NotePanel/NoteMargin"]
-custom_minimum_size = Vector2(0, 96)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 16
@@ -214,7 +230,7 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 
 [node name="CoasterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("5")
@@ -223,7 +239,7 @@ expand_icon = true
 text = "TATAKAN"
 
 [node name="LighterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("6")
@@ -232,7 +248,7 @@ expand_icon = true
 text = "KOREK"
 
 [node name="AdapterButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("7")
@@ -241,7 +257,7 @@ expand_icon = true
 text = "ADAPTOR"
 
 [node name="UnsureButton" type="Button" parent="Margin/Scroll/Root/TargetPanel/TargetGrid"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 54)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"DarkButton"
@@ -264,13 +280,13 @@ horizontal_alignment = 1
 
 [node name="NetworkButton" type="Button" parent="Margin/Scroll/Root/EndPanel"]
 visible = false
-custom_minimum_size = Vector2(0, 66)
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "PERGI KE PASAR TUA"
 
 [node name="RestartButton" type="Button" parent="Margin/Scroll/Root/EndPanel"]
-custom_minimum_size = Vector2(0, 62)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"DarkButton"
 text = "MAIN DARI AWAL"
