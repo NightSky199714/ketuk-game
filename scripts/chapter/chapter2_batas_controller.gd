@@ -479,7 +479,7 @@ func _build_adi_actions() -> void:
 		and AuctionState.camera_lens_available()
 		and _adi_present()
 	):
-		_add_action("BICARA DENGAN PRIA DI DEKAT ETALASE", _meet_adi)
+		_add_action("BICARA DENGAN ADI", _meet_adi)
 
 func _check_adi_sunday() -> void:
 	if AuctionState.chapter2_time_minutes < 18 * 60:
@@ -798,6 +798,8 @@ func _clear_actions() -> void:
 func _add_action(label: String, callback: Callable) -> void:
 	var button := Button.new()
 	button.text = label
+	button.tooltip_text = label
+	button.clip_text = true
 	button.custom_minimum_size = Vector2(0, 56)
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.pressed.connect(callback)
