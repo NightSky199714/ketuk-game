@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource path="res://scripts/network/human_network_controller.gd" type="Script" id="1"]
 [ext_resource path="res://ui/theme/ketuk_theme.tres" type="Theme" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/ui/icons/market.svg" type="Texture2D" id="4"]
 [ext_resource path="res://assets/ui/icons/shop.svg" type="Texture2D" id="5"]
 [ext_resource path="res://assets/ui/icons/pin.svg" type="Texture2D" id="6"]
+[ext_resource path="res://assets/ui/backgrounds/pasar_tua.svg" type="Texture2D" id="7"]
 
 [node name="HumanNetwork" type="Control"]
 layout_mode = 3
@@ -25,6 +26,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0862745, 0.0627451, 0.0509804, 1)
+
+[node name="NetworkBackdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(1, 1, 1, 0.66)
+texture = ExtResource("7")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="WarmGlow" type="ColorRect" parent="."]
 layout_mode = 1
@@ -82,7 +96,7 @@ theme_override_constants/separation = 10
 
 [node name="HeaderPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="HeaderMargin" type="MarginContainer" parent="Margin/Scroll/Root/HeaderPanel"]
 layout_mode = 2
@@ -118,6 +132,7 @@ horizontal_alignment = 1
 
 [node name="TargetPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"AccentCard"
 
 [node name="TargetMargin" type="MarginContainer" parent="Margin/Scroll/Root/TargetPanel"]
 layout_mode = 2
@@ -138,7 +153,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="NoteLabel" type="Label" parent="Margin/Scroll/Root/TargetPanel/TargetMargin/TargetStack"]
-custom_minimum_size = Vector2(0, 72)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 15
@@ -155,6 +170,7 @@ horizontal_alignment = 1
 
 [node name="MapPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="MapMargin" type="MarginContainer" parent="Margin/Scroll/Root/MapPanel"]
 layout_mode = 2
@@ -170,7 +186,7 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 
 [node name="PintuPasarButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("4")
@@ -179,7 +195,7 @@ expand_icon = true
 text = "PINTU PASAR"
 
 [node name="KiosTengahButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("5")
@@ -188,7 +204,7 @@ expand_icon = true
 text = "KIOS TENGAH"
 
 [node name="GangTimurButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("6")
@@ -197,7 +213,7 @@ expand_icon = true
 text = "GANG TIMUR"
 
 [node name="LorongBelakangButton" type="Button" parent="Margin/Scroll/Root/MapPanel/MapMargin/MapRow"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("6")
@@ -207,7 +223,7 @@ text = "LORONG BELAKANG"
 
 [node name="LocationPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="LocationMargin" type="MarginContainer" parent="Margin/Scroll/Root/LocationPanel"]
 layout_mode = 2
@@ -227,7 +243,7 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 
 [node name="LocationDescription" type="Label" parent="Margin/Scroll/Root/LocationPanel/LocationMargin/LocationStack"]
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.776471, 0.694118, 0.6, 1)
 theme_override_font_sizes/font_size = 15
@@ -237,12 +253,13 @@ autowrap_mode = 2
 
 [node name="ContactButton" type="Button" parent="Margin/Scroll/Root"]
 visible = false
-custom_minimum_size = Vector2(0, 62)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 
 [node name="ResponsePanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="ResponseMargin" type="MarginContainer" parent="Margin/Scroll/Root/ResponsePanel"]
 layout_mode = 2
@@ -252,7 +269,7 @@ theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
 [node name="ResponseLabel" type="Label" parent="Margin/Scroll/Root/ResponsePanel/ResponseMargin"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 16
@@ -262,7 +279,7 @@ autowrap_mode = 2
 
 [node name="StatusPanel" type="PanelContainer" parent="Margin/Scroll/Root"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="StatusMargin" type="MarginContainer" parent="Margin/Scroll/Root/StatusPanel"]
 layout_mode = 2
@@ -272,7 +289,7 @@ theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 14
 
 [node name="StatusLabel" type="Label" parent="Margin/Scroll/Root/StatusPanel/StatusMargin"]
-custom_minimum_size = Vector2(0, 84)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.917647, 0.85098, 0.741176, 1)
 theme_override_font_sizes/font_size = 15
@@ -282,7 +299,7 @@ autowrap_mode = 2
 
 [node name="FinishButton" type="Button" parent="Margin/Scroll/Root"]
 visible = false
-custom_minimum_size = Vector2(0, 62)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "AKHIRI PENCARIAN"
@@ -294,7 +311,7 @@ theme_override_constants/separation = 8
 
 [node name="EndTitlePanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
 layout_mode = 2
-theme_type_variation = &"DarkPanel"
+theme_type_variation = &"SignPanel"
 
 [node name="EndTitle" type="Label" parent="Margin/Scroll/Root/EndPanel/EndTitlePanel"]
 layout_mode = 2
@@ -304,9 +321,10 @@ horizontal_alignment = 1
 
 [node name="EndCopyPanel" type="PanelContainer" parent="Margin/Scroll/Root/EndPanel"]
 layout_mode = 2
+theme_type_variation = &"PaperCard"
 
 [node name="EndCopy" type="Label" parent="Margin/Scroll/Root/EndPanel/EndCopyPanel"]
-custom_minimum_size = Vector2(0, 78)
+custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.203922, 0.145098, 0.109804, 1)
 theme_override_font_sizes/font_size = 15
@@ -316,7 +334,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="RestartButton" type="Button" parent="Margin/Scroll/Root/EndPanel"]
-custom_minimum_size = Vector2(0, 62)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_type_variation = &"DarkButton"
 text = "MAIN DARI AWAL"
